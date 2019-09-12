@@ -1,4 +1,7 @@
 // tools.c, 159
+#include spede.h
+#include const-type.h
+#include ext-data.h
 
 this .c code needs to include spede.h, const-type.h, and ext-data.h
 
