@@ -1,22 +1,41 @@
 // ksr.c, 159
 
-need to include spede.h, const-type.h, ext-data.h, tools.h
+//need to include spede.h, const-type.h, ext-data.h, tools.h
+#include <spede.h>
+#include <const-type.h>
+#include <ext-data.h>
+#include <tools.h>
 
 // to create a process: alloc PID, PCB, and process stack
 // build trapframe, initialize PCB, record PID to ready_que
 void SpawnSR(func_p_t p) {     // arg: where process code starts
    int pid;
 
-   use a tool function to check if available queue is empty:
+   /*use a tool function to check if available queue is empty:
       a. cons_printf("Panic: out of PID!\n");
-      b. and go into GDB
+      b. and go into GDB*/
+   if(QueEmpty(&pid_q))
+   {
+      cons_printf("Panic: out of PID!\n");
+      breakpoint(); //Calling breakpoint(); to enter GDB
+      return;
+   }
 
-   get 'pid' initialized by dequeuing the available queue
-   use a tool function to clear the content of PCB of process 'pid'
-   set the state of the process 'pid' to READY
+   //get 'pid' initialized by dequeuing the available queue
+   pid = DeQue(); //Fill this function with the available que
+   
+   //use a tool function to clear the content of PCB of process 'pid'
+   Bzero(); //work needed
 
-   if 'pid' is not IDLE, use a tool function to enqueue it to the ready queue 
-
+   //set the state of the process 'pid' to READY
+   pcb[pid].state = READY; //Work needed.
+   
+   //if 'pid' is not IDLE, use a tool function to enqueue it to the ready queue 
+   if(pid > IDLE)
+   {
+      EnQue(pid ...); //Work needed.
+   }
+   
    use a tool function to copy from 'p' to DRAM_START, for STACK_MAX bytes
 
    create trapframe for process 'pid:'
