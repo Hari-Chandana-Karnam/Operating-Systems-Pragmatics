@@ -24,7 +24,7 @@ typedef void (*func_p_t)(void); // void-return function pointer type
 typedef enum {AVAIL, READY, RUN} state_t; //Because it is enum function, AVAIL = 0, READY = 1, RUN = 2
 
 /*define a trapframe type (tf_t) that has these 'unsigned int'
-      eax, ecx, edx, ebx, esp, ebp, esi, edi, eip, cs, efl*/
+   eax, ecx, edx, ebx, esp, ebp, esi, edi, eip, cs, efl*/
 typedef struct {
       unsigned int eax, ecx, edx, ebx, esp, ebp, esi, edi, eip, cs, efl;
 } tf_t;     //Trapframe type
