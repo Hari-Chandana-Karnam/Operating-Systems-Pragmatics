@@ -28,7 +28,7 @@ void Idle(void)
     while(1)
     {
         //We will upcount the sys_time_count by 1 everytime the loop runs.
-        sys_time_count += 1;
+       // sys_time_count += 1;
         
         if(sys_time_count%100 == 0) //Using mod to detmine the multiple of 100.
         {

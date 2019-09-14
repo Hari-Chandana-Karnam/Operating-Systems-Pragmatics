@@ -8,7 +8,7 @@
 
 /*code a QueEmpty() function that checks whether a queue (located by a
 given pointer) is empty; returns 1 if yes, or 0 if not*/
-int QueEmpty(que_t *ptr)//ptr undecided
+int QueEmpty(que_t *ptr)
 {
 	//We will use variable isEmpty which stores 0 or 1. 
 	//If 0, the queue is not empty. If 1, queue is empty. 
@@ -46,7 +46,7 @@ int DeQue(que_t *ptr)
 	int pos1 = ptr->que[0]; //1st position in the queue
 	
 	//Covering the case, "if the queue is empty
-	if(QueEmpty)
+	if(QueEmpty(ptr))
 	{
 		return NONE;	//Declared in const-type.h
 	} else
@@ -61,7 +61,7 @@ int DeQue(que_t *ptr)
 				ptr->que[i] = ptr->que[i+1];
 			} else if (ptr->tail == i)
 			{
-				ptr->que[i] = NONE; //NONE (-1) is the empty value
+				ptr->que[i]  = NONE; //NONE (-1) is the empty value
 			}
 		}
 		ptr->tail--; //Shifting tail one index back.
@@ -75,7 +75,7 @@ and go into the GDB:*/
 void EnQue (int data, que_t *ptr)
 {
 	int index = ptr->tail;
-	if (QueFull)
+	if (QueFull(ptr))
 	{
 		cons_printf("Panic: queue is full, cannot EnQue!\n");
         	breakpoint();
