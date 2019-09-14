@@ -7,7 +7,6 @@
 #include "proc.h"
 #include "spede.h"
 
-unsigned int sys_time_count = 0; //To count the time for flickering purposes.
 unsigned short *upper_left_pos = (unsigned short *)0xb8000; //declare a pointer and set it to the upper-left display corner
 int flagForDot = 1; //declare and set a flag. When 1 we will show the dot. When 0 we will hide it. 
 
