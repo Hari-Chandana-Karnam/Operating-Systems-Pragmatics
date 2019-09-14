@@ -2,9 +2,9 @@
 // processes are coded here
 
 //need to include const-type.h and ext-data.h
-#include <const-type.h>
-#include <ext-data.h>
-#include <proc.h>
+#include "const-type.h"
+#include "ext-data.h"
+#include "proc.h"
 
 unsigned int sys_time_count = 0; //To count the time for flickering purposes.
 unsigned short *upper_left_pos = (unsigned short *)0xb8000; //declare a pointer and set it to the upper-left display corner
