@@ -3,9 +3,9 @@
 #ifndef _TOOLS_
 #define _TOOLS_
 
-#include <spede.h>
-#include <const-type.h>
-#include <ext-data.h>
+#include "spede.h"
+#include "const-type.h"
+#include "ext-data.h"
 
 //Prototypes for all the functions in tools.c
 int QueEmpty(que_t *ptr);

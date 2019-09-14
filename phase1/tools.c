@@ -1,10 +1,10 @@
 // tools.c, 159
 
 //this .c code needs to include spede.h, const-type.h, and ext-data.h
-#include <spede.h>
-#include <const-type.h>
-#include <ext-data.h>
-#include <tools.h>
+#include "spede.h"
+#include "const-type.h"
+#include "ext-data.h"
+#include "tools.h"
 
 /*code a QueEmpty() function that checks whether a queue (located by a
 given pointer) is empty; returns 1 if yes, or 0 if not*/

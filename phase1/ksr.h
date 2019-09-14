@@ -3,7 +3,7 @@
 #ifndef _KSR_
 #define _KSR_
 
-#include <const-type.h>
+#include "const-type.h"
 
 //Prototypes of the functions in ksr.h
 void SpawnSR(func_p_t p);
