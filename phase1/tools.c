@@ -102,10 +102,12 @@ void Bzero (char *start, unsigned int max)     //////working on it
 /*code a MemCpy() function to copy a memory region located at a given
 character pointer 'dst,' from the starting location at a given character
 pointer 'src,' the size will also be given as an unsigned integer 'max'*/
+
 void MemCpy (char *dst, char *src, unsigned int max);
 {
 	for(int i = 0; i < max; i++)
 	{
 		&dst++ = &src++; //Coping data from src to dst, index by index
+
 	}
 }
