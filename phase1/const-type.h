@@ -34,9 +34,10 @@ typedef struct {
    tf_t *tf_p
    unsigned int time_count and total_time*/
 typedef struct {
-   state_t state; //State of the system
-   tf_t *tf_p;    //Trapframe
-   unsigned int time_count, total_time; //time_count is the timer for the processes while total_time is the CPU Run Time.
+   state_t state;             //State of the system
+   tf_t *tf_p;                //Trapframe
+   unsigned int time_count;   //time_count is the timer for the processes 
+   unsigned int total_time;   //total_time is the CPU Run Time.
 } pcb_t;    //PCB type
 
 /*define a queue type (que_t) that has an integer 'tail' and an integer
