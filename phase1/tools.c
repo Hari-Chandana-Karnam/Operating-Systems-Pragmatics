@@ -97,7 +97,8 @@ void Bzero (char *start, unsigned int max)     //////working on it
 	int i;
 	for(i = 0; i < max; i++)
 	{
-		*(start + i) = (char) 0; //As mentioned in the class, '\0' is the ASCII for NULL.
+		*start = (char) 0; //As mentioned in the class, '\0' is the ASCII for NULL.
+		start++;
 	}
 	return;
 }

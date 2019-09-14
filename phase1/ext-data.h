@@ -13,5 +13,4 @@ extern pcb_t pcb[PROC_MAX];
 extern que_t avail_que, ready_que;
 extern unsigned int sys_time_count;
 
-
 #endif
