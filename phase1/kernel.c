@@ -1,4 +1,4 @@
-// kernel.c, 159, phase 1
+// kernel.c, 158, phase 1
 //
 // Team Name: "HeWhoShallNotBeNamed" (Members: Angad Pal Dhanoa & Dalton Caraway)
 
@@ -15,15 +15,19 @@ que_t avail_que, ready_que;   //declare 2 queues: avail_que and ready_que;  // a
 pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  // Process Control Blocks
 
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
-struct i386_gate *idt;        // interrupt descriptor table
+struct i386_gate *idt;        //interrupt descriptor table
+int i; 			      //To use with for loops
+char ch; 		      //To store character from keyboard
 
 void BootStrap(void) // set up kernel!
 {            
    sys_time_count = 0;                          //set sys time count to zero
 
-   Bzero((char *) &avail_que, sizeof(que_t));   //call tool Bzero() to clear avail queue
-   Bzero((char *) &ready_que, sizeof(que_t));   //call tool Bzero() to clear ready queue
-   int i;
+	cons_printf("Size of que_t  = %d    %d\n", sizeof(que_t), QUE_MAX);
+
+   Bzero((char *) &avail_que, QUE_MAX);   //call tool Bzero() to clear avail queue
+   Bzero((char *) &ready_que, QUE_MAX);   //call tool Bzero() to clear ready queue
+   
    //enqueue all the available PID numbers to avail queue
    for(i = 0; i < QUE_MAX; i++)
    {
@@ -51,7 +55,6 @@ void Scheduler(void) // choose a run_pid to run
    {   
       return;       // a user PID is already picked
    }
-   
    if(QueEmpty(&ready_que)) 
    {
       run_pid = IDLE;               // use the Idle thread
@@ -60,7 +63,6 @@ void Scheduler(void) // choose a run_pid to run
       pcb[IDLE].state = READY;
       run_pid = DeQue(&ready_que);  // pick a different proc
    }
-
    pcb[run_pid].time_count = 0;     // reset runtime count
    pcb[run_pid].state = RUN;
 }
@@ -69,8 +71,6 @@ void Kernel(tf_t *tf_p) // kernel runs
 {       
    pcb[run_pid].tf_p = tf_p;  //copy tf_p to the trapframe ptr (in PCB) of the process in run
    TimerSR();                 //call the timer service routine
-
-   char ch;                   //to read the character from the keyboard.
    if(cons_kbhit())           //Read the key being pressed into ch. If 'b' key on target PC is pressed, goto the GDB prompt.
    {
       ch = cons_getchar();
