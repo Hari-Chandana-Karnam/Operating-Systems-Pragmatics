@@ -38,7 +38,7 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    }
    
    //use a tool function to copy from 'p' to DRAM_START, for STACK_MAX bytes
-   MemCpy((char *) DRAM_START, (char *) Idle(), STACK_MAX); 
+   MemCpy((char *) DRAM_START, (char *) Idle(), STACK_MAX); //What if we actually pass 'p' instead of idle??
    
    /*create trapframe for process 'pid:'
    1st position trapframe pointer in its PCB to the end of the stack*/
