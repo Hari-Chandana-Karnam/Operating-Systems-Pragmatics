@@ -5,9 +5,13 @@
 #ifndef _EXT_DATA_
 #define _EXT_DATA_
 
-#include "...
+#include <const-type.h>
+#include <tools.h>
 
 extern int run_pid;                 // PID of current selected running process
-and other extern ...
+/*and other extern ...*/
+extern pcb_t pcb[PROC_MAX];
+extern que_t ...;
+
 
 #endif
