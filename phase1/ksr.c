@@ -43,12 +43,23 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
       EnQue(pid ...); //Work needed.
    }
    
+  
+               
    use a tool function to copy from 'p' to DRAM_START, for STACK_MAX bytes
-
+      //This might work?
+ //void MemCpy((char *) Dram_START, (char *)IDLE, STAT_MAX);
+      
+      
    create trapframe for process 'pid:'
    1st position trapframe pointer in its PCB to the end of the stack
    set efl in trapframe to EF_DEFAULT_VALUE|EF_INTR  // handle intr
+      
+      pcb[pid].tf_p = (tf_t *)(DRAM_START + STACK_MAX - size of(tf_t0));
+   
    set cs in trapframe to return of calling get_cs() // duplicate from CPU
+   
+   
+      
    set eip in trapframe to DRAM_START                // where code copied
 }
 
