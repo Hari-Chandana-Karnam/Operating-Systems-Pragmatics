@@ -6,12 +6,10 @@
 #define _EXT_DATA_
 
 #include <const-type.h>
-#include <tools.h>
 
 extern int run_pid;                 // PID of current selected running process
 /*and other extern ...*/
 extern pcb_t pcb[PROC_MAX];
-extern que_t ...;
-
+extern que_t avail_que, ready_que;
 
 #endif
