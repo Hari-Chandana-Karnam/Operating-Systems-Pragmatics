@@ -37,6 +37,7 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
       EnQue(pid, &ready_que);
    }
    
+
    //use a tool function to copy from 'p' to DRAM_START, for STACK_MAX bytes
    MemCpy((char *) DRAM_START, (char *) IDLE, STACK_MAX); //Not sure whether we need IDLE or soem other Idle.
    
@@ -47,6 +48,7 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;   //set efl in trapframe to EF_DEFAULT_VALUE|EF_INTR  // handle intr
    pcb[pid].tf_p->cs  = get_cs();                     //set cs in trapframe to return of calling get_cs() // duplicate from CPU
    pcb[pid].tf_p->eip =  DRAM_START;                  //set eip in trapframe to DRAM_START                // where code copied
+
 }
 
 // count run time and switch if hitting time limit
