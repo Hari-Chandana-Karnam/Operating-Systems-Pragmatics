@@ -58,13 +58,13 @@ int DeQue(que_t *ptr)
 		{
 			if(ptr->tail > i)
 			{
-				ptr->que[i] == ptr->que[i+1];
+				ptr->que[i] = ptr->que[i+1];
 			} else if (ptr->tail == i)
 			{
-				ptr->que[i] == NONE; //NONE (-1) is the empty value
+				ptr->que[i] = NONE; //NONE (-1) is the empty value
 			}
 		}
-		p->tail--; //Shifting tail one index back.
+		ptr->tail--; //Shifting tail one index back.
 	}
 	return pos1;
 }
@@ -97,7 +97,8 @@ void Bzero (char *start, unsigned int max)     //////working on it
 	int i;
 	for(i = 0; i < max; i++)
 	{
-		&start++ = (char) 0; //As mentioned in the class, '\0' is the ASCII for NULL.
+		*start = (char) 0; //As mentioned in the class, '\0' is the ASCII for NULL.
+		start++;
 	}
 	return;
 }
@@ -106,11 +107,11 @@ void Bzero (char *start, unsigned int max)     //////working on it
 character pointer 'dst,' from the starting location at a given character
 pointer 'src,' the size will also be given as an unsigned integer 'max'*/
 
-void MemCpy (char *dst, char *src, unsigned int max);
+void MemCpy (char *dst, char *src, unsigned int max)
 {
 	int i;
 	for(i = 0; i < max; i++)
 	{
-		&dst++ = &src++; //Coping data from src to dst, index by index
+		dst[i] = src[i]; //Coping data from src to dst, index by index
 	}
 }
