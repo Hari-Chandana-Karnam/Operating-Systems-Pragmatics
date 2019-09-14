@@ -23,9 +23,9 @@ void BootStrap(void) // set up kernel!
 
    Bzero((char *) &avail_que, sizeof(que_t));   //call tool Bzero() to clear avail queue
    Bzero((char *) &ready_que, sizeof(que_t));   //call tool Bzero() to clear ready queue
-   
+   int i;
    //enqueue all the available PID numbers to avail queue
-   for(int i = 0; i < QUE_MAX; i++)
+   for(i = 0; i < QUE_MAX; i++)
    {
       EnQue(i, &avail_que);
    }
