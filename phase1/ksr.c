@@ -6,6 +6,7 @@
 #include "ext-data.h"
 #include "tools.h"
 #include "ksr.h"
+#include "proc.c"
 
 // to create a process: alloc PID, PCB, and process stack
 // build trapframe, initialize PCB, record PID to ready_que
@@ -57,7 +58,7 @@ void TimerSR(void)
    outportb(PIC_CONT_REG, TIMER_SERVED_VAL); //1st notify PIC control register that timer event is now served
    sys_time_count++;                         //increment system time count by 1
    pcb[run_pid].time_count++;                //increment the time count of the process currently running by 1
-   pcb[run_pid].total_count++;               //increment the life span count of the process currently running by 1
+   pcb[run_pid].total_time++;               //increment the life span count of the process currently running by 1
 
    /*if the time count of the process is reaching maximum allowed runtime
       move the process back to the ready queue

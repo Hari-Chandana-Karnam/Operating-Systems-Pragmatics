@@ -13,7 +13,7 @@ int QueEmpty(que_t *ptr)//ptr undecided
 	//We will use variable isEmpty which stores 0 or 1. 
 	//If 0, the queue is not empty. If 1, queue is empty. 
 	int isEmpty = 0;
-      	if (*ptr->tail == 0) // Working with que array of type que_t. If tail is at 0 then the que is empty
+      	if (ptr->tail == 0) // Working with que array of type que_t. If tail is at 0 then the que is empty
 	{
 		isEmpty = 1;
 		return isEmpty;
@@ -31,7 +31,7 @@ int QueFull(que_t *ptr)//0 not full 1 full
 	// Working with que array of type que_t. If tail is at QUE_MAX then the que is full.
 	/*Logic - Array starts at index 0 and ends at index 19. 
 		  But if tail is at QUE_MAX (20), then array is full.*/
-	if (*ptr->tail == QUE_MAX) 
+	if (ptr->tail == QUE_MAX) 
 	{
 		isFull = 1;
 		return isFull;
@@ -53,7 +53,8 @@ int DeQue(que_t *ptr)
 	{
 		//Run a loop through entire que and shift the values of the que toward the head.
 		//Empty the last value.
-		for(int i = 0; i < QUE_MAX; i++)
+		int i;
+		for(i = 0; i < QUE_MAX; i++)
 		{
 			if(ptr->tail > i)
 			{
@@ -93,7 +94,8 @@ character pointer, and the size of the memory will be given by an unsigned
 int 'max'*/
 void Bzero (char *start, unsigned int max)     //////working on it
 {
-	for(int i = 0; i < max; i++)
+	int i;
+	for(i = 0; i < max; i++)
 	{
 		&start++ = (char) 0; //As mentioned in the class, '\0' is the ASCII for NULL.
 	}
@@ -106,9 +108,9 @@ pointer 'src,' the size will also be given as an unsigned integer 'max'*/
 
 void MemCpy (char *dst, char *src, unsigned int max);
 {
-	for(int i = 0; i < max; i++)
+	int i;
+	for(i = 0; i < max; i++)
 	{
 		&dst++ = &src++; //Coping data from src to dst, index by index
-
 	}
 }
