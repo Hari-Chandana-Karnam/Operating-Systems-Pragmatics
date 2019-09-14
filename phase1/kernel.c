@@ -1,6 +1,6 @@
 // kernel.c, 159, phase 1
 //
-// Team Name: "A Team With No Name" (Members: Angad Pal Dhanoa & Dalton )
+// Team Name: "A_Team_With_No_Name" (Members: Angad Pal Dhanoa & Dalton )
 
 #include "spede.h"
 #include "const-type.h"
