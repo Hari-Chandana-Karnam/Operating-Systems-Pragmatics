@@ -5,6 +5,7 @@
 #include "const-type.h"
 #include "ext-data.h"
 #include "proc.h"
+#include "spede.h"
 
 unsigned int sys_time_count = 0; //To count the time for flickering purposes.
 unsigned short *upper_left_pos = (unsigned short *)0xb8000; //declare a pointer and set it to the upper-left display corner
@@ -32,7 +33,7 @@ void Idle(void)
         
         if(sys_time_count%100 == 0) //Using mod to detmine the multiple of 100.
         {
-            if(flagForDot = 1)
+            if(flagForDot == 1)
             {
                 *upper_left_pos = '.' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
                 flagForDot = 0;
