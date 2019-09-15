@@ -73,7 +73,8 @@ void Kernel(tf_t *tf_p) // kernel runs
       ch = cons_getchar();
       if(ch == 'b')	         //If 'b' is pressed, goto the GDB prompt.
       {
-         breakpoint();        //breakpoint() is the function used to enter the GDB prompt;
+         cons_printf("You Pressed &c. Entering the breakpoint for GDB.\n", ch); //Message for user.
+         breakpoint();        //breakpoint() is the function used to enter the GDB prompt.
       }
    }
 
