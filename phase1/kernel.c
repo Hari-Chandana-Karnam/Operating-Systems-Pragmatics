@@ -22,9 +22,6 @@ char ch; 		      //To store character from keyboard
 void BootStrap(void) // set up kernel!
 {            
    sys_time_count = 0;                          //set sys time count to zero
-
-	cons_printf("Size of que_t  = %d    %d\n", sizeof(que_t), QUE_MAX);
-
    Bzero((char *) &avail_que, QUE_MAX);   //call tool Bzero() to clear avail queue
    Bzero((char *) &ready_que, QUE_MAX);   //call tool Bzero() to clear ready queue
    
