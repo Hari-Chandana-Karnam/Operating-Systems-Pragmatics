@@ -30,11 +30,11 @@ void Idle(void)
     {     
         if((sys_time_count % 100) == 0) //Using mod to detmine the multiple of 100.
         {
-            if(flagForDot == 1)
+            if (flagForDot == 1)
             {
                 *upper_left_pos = '.' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
                 flagForDot = 0;
-            }else
+            }else if (flagForDot == 0)
             {
                 *upper_left_pos = ' ' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
                 flagForDot = 1;
