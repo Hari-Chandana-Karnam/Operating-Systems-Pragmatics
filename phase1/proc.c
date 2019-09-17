@@ -20,17 +20,15 @@ void Idle(void)
 {
     //We will notify the PIC that the event is served.
     outportb(PIC_CONT_REG, TIMER_SERVED_VAL);
+    asm("sti"); //To enable CPU to handle interrupts using inline assembly macro: 'asm("sti");'
     
     /*In an infinite loop:
        whenever the system time reaches a multiple of 100 (per 1 second):
           a. judging from the flag and show either the dot or space
           b. alternate the flag*/
     while(1)
-    {
-        //We will upcount the sys_time_count by 1 everytime the loop runs.
-       // sys_time_count += 1;
-        
-        if(sys_time_count%100 == 0) //Using mod to detmine the multiple of 100.
+    {     
+        if((sys_time_count % 100) == 0) //Using mod to detmine the multiple of 100.
         {
             if(flagForDot == 1)
             {
@@ -45,4 +43,3 @@ void Idle(void)
     }
     return;
 }
-

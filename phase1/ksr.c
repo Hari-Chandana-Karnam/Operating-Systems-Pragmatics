@@ -38,7 +38,7 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    }
    
    //use a tool function to copy from 'p' to DRAM_START, for STACK_MAX bytes
-   MemCpy((char *) DRAM_START, (char *) Idle(), STACK_MAX); 
+   MemCpy((char *) DRAM_START, (char *) Idle(), STACK_MAX);
    
    /*create trapframe for process 'pid:'
    1st position trapframe pointer in its PCB to the end of the stack*/
@@ -55,7 +55,7 @@ void TimerSR(void)
    outportb(PIC_CONT_REG, TIMER_SERVED_VAL); //1st notify PIC control register that timer event is now served
    sys_time_count++;                         //increment system time count by 1
    pcb[run_pid].time_count++;                //increment the time count of the process currently running by 1
-   pcb[run_pid].total_time++;               //increment the life span count of the process currently running by 1
+   pcb[run_pid].total_time++;                //increment the life span count of the process currently running by 1
    
    /*if the time count of the process is reaching maximum allowed runtime
       move the process back to the ready queue
