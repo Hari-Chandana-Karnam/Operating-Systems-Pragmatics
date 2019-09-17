@@ -57,6 +57,11 @@ void TimerSR(void)
    pcb[run_pid].time_count++;                //increment the time count of the process currently running by 1
    pcb[run_pid].total_time++;                //increment the life span count of the process currently running by 1
    
+   if(run_pid == IDLE)
+   {
+      return;
+   }
+   
    /*if the time count of the process is reaching maximum allowed runtime
       move the process back to the ready queue
       alter its state to indicate it is not running but ...
