@@ -5,7 +5,6 @@
 
 int sys_get_pid(void) {     // phase2
    int pid;
-
    asm("movl %1, %%eax;     // # for kernel to identify service
         int $128;           // interrupt!
         movl %%ebx, %0"     // after, copy ebx to return
@@ -13,14 +12,19 @@ int sys_get_pid(void) {     // phase2
        : "g" (SYS_GET_PID)  // input to asm()
        : "eax", "ebx"       // clobbered registers
    );
-
    return pid;
 }
 
-... sys_get_time(...) {     // similar to sys_get_pid
-   ...
-   ...
-   ...
+int sys_get_time(void) {     // similar to sys_get_pid
+   int time;
+   asm("movl %1, %%eax;       // # for kernel to identify service
+        int $128;             // interrupt!
+        movl %%ebx, %0"       // after, copy ebx to return
+       : "=g" (time)          // output from asm()
+       : "g" (SYS_GET_TIME)   // input to asm()
+       : "eax", "ebx"         // clobbered registers
+   );
+   return time;
 }
 
 void sys_sleep(int sleep_sec) {  // phase2
@@ -33,9 +37,12 @@ void sys_sleep(int sleep_sec) {  // phase2
    );
 }
 
-... sys_write(...) {             // similar to sys_sleep
-   ...
-   ...
-   ...
+void sys_write(int write_sec) {              // similar to sys_sleep
+   asm("movl %0, %%eax;                      // # for kernel to identify service
+        movl %1, %%ebx;                      // write seconds
+        int $128"                            // interrupt!
+       :                                     // no output from asm()
+       : "g" (SYS_WRITE), "g" (write_sec)    // 2 inputs to asm()
+       : "eax", "ebx"                        // clobbered registers
+   );
 }
-
