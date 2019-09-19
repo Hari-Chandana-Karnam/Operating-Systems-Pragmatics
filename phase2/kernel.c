@@ -15,11 +15,9 @@ que_t avail_que, ready_que;   //declare 2 queues: avail_que and ready_que;  // a
 pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  // Process Control Blocks
 
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
-struct i386_gate *idt;        //interrupt descriptor table
+unsigned short *sys_cursor;   //Add the new cursor position that OS keepstruct i386_gate *idt;        //interrupt descriptor table
 int i; 			               //To use with for loops
 char ch;                      //To store character from keyboard
-
-unsigned short *sys_cursor;   //Add the new cursor position that OS keeps
 
 void BootStrap(void) {              // set up kernel!
 
@@ -40,7 +38,7 @@ void BootStrap(void) {              // set up kernel!
    outportb(PIC_MASK_REG, PIC_MASK_VAL); //send PIC control register the mask value for timer handling
 
    //use fill_gate() to set entry # SYSCALL_EVENT to SyscallEntry
-   fill_gate(); //Have to program this one.
+   fill_gate(&idt[SYSCALL_EVENT], (int) SyscallEntry, ACC_INTR_GATE, 0); //Have to program this one properly.
 }
 
 int main(void) {               // kernel boots
