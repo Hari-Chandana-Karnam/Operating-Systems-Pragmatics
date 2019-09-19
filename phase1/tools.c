@@ -57,13 +57,13 @@ int DeQue(que_t *ptr)
 		int i;
 		for(i = 0; i < ptr->tail; i++)
 		{
-			if(ptr->tail > i)
-			{
-				ptr->que[i] = ptr->que[i+1];
-			} else if (i == QUE_MAX - 1)
+			if (i == QUE_MAX - 1)
 			{
 				ptr->que[i] = 0;
-			}
+			}else
+			{
+				ptr->que[i] = ptr->que[i+1];
+			} 
                 }
 	}
 	return pos1;
