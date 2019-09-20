@@ -43,6 +43,34 @@ int QueFull(que_t *ptr)//0 not full 1 full
 by a pointer); if empty, return constant NONE (-1)*/
 int DeQue(que_t *ptr)
 {
+	int pos1 = NONE;  //1st position in the queue
+	
+	//Covering the case, "if the queue is empty
+	if(QueEmpty(ptr))
+	{
+            return ptr->que[0];
+            //return NONE;	//Declared in const-type.h
+	} else
+	{
+		//Run a loop through entire que and shift the values of the que toward the head.
+		//Empty the last value.
+		int i;
+		for(i = 0; i < ptr->tail; i++)
+		{
+			if (i == QUE_MAX - 1)
+			{
+				ptr->que[i] = 0;
+			}else
+			{
+				ptr->que[i] = ptr->que[i+1];
+			} 
+                }
+	}
+	return pos1;
+}
+
+int DeQue(que_t *ptr)
+{
 	int pos1 = ptr->que[0]; //1st position in the queue
 	
 	//Covering the case, "if the queue is empty
