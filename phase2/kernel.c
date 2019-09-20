@@ -38,7 +38,7 @@ void BootStrap(void) {              // set up kernel!
    outportb(PIC_MASK_REG, PIC_MASK_VAL); //send PIC control register the mask value for timer handling
 
    //use fill_gate() to set entry # SYSCALL_EVENT to SyscallEntry
-   fill_gate(&idt[SYSCALL_EVENT], (int) SyscallEntry, ACC_INTR_GATE, 0); //Have to program this one properly.
+   fill_gate(&idt[SYSCALL_EVENT], (int)SyscallEntry, get_cs(), ACC_INTR_GATE, 0); //Have to program this one properly.
 }
 
 int main(void) {               // kernel boots
@@ -90,7 +90,7 @@ void Kernel(tf_t *tf_p) // kernel runs
       ch = cons_getchar();
       if(ch == 'b')	         //If 'b' is pressed, goto the GDB prompt.
       {
-         cons_printf("You Pressed &c. Entering the breakpoint for GDB.\n", ch); //Message for user.
+         cons_printf("You Pressed %c. Entering the breakpoint for GDB.\n", ch); //Message for user.
          breakpoint();        //breakpoint() is the function used to enter the GDB prompt.
       }
    }
