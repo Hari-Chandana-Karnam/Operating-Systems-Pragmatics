@@ -12,7 +12,6 @@ extern int run_pid;                 // PID of current selected running process
 extern pcb_t pcb[PROC_MAX];
 extern que_t avail_que, ready_que;
 extern unsigned int sys_time_count;
+extern unsigned int sys_cursor;       //like others, add the new sys_cursor newly declared in main.c 
 
-//like others, add the new sys_cursor newly declared in main.c
-extern unsigned int sys_cursor; 
 #endif
