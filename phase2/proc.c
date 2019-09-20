@@ -46,13 +46,17 @@ void Idle(void)
 }
 
 void Init(void) {  // Init, PID 1, asks/tests various OS services
-   declare two integers: my_pid & os_time
-   declare two 20-char arrays: pid_str & time_str
+   //declare two integers: my_pid & os_time
+   int my_pid, os_time;
 
-   call sys_get_pid() to get my_pid
-   call Number2Str() to convert it to pid_str
+   //declare two 20-char arrays: pid_str & time_str
+   char pid_str[QUE_MAX], time_str[QUE_MAX];
 
-   forever loop {
+   //call sys_get_pid() to get my_pid
+   
+  //call Number2Str() to convert it to pid_str
+
+   /*forever loop {
       call sys_write() to show "my PID is "
       call sys_write() to show my pid_str
       call sys_write to show "... "
@@ -63,5 +67,5 @@ void Init(void) {  // Init, PID 1, asks/tests various OS services
       call sys_write() to show time_str
       call sys_write to show "... "
       call sys_sleep() to sleep for 1 second
-   }
+   }*/
 }

@@ -146,6 +146,9 @@ void MemCpy (char *dst, char *src, unsigned int max)
 
 void Number2Str(int x, char *str) {
    ...
-   ...
+	   /*class notes
+	   char x ='a'
+	   rev it and add '\0' Cahr0 NULL (char*) 
+   ...*/
    ...
 }
