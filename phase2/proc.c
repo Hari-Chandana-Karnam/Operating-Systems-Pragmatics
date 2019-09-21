@@ -53,8 +53,10 @@ void Init(void) {  // Init, PID 1, asks/tests various OS services
    char pid_str[QUE_MAX], time_str[QUE_MAX];
 
    //call sys_get_pid() to get my_pid
+    my_pid = sys_get_pid();
    
   //call Number2Str() to convert it to pid_str
+    Number2Str(my_pid, pid_str);
 
    /*forever loop {
       call sys_write() to show "my PID is "
