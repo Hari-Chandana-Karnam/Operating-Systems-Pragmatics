@@ -60,15 +60,15 @@ void Init(void) {  // Init, PID 1, asks/tests various OS services
     
     while(1)
     {
-        sys_write();                        //call sys_write() to show "my PID is "
-        sys_write();                        //call sys_write() to show my pid_str
-        sys_write();                        //call sys_write to show "... "
-        sys_sleep();                        //call sys_sleep() to sleep for 1 second
+        sys_write("My PID is ");            //call sys_write() to show "my PID is "
+        sys_write(pid_str);                 //call sys_write() to show my pid_str
+        sys_write("... ");                  //call sys_write to show "... "
+        sys_sleep(1);                       //call sys_sleep() to sleep for 1 second
         os_time = sys_get_time();           //call sys_get_time() to get current os_time
         Number2Str(os_time, time_str);      //call Number2Str() to convert it to time_str
-        sys_write();                        //call sys_write() to show "sys time is "
-        sys_write();                        //call sys_write() to show time_str
-        sys_write();                        //call sys_write to show "... "
-        sys_sleep();                        //call sys_sleep() to sleep for 1 second
+        sys_write("Sys time is ");          //call sys_write() to show "sys time is "
+        sys_write(time_str);                //call sys_write() to show time_str
+        sys_write("... ");                  //call sys_write to show "... "
+        sys_sleep(1);                       //call sys_sleep() to sleep for 1 second
     }
 }
