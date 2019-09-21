@@ -36,12 +36,14 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    
    
    // copy code to DRAM, both code & stack are separated among processes, phase2
-   MemCpy((char *)DRAM_START + ...?
+   MemCpy((char *)DRAM_START + ...?                                            //              <--Need work here.
 
    // point tf_p to stack & fill TF out
+   //pcb[pid].tf_p = (tf_t *)(DRAM_START + ...?
    pcb[pid].tf_p = (tf_t *)(DRAM_START + STACK_MAX - sizeof(tf_t));
    pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;   //set efl in trapframe to EF_DEFAULT_VALUE|EF_INTR  // handle intr
    pcb[pid].tf_p->cs  = get_cs();                     //set cs in trapframe to return of calling get_cs() // duplicate from CPU
+   //pcb[pid].tf_p->eip = DRAM_START + ...?;
    pcb[pid].tf_p->eip = DRAM_START;                   //set eip in trapframe to DRAM_START                // where code copied
 }
 
