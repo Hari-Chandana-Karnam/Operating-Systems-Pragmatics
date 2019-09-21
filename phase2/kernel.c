@@ -22,7 +22,7 @@ char ch;                      //To store character from keyboard
 void BootStrap(void) {              // set up kernel!
 
    sys_time_count = 0;                    //set sys time count to zero
-   sys_cursor = VIDEO_START               // have it set to VIDEO_START in BootStrap()
+   sys_cursor = VIDEO_START;               // have it set to VIDEO_START in BootStrap()
    Bzero((char *) &avail_que, QUE_MAX);   //call tool Bzero() to clear avail queue
    Bzero((char *) &ready_que, QUE_MAX);   //call tool Bzero() to clear ready queue
    
