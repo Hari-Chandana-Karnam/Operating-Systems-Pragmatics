@@ -149,6 +149,11 @@ void Number2Str(int x, char *str)
 	//Creating temporary integer and string to work with, so we do not loose the original values.
 	int i = 0;
 	
+	if (x < 0);
+	{
+		printf("PID is less than Zero (0).");
+	}
+	
 	//If the integer is 0, then we can skip the headache and directly do the process.
 	if (x == 0)
 	{	
@@ -163,8 +168,8 @@ void Number2Str(int x, char *str)
 		str[i++]  = (x % 10) + (char) 0; //Storing the right most digit
 		x / 10;	//Removing the right most digit;
 	}
-	str[i++] = x; //Adding the leftmost digit to the string;
-	str[i] = (char) 0; //Adding the null character to the string;
+	str[i++] = x + (char) 0; //Adding the leftmost digit to the string;
+	str[i] = (char) 0; //Adding the null character to the end of the string;
 	
 	//reversing the order of the 'str' array to have the actual number in strring formation
 	for(int j = 0; j < i/2; j++)
@@ -173,6 +178,7 @@ void Number2Str(int x, char *str)
 		str[j] = str[i-j-1];
 		str[i-j-1] = temp;
 	}
+	str[i] = (char) 0; //Adding the null character to the end of the string;
 	
 	return;
 }
