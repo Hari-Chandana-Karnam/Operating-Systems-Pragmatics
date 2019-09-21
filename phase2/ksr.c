@@ -64,8 +64,11 @@ void TimerSR(void) {
    
    while (run_pid == IDLE)
 	{
-	// look for incomplete processes or other run pids
-	   //get_pid?
+		if(!QueEmpty(&avail_que)
+		{
+			Enque(DeQue(&avail_que), ready_que);//run next process in avail_que
+			//Might need to type cast to char?
+		}	
 	}
    
    if(pcb[run_pid].time_count == TIME_MAX) {  // if runs long enough
