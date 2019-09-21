@@ -57,17 +57,18 @@ void Init(void) {  // Init, PID 1, asks/tests various OS services
    
   //call Number2Str() to convert it to pid_str
     Number2Str(my_pid, pid_str);
-
-   /*forever loop {
-      call sys_write() to show "my PID is "
-      call sys_write() to show my pid_str
-      call sys_write to show "... "
-      call sys_sleep() to sleep for 1 second
-      call sys_get_time() to get current os_time
-      call Number2Str() to convert it to time_str
-      call sys_write() to show "sys time is "
-      call sys_write() to show time_str
-      call sys_write to show "... "
-      call sys_sleep() to sleep for 1 second
-   }*/
+    
+    while(1)
+    {
+        sys_write();                        //call sys_write() to show "my PID is "
+        sys_write();                        //call sys_write() to show my pid_str
+        sys_write();                        //call sys_write to show "... "
+        sys_sleep();                        //call sys_sleep() to sleep for 1 second
+        os_time = sys_get_time();           //call sys_get_time() to get current os_time
+        Number2Str(os_time, time_str);      //call Number2Str() to convert it to time_str
+        sys_write();                        //call sys_write() to show "sys time is "
+        sys_write();                        //call sys_write() to show time_str
+        sys_write();                        //call sys_write to show "... "
+        sys_sleep();                        //call sys_sleep() to sleep for 1 second
+    }
 }
