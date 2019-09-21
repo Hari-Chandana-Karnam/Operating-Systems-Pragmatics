@@ -61,7 +61,9 @@ void TimerSR(void) {
    }
 
    //Use a loop to look for any processes that need to be waken up!                                     <-- need work here.  
-         
+   
+   
+   
    if(pcb[run_pid].time_count == TIME_MAX) {  // if runs long enough
       pcb[run_pid].state = READY;
       EnQue(run_pid, &ready_que);
@@ -103,15 +105,19 @@ void SyscallSR(void) {
 }
 
 void SysSleep(void) {
-   int sleep_sec = ... from a register value wtihin the trapframe
-   calculate the wake time of the running process using the current system
-   time count plus the sleep_sec times 100
-   alter the state of the running process to SLEEP
-   alter the value of run_pid to NONE
+   //int sleep_sec = ... from a register value wtihin the trapframe
+   int sleep_sec = pcb[run_pid].tf_p->ebx;
+   //calculate the wake time of the running process using the current system time count plus the sleep_sec times 100
+   pcb[run_pid].wake_time = sys_time_count + sleep_sec*100;
+   //alter the state of the running process to SLEEP
+   pcb[run_pid].state = SLEEP;
+   //alter the value of run_pid to NONE
+   run_pid = NONE;
 }
 
 void SysWrite(void) {
-   char *str =  ... passed over by a register value wtihin the trapframe
+   //char *str =  ... passed over by a register value within the trapframe
+   char *str = pcb[run_pid].tf_p->ebx;
    show the str one char at a time (use a loop)
       onto the console (at the system cursor position)
       (while doing so, the cursor may wrap back to the top-left corner if needed)
