@@ -144,11 +144,35 @@ void MemCpy (char *dst, char *src, unsigned int max)
 	}
 }
 
-void Number2Str(int x, char *str) {
-   ...
-	   /*class notes
-	   char x ='a'
-	   rev it and add '\0' Cahr0 NULL (char*) 
-   ...*/
-   ...
+void Number2Str(int x, char *str) 
+{
+	//Creating temporary integer and string to work with, so we do not loose the original values.
+	int i = 0;
+	
+	//If the integer is 0, then we can skip the headache and directly do the process.
+	if (x == 0)
+	{	
+		str[0] = '0';
+		str[1] = '\0';
+		return;
+	}
+	 
+	//Filing the string to store the required outcome in reverse order.
+	while(x >= 10)
+	{
+		str[i++]  = (x % 10) + (char) 0; //Storing the right most digit
+		x / 10;	//Removing the right most digit;
+	}
+	str[i++] = x; //Adding the leftmost digit to the string;
+	str[i] = (char) 0; //Adding the null character to the string;
+	
+	//reversing the order of the 'str' array to have the actual number in strring formation
+	for(int j = 0; j < i/2; j++)
+	{
+		char temp = str[j];
+		str[j] = str[i-j-1];
+		str[i-j-1] = temp;
+	}
+	
+	return;
 }
