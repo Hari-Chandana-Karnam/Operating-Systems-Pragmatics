@@ -36,7 +36,7 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    
    
    // copy code to DRAM, both code & stack are separated among processes, phase2
-   MemCpy((char *)DRAM_START + ...?                                            //              <--Need work here.
+   MemCpy((char *)DRAM_START + ...?          //              <--Need work here.
 
    // point tf_p to stack & fill TF out
    //pcb[pid].tf_p = (tf_t *)(DRAM_START + ...?
@@ -60,7 +60,7 @@ void TimerSR(void) {
       return;
    }
 
-   //Use a loop to look for any processes that need to be waken up!                                     <-- need work here.  
+   //Use a loop to look for any processes that need to be waken up!          <-- need work here.  
    
    
    
