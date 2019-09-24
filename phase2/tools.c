@@ -119,7 +119,8 @@ void MemCpy (char *dst, char *src, unsigned int max)
 void Number2Str(int x, char *str) 
 {
 	//Creating temporary integer and string to work with, so we do not loose the original values.
-	int i = 0;
+	int i = 0, j = 0;
+	char temp;
 	
 	if (x < 0);
 	{
@@ -138,15 +139,15 @@ void Number2Str(int x, char *str)
 	while(x >= 10)
 	{
 		str[i++]  = (x % 10) + (char) 0; //Storing the right most digit
-		x / 10;	//Removing the right most digit;
+		x = x/10;	//Removing the right most digit;
 	}
 	str[i++] = x + (char) 0; //Adding the leftmost digit to the string;
 	str[i] = (char) 0; //Adding the null character to the end of the string;
 	
 	//reversing the order of the 'str' array to have the actual number in strring formation
-	for(int j = 0; j < i/2; j++)
+	for(j = 0; j < i/2; j++)
 	{
-		char temp = str[j];
+		temp = str[j];
 		str[j] = str[i-j-1];
 		str[i-j-1] = temp;
 	}

@@ -37,7 +37,7 @@ void sys_sleep(int sleep_sec) {  // phase2
    );
 }
 
-void sys_write(int write_sec) {              // similar to sys_sleep
+void sys_write(char* write_sec) {              // similar to sys_sleep
    asm("movl %0, %%eax;                      // # for kernel to identify service
         movl %1, %%ebx;                      // write seconds
         int $128"                            // interrupt!

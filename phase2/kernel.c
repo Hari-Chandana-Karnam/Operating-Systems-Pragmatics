@@ -15,7 +15,8 @@ que_t avail_que, ready_que;   //declare 2 queues: avail_que and ready_que;  // a
 pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  // Process Control Blocks
 
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
-unsigned short *sys_cursor;   //Add the new cursor position that OS keepstruct i386_gate *idt;        //interrupt descriptor table
+unsigned short *sys_cursor;   //Add the new cursor position that OS keep
+struct i386_gate *idt;        //interrupt descriptor table
 int i; 			               //To use with for loops
 char ch;                      //To store character from keyboard
 

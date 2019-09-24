@@ -37,24 +37,23 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    
    
    // copy code to DRAM, both code & stack are separated among processes, phase2
-   MemCpy((char *)DRAM_START + ...?          //              <--Need work here.
-   //old memcpy  MemCpy((char *) DRAM_START, (char *) Idle(), STACK_MAX);
+   MemCpy((char *)(DRAM_START + (pid*STACK_MAX)), (char *) p, STACK_MAX);
+
    // point tf_p to stack & fill TF out
-   //pcb[pid].tf_p = (tf_t *)(DRAM_START + ...?
-   pcb[pid].tf_p = (tf_t *)(DRAM_START + STACK_MAX - sizeof(tf_t));
+   pcb[pid].tf_p = (tf_t *)(DRAM_START + (pid + 1)*STACK_MAX - sizeof(tf_t));
    pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;   //set efl in trapframe to EF_DEFAULT_VALUE|EF_INTR  // handle intr
    pcb[pid].tf_p->cs  = get_cs();                     //set cs in trapframe to return of calling get_cs() // duplicate from CPU
-   //pcb[pid].tf_p->eip = DRAM_START + ...?;
-   pcb[pid].tf_p->eip = DRAM_START;                   //set eip in trapframe to DRAM_START                // where code copied
+   pcb[pid].tf_p->eip = (DRAM_START + pid*STACK_MAX);                   //set eip in trapframe to DRAM_START                // where code copied
 }
 
 // count run time and switch if hitting time limit
 void TimerSR(void) {
+   int next;
    outportb(PIC_CONT_REG, TIMER_SERVED_VAL); //1st notify PIC control register that timer event is now served
    sys_time_count++;                         //increment system time count by 1
    pcb[run_pid].time_count++;                //increment the time count of the process currently running by 1
-   pcb[run_pid].total_time++;                //increment the life span count of the process currently running by 1
-   int next;
+   pcb[run_pid].total_time++;//increment the life span count of the process currently running by 1
+
    //if run_pid is IDLE, just simply return;    // Idle exempt from below, phase2
    if(run_pid == IDLE)
    {
@@ -64,10 +63,10 @@ void TimerSR(void) {
    //Use a loop to look for any processes that need to be waken up!          <-- need work here.  
    
    while (run_pid == IDLE)
-	{
+   {
 		if(!QueEmpty(&avail_que))
 		{
-			next = DeQue(&avail_que);
+			next=DeQue(&avail_que);
 			EnQue(next, &ready_que);//run next process in avail_que
 		}	
 	}
@@ -95,10 +94,10 @@ void SyscallSR(void) {
             cons_printf("Kernel Panic: no such syscall!\n");
             breakpoint();*/
       case SYS_GET_PID:
-         pcb[pid].tf_p->ebx = run_pid;
+         pcb[run_pid].tf_p->ebx = run_pid;
          break;
       case SYS_GET_TIME:
-         pcb[pid].tf_p->ebx = sys_time_count;
+         pcb[run_pid].tf_p->ebx = sys_time_count;
          break;
       case SYS_SLEEP:
          SysSleep();
@@ -124,22 +123,17 @@ void SysSleep(void) {
 }
 
 void SysWrite(void) {
-   //char *str =  ... passed over by a register vaue within the trapframe
-   char *str = pcb[run_pid].tf_p->ebx;
+   //char *str =  ... passed over by a register value within the trapframe
+   char *str = (char *) pcb[run_pid].tf_p->ebx;
    int i = 0;
       while(str[i] != '\0')            //show the str one char at a time (use a loop)
 		{
-			if(sys_cusor==VIDEO_END)      //(while doing so, the cursor may wrap back to the top-left corner if needed)
+			if(sys_cursor == VIDEO_END)      //(while doing so, the cursor may wrap back to the top-left corner if needed)
 			{
-				sys_cursor=VIDEO_START;	
+				sys_cursor = VIDEO_START;	
 			}
 			cons_printf("%i",str[i]);     //onto the console (at the system cursor position)
 			i++;
 		}
-   
-   
-
-
-
 }
 

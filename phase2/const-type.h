@@ -32,6 +32,12 @@ typedef void (*func_p_t)(void); // void-return function pointer type
 /*Add a new state SLEEP to the existing state_t*/
 typedef enum {AVAIL, READY, RUN, SLEEP} state_t; //Because it is enum function, AVAIL = 0, READY = 1, RUN = 2
 
+/*Use the new trapframe sequence (entry.S requires alteration):*/
+typedef struct {   // add an 'event' into this, phase2
+   unsigned int
+      edi, esi, ebp, esp, ebx, edx, ecx, eax, event, eip, cs, efl;
+} tf_t;  // 'trapframe' type
+
 /*define a PCB type (pcb_t) that has 
    state_t state
    tf_t *tf_p
@@ -51,12 +57,6 @@ typedef struct {
       int tail;
       int que[QUE_MAX]; //QUE_MAX = 20
 } que_t;    //Queue type
-
-/*Use the new trapframe sequence (entry.S requires alteration):*/
-typedef struct {   // add an 'event' into this, phase2
-   unsigned int
-      edi, esi, ebp, esp, ebx, edx, ecx, eax, event, eip, cs, efl;
-} tf_t;  // 'trapframe' type
 
 #endif      // to prevent name mangling
 
