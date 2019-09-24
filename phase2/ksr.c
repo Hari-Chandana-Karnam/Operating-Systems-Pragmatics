@@ -54,7 +54,7 @@ void TimerSR(void) {
    sys_time_count++;                         //increment system time count by 1
    pcb[run_pid].time_count++;                //increment the time count of the process currently running by 1
    pcb[run_pid].total_time++;                //increment the life span count of the process currently running by 1
-   
+   int next;
    //if run_pid is IDLE, just simply return;    // Idle exempt from below, phase2
    if(run_pid == IDLE)
    {
@@ -67,7 +67,8 @@ void TimerSR(void) {
 	{
 		if(!QueEmpty(&avail_que)
 		{
-			Enque(DeQue(&avail_que), ready_que);//run next process in avail_que
+			next = DeQue(&avail_que);
+			Enque(next, ready_que);//run next process in avail_que
 			//Might need to type cast to char?
 		}	
 	}
