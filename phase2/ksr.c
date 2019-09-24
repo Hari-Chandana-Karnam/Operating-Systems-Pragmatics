@@ -6,6 +6,7 @@
 #include "ext-data.h"
 #include "tools.h"
 #include "ksr.h"
+#include "proc.h"
 
 void SpawnSR(func_p_t p) {     // arg: where process code starts
    int pid;
