@@ -65,7 +65,7 @@ void TimerSR(void) {
    
    while (run_pid == IDLE)
 	{
-		if(!QueEmpty(&avail_que)
+		if(!QueEmpty(&avail_que))
 		{
 			next = DeQue(&avail_que);
 			Enque(next, ready_que);//run next process in avail_que
