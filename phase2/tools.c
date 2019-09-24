@@ -59,7 +59,7 @@ int DeQue(que_t *ptr)
 		{
 			if (i == QUE_MAX)
 			{
-				ptr->que[i] = 0;
+				ptr->que[i] = NONE;
 			}else
 			{
 				ptr->que[i] = ptr->que[i+1];
