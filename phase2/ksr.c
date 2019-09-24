@@ -68,8 +68,7 @@ void TimerSR(void) {
 		if(!QueEmpty(&avail_que))
 		{
 			next = DeQue(&avail_que);
-			Enque(next, ready_que);//run next process in avail_que
-			//Might need to type cast to char?
+			EnQue(next, &ready_que);//run next process in avail_que
 		}	
 	}
    
