@@ -7,7 +7,8 @@
 #include "ksr.h"
 #include "proc.h"
 
-void SpawnSR(func_p_t p) {     // arg: where process code starts
+void SpawnSR(func_p_t p) // arg: where process code starts
+{     
    int pid;
 
    if(QueEmpty(&avail_que))
@@ -32,7 +33,8 @@ void SpawnSR(func_p_t p) {     // arg: where process code starts
    pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX)); //set eip in trapframe to DRAM_START                // where code copied
 }
 
-void TimerSR(void) {
+void TimerSR(void) 
+{
    int i;
    outportb(PIC_CONT_REG, TIMER_SERVED_VAL); 	//1st notify PIC control register that timer event is now served
    sys_time_count++;                         	//increment system time count by 1
@@ -56,7 +58,8 @@ void TimerSR(void) {
    }
 }
 
-void SyscallSR(void) {
+void SyscallSR(void) 
+{
    switch(pcb[run_pid].tf_p->eax)
    {
       case SYS_GET_PID:
@@ -77,33 +80,42 @@ void SyscallSR(void) {
    }
 }
 
-void SysSleep(void) {
+void SysSleep(void) 
+{
    int sleep_sec = pcb[run_pid].tf_p->ebx;
-   pcb[run_pid].wake_time = sys_time_count + sleep_sec*100;
+   pcb[run_pid].wake_time = sys_time_count + (sleep_sec * 100);
    pcb[run_pid].state = SLEEP;
    run_pid = NONE;
 }
 
-void SysWrite(void) {
+void SysWrite(void) 
+{
    char *str = (char *) pcb[run_pid].tf_p->ebx;
    int i = 0;
-   while(str[i] != '\0')
+   while(str[i] != '\0') //While we do not hit the null pointer
    {	
 	if(sys_cursor == VIDEO_END)
 	     sys_cursor = VIDEO_START;	
-	*sys_cursor = str[i]+VGA_MASK_VAL;
+	*sys_cursor = str[i] + VGA_MASK_VAL;
 	sys_cursor++;
 	i++;
    }
 }
 
-void SysSetCursor(void) {
-   changes sys_cursor to the position of the row and column numbers
-   in the trapframe CPU registers (as inserted when called by Init).
-   Hint: the video memory address for row 0, column 0 is the VIDEO_START.
 
-void SysFork(void) {
-   1. allocate a new PID and add it to ready_que (similar to start of SpawnSR)
+/*changes sys_cursor to the position of the row and column numbers
+   in the trapframe CPU registers (as inserted when called by Init).
+   Hint: the video memory address for row 0, column 0 is the VIDEO_START.*/
+void SysSetCursor(void) 
+{
+    int row = pcb[run_pid].tf_p->eax;
+    int column = pcb[run_pid].tf_p->ebx;
+    
+    *sys_cursor = VIDEO_START; //Set the sys_cursor to the very top left corner.
+    sys_cursor += row * 80 + column;
+}
+
+/*1. allocate a new PID and add it to ready_que (similar to start of SpawnSR)
    2. copy PCB from parent process, but alter these:
          process state, the two time counts, and ppid
    3. copy the process image (the 4KB DRAM) from parent to child:
@@ -119,4 +131,8 @@ void SysFork(void) {
             treat ebp as an integer pointer and alter what it points to
    7. correctly set return values of sys_fork():
          ebx in the parent's trapframe gets the new child PID
-         ebx in the child's trapframe gets ?
+         ebx in the child's trapframe gets ?*/
+void SysFork(void) 
+{
+	
+} 
