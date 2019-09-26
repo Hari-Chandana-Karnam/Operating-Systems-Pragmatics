@@ -11,6 +11,7 @@ int flagForDot = 1;
 
 void Idle(void)
 {
+    int i;
     while(1)
     {     
         if((sys_time_count % 100) == 0) //Using mod to detmine the multiple of 100.
@@ -18,10 +19,14 @@ void Idle(void)
             if (flagForDot == 1)
             {
                 *upper_left_pos = '*' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
+                for(i = 0; i < 50; i++) //Added this loop to delay the rocess for half a second. This may stop te flickering
+                    asm("sti");
                 flagForDot = 0;
             }else if (flagForDot == 0)
             {
                 *upper_left_pos = ' ' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
+                for(i = 0; i < 50; i++) //Added this loop to delay the rocess for half a second. This may stop te flickering
+                    asm("sti");
                 flagForDot = 1;
             }
         }
