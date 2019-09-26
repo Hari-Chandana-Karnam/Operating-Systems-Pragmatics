@@ -28,22 +28,35 @@ void Idle(void)
     }
 }
 
-void Init(void) {  				// Init, PID 1, asks/tests various OS services
-   int my_pid, os_time;  			//declare two integers: my_pid & os_time
-   char pid_str[QUE_MAX], time_str[QUE_MAX]; 	//declare two 20-char arrays: pid_str & time_str
-   my_pid = sys_get_pid();  			//call sys_get_pid() to get my_pid
-   Number2Str(my_pid, pid_str);		    	//call Number2Str() to convert it to pid_str
-   while(1)
-   {
-        sys_write("My PID is ");            //call sys_write() to show "my PID is "
-        sys_write(pid_str);                 //call sys_write() to show my pid_str
-        sys_write("... ");                  //call sys_write to show "... "
-        sys_sleep(1);                       //call sys_sleep() to sleep for 1 second
-        os_time = sys_get_time();           //call sys_get_time() to get current os_time
-        Number2Str(os_time, time_str);      //call Number2Str() to convert it to time_str
-        sys_write("Sys time is ");          //call sys_write() to show "sys time is "
-        sys_write(time_str);                //call sys_write() to show time_str
-        sys_write("... ");                  //call sys_write to show "... "
-        sys_sleep(1);
+//Init for phase 3
+void Init(void) {  // Init, PID 1, asks/tests various OS services
+   int my_pid, os_time;
+   char pid_str[PROC_MAX], time_str[PROC_MAX]; //PROC_MAX == QUE_MAX == 20
+
+   int forked_pid;
+   forked_pid = sys_fork();
+   if(forked_pid == NONE)
+       sys_write("sys_fork() failed!\n");
+   forked_pid = sys_fork();
+   if(forked_pid == NONE)
+       sys_write("sys_fork() failed!\n");
+    
+   my_pid = sys_get_pid();               // what's my PID
+   Number2Str(my_pid, pid_str);          // convert # to str
+
+   while(1) {
+      sys_sleep(1);                       //call sys_sleep() to sleep for 1 second
+      //set cursor position to my row (equal to my PID), column 0,
+      sys_write("My PID is ");            //call sys_write() to show "my PID is "
+      sys_write(pid_str);                 //call sys_write() to show my pid_str
+      sys_write("... ");                  //call sys_write to show "... "
+      os_time = sys_get_time();           //call sys_get_time() to get current os_time
+      Number2Str(os_time, time_str);      //call Number2Str() to convert it to time_str
+      sys_sleep(1);                       //call sys_sleep() to sleep for 1 second
+      //set cursor position back again,
+      sys_write("Sys time is ");          //call sys_write() to show "sys time is "
+      sys_write(time_str);                //call sys_write() to show time_str
+      sys_write("... ");                  //call sys_write to show "... "
+      sys_sleep(1);
    }
 }
