@@ -51,8 +51,15 @@ void sys_write(char *write_sec)
    );
 }
 
-void sys_set_cursor(int row, int col) 
+void sys_set_cursor(int row, int column) 
 {  
+   asm("movl %0, %%eax;                // to store 'row' using eax
+        movl %1, %%ebx;                // to store 'column' using ebx
+        int $128"                
+       :                         	   // no output from asm()
+       : "g" (row), "g" (column)       // 2 inputs to asm()
+       : "eax", "ebx"            	   // clobbered registers
+   );
 }
 
 int sys_fork(void) 
