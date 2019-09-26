@@ -24,6 +24,8 @@
 #define SYS_GET_TIME 130
 #define SYS_SLEEP 131
 #define SYS_WRITE 132
+#define SYS_FORK 133            // phase 3
+#define SYS_SET_CURSOR 134      // phase 3
 #define VIDEO_START (unsigned short *)0xb8000
 #define VIDEO_END ((unsigned short *)0xb8000 + 25 * 80)
 
@@ -41,6 +43,7 @@ typedef struct {
    unsigned int time_count;   //time_count is the timer for the processes 
    unsigned int total_time;   //total_time is the CPU Run Time.
    unsigned int wake_time;    //wake_time is when the CPU will wake up.
+   unsigned int ppid;         //process id of parent, i suppose.
 } pcb_t;    //PCB type
 
 typedef struct {
@@ -49,4 +52,3 @@ typedef struct {
 } que_t;    //Queue type
 
 #endif      // to prevent name mangling
-
