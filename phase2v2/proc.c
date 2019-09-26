@@ -50,7 +50,7 @@ void Init(void) {  				// Init, PID 1, asks/tests various OS services
         sys_write("... ");                  //call sys_write to show "... "
         sys_sleep(1);                       //call sys_sleep() to sleep for 1 second
         os_time = sys_get_time();           //call sys_get_time() to get current os_time
-        Number2Str(os_time, time_str);      //call Number2Str() to convert it to time_str
+        Number2Str(*os_time, *time_str);      //call Number2Str() to convert it to time_str
         sys_write("Sys time is ");          //call sys_write() to show "sys time is "
         sys_write(time_str);                //call sys_write() to show time_str
         sys_write("... ");                  //call sys_write to show "... "
