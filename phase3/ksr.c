@@ -102,7 +102,6 @@ void SysWrite(void)
    }
 }
 
-
 /*changes sys_cursor to the position of the row and column numbers
    in the trapframe CPU registers (as inserted when called by Init).
    Hint: the video memory address for row 0, column 0 is the VIDEO_START.*/
@@ -115,24 +114,49 @@ void SysSetCursor(void)
     sys_cursor += row * 80 + column;
 }
 
-/*1. allocate a new PID and add it to ready_que (similar to start of SpawnSR)
-   2. copy PCB from parent process, but alter these:
-         process state, the two time counts, and ppid
-   3. copy the process image (the 4KB DRAM) from parent to child:
-         figure out destination and source byte addresses
-         use tool MemCpy() to do the copying
-   4. calculate the byte distance between the two processes
-         = (child PID - parent PID) * 4K
-   5. apply the distance to the trapframe location in child's PCB
-   6. use child's trapframe pointer to adjust these in the trapframe:
-         eip (so it points o child's own instructions),
-         ebp (so it points to child's local data),
-         also, the value where ebp points to:
-            treat ebp as an integer pointer and alter what it points to
-   7. correctly set return values of sys_fork():
-         ebx in the parent's trapframe gets the new child PID
-         ebx in the child's trapframe gets ?*/
 void SysFork(void) 
 {
+    //1. allocate a new PID and add it to ready_que (similar to start of SpawnSR)
+    int pid;
+    if(QueEmpty(&avail_que))
+    {
+        cons_printf("Panic: out of PID!\n");
+        breakpoint(); //Calling breakpoint(); to enter GDB
+    }
+    pid = DeQue(&avail_que);
+    Bzero((char *) &pcb[pid], sizeof(pcb_t));
+    pcb[pid].state = READY;   
+    if(pid != IDLE)
+        EnQue(pid, &ready_que);
+
+    /*2. copy PCB from parent process, but alter these:
+         process state, the two time counts, and ppid*/
+    pcb[pid].tf_p = pcb[run_pid].tf_p;	//Copying PCB from run_pid (Parent's Process ID)
+    pcb[pid].state = READY;		//Changing the state of the child to READY.
+    pcb[pid].time_count = 0;		//Resetting the time_count.
+    pcb[pid].total_time = 0;		//Resetting the total_time.
+    pcb[pid].ppid = run_pid;		//Changinhg the PPID to the run_pid.
+    
+    /* 3. copy the process image (the 4KB DRAM) from parent to child:
+          figure out destination and source byte addresses
+          use tool MemCpy() to do the copying*/
+    MemCpy((char *) (DRAM_START + pid*STACK_MAX), (char *) (DRAM_START + pid*STACK_MAX + STACK_MAX), STACK_MAX);    // <--Do not know what to do about this guy, yet.
 	
+    /*4. calculate the byte distance between the two processes
+         = (child PID - parent PID) * 4K*/
+    int distance = (pid - run_pid) * (STACK_MAX);
+    
+    /*5. apply the distance to the trapframe location in child's PCB*/
+    *pcb[pid].tf_p = *pcb[run_pid].tf_p + distance;	
+	
+    /*6. use child's trapframe pointer to adjust these in the trapframe:
+         eip (so it points to child's own instructions),
+         ebp (so it points to child's local data),
+         also, the value where ebp points to:
+            treat ebp as an integer pointer and alter what it points to*/
+	
+    /*7. correctly set return values of sys_fork():
+         ebx in the parent's trapframe gets the new child PID
+         ebx in the child's trapframe gets ?*/
+   
 } 
