@@ -3,8 +3,8 @@
 
 #include "const-type.h"     // for SYS_GET_PID, etc., below
 
-
-int sys_get_pid(void) { 
+int sys_get_pid(void) 
+{ 
    int pid;
    asm("movl %1, %%eax;     
         int $128;           
@@ -16,7 +16,8 @@ int sys_get_pid(void) {
    return pid;
 }
 
-int sys_get_time(void) { 
+int sys_get_time(void) 
+{ 
    int time;
    asm("movl %1, %%eax;       
         int $128;             
@@ -28,7 +29,8 @@ int sys_get_time(void) {
    return time;
 }
 
-void sys_sleep(int sleep_sec) {
+void sys_sleep(int sleep_sec) 
+{
    asm("movl %0, %%eax;          
         movl %1, %%ebx;          
         int $128"                
@@ -38,7 +40,8 @@ void sys_sleep(int sleep_sec) {
    );
 }
 
-void sys_write(char *write_sec) {
+void sys_write(char *write_sec) 
+{
    asm("movl %0, %%eax;                      
         movl %1, %%ebx;                      
         int $128"                            
@@ -46,4 +49,12 @@ void sys_write(char *write_sec) {
        : "g" (SYS_WRITE), "g" (write_sec)    // 2 inputs to asm()
        : "eax", "ebx"                        // clobbered registers
    );
+}
+
+void sys_set_cursor(int row, int col) 
+{  
+}
+
+int sys_fork(void) 
+{
 }
