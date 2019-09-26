@@ -38,7 +38,7 @@ void Idle(void)
     }
 }
 
-void Inut(void) {  				// Init, PID 1, asks/tests various OS services
+void Init(void) {  				// Init, PID 1, asks/tests various OS services
    int my_pid, os_time;  			//declare two integers: my_pid & os_time
    char pid_str[QUE_MAX], time_str[QUE_MAX]; 	//declare two 20-char arrays: pid_str & time_str
    my_pid = sys_get_pid();  			//call sys_get_pid() to get my_pid
