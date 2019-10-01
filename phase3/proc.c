@@ -20,13 +20,17 @@ void Idle(void)
             {
                 *upper_left_pos = '*' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
                 for(i = 0; i < 50; i++) //Added this loop to delay the rocess for half a second. This may stop te flickering
+                {
                     asm("sti");
+                }
                 flagForDot = 0;
             }else if (flagForDot == 0)
             {
                 *upper_left_pos = ' ' + VGA_MASK_VAL; //VGA_MASK_VAL makes it bold and white on black.
                 for(i = 0; i < 50; i++) //Added this loop to delay the rocess for half a second. This may stop te flickering
+                {
                     asm("sti");
+                }
                 flagForDot = 1;
             }
         }
@@ -41,10 +45,14 @@ void Init(void) {  // Init, PID 1, asks/tests various OS services
    int forked_pid;
    forked_pid = sys_fork();
    if(forked_pid == NONE)
+   {
        sys_write("sys_fork() failed!\n");
+   }
    forked_pid = sys_fork();
    if(forked_pid == NONE)
+   {
        sys_write("sys_fork() failed!\n");
+   }
     
    my_pid = sys_get_pid();               // what's my PID
    Number2Str(my_pid, pid_str);          // convert # to str
