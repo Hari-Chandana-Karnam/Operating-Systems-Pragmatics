@@ -46,7 +46,7 @@ void sys_write(char *write_sec)
         movl %1, %%ebx;                      
         int $128"                            
        :                                     // no output from asm()
-       : "g" (SYS_WRITE), "g" (write_sec)    // 2 inputs to asm()
+       : "g" (SYS_WRITE), "g" (*write_sec)    // 2 inputs to asm()
        : "eax", "ebx"                        // clobbered registers
    );
 }
