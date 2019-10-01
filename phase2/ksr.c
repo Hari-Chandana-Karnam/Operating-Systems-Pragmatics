@@ -47,7 +47,10 @@ void TimerSR(void) {
 	    pcb[i].state = READY;
 	}
    }
-
+  
+  if(run_pid == IDLE)
+	return;
+	
   if(pcb[run_pid].time_count == TIME_MAX) 
   { 
       pcb[run_pid].state = READY;
