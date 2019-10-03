@@ -18,6 +18,9 @@
 #define NONE -1                 // to indicate none
 #define IDLE 0                  // Idle thread PID 0
 #define DRAM_START 0xe00000     // 14 MB
+#define VIDEO_MUTEX 0           // ID of VIDEO_MUTEX is 0. Phase 4.
+#define UNLOCKED 0              // mutex unlocked state is 0
+#define LOCKED 1                // mutex locked state is 1
 
 #define SYSCALL_EVENT 128       // syscall event identifier code, phase2
 #define SYS_GET_PID 129         // different types of syscalls
@@ -26,12 +29,15 @@
 #define SYS_WRITE 132
 #define SYS_FORK 133            // phase 3
 #define SYS_SET_CURSOR 134      // phase 3
+#define SYS_GET_RAND 135        // phase 4
+#define SYS_LOCK_MUTEX 136      // phase 4
+#define SYS_UNLOCK_MUTEX 137    // phase 4
 #define VIDEO_START (unsigned short *)0xb8000
 #define VIDEO_END ((unsigned short *)0xb8000 + 25 * 80)
 
 typedef void (*func_p_t)(void);
 
-typedef enum {AVAIL, READY, RUN, SLEEP} state_t;
+typedef enum {AVAIL, READY, RUN, SLEEP, SUSPEND} state_t;
 
 typedef struct {
    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax, event, eip, cs, efl;
@@ -50,5 +56,10 @@ typedef struct {
       int tail;
       int que[QUE_MAX]; //QUE_MAX = 20
 } que_t;    //Queue type
+
+typedef struct {
+   int lock;
+   int suspend_que[QUE_MAX];
+} mutex_t;
 
 #endif      // to prevent name mangling
