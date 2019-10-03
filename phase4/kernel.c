@@ -1,4 +1,4 @@
-// kernel.c, 158, phase 3
+// kernel.c, 158, phase 4
 //
 // Team Name: "RuntimeErrors" (Members: Angad Pal Dhanoa & Dalton Caraway)
 
@@ -16,6 +16,8 @@ pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  //
 
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
 unsigned short *sys_cursor;   //Add the new cursor position that OS keep
+unsigned sys_rand_count;
+mutex_t video_mutex;
 struct i386_gate *idt;        //interrupt descriptor table
 
 void BootStrap(void) {
@@ -35,6 +37,8 @@ void BootStrap(void) {
    fill_gate(&idt[TIMER_EVENT], (int)TimerEntry, get_cs(), ACC_INTR_GATE, 0);	  //addr of TimerEntry is placed into proper IDT entry
    fill_gate(&idt[SYSCALL_EVENT], (int)SyscallEntry, get_cs(), ACC_INTR_GATE, 0); //Have to program this one properly.
    outportb(PIC_MASK_REG, PIC_MASK_VAL); //send PIC control register the mask value for timer handling
+   
+   /*add code to initialize sys_rand_count and video_mutex*/
 }
 
 int main(void) {
