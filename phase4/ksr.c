@@ -84,16 +84,36 @@ void SyscallSR(void)
       case SYS_FORK:
 	 SysFork();
          break;
+      case SYS_GET_RAND:
+         ... = ...  (just do this directly)
+         break;
+      case SYS_LOCK_MUTEX:
+         SysLockMutex();
+         break;
+      case SYS_UNLOCK_MUTEX:
+         SysUnlockMutex();
+         break;
       default:
          cons_printf("Kernel Panic: no such syscall!\n");
          breakpoint();
    }
+	
+   /*if run_pid is not NONE, we penalize it by
+      a. downgrade its state to READY
+      b. moving it to the back of the ready-to-run process queue
+      c. reset run_pid (is now NONE)*/
+    if (run_pid != NONE)
+    {
+	   pcb(run_pid).state = READY;
+	   EnQue(run_pid, &ready_que);
+           run_pid = NONE;
+    }
 }
 
 void SysSleep(void) 
 {
    int sleep_sec = pcb[run_pid].tf_p->ebx;
-   pcb[run_pid].wake_time = sys_time_count + (sleep_sec * 100);
+   pcb[run_pid].wake_time = sys_time_count + (sleep_sec * 10);   //Updated this from 100 to 10. Faster now.
    pcb[run_pid].state = SLEEP;
    run_pid = NONE;
 }
@@ -160,3 +180,37 @@ void SysFork(void)
     pcb[run_pid].tf_p->ebx = PID;		//set ebx to new pid in parent process's trapframe
     pcb[PID].tf_p->ebx = 0;			//set ebx to 0 in child process's trapframe
 } 
+
+void SysLockMutex(void) {   // phase4
+   int mutex_id;
+
+   mutex_id = ...
+
+   if(mutex_id == ...) {
+      if the lock of the ... is UNLOCKED
+         set the lock of the mutex to be LOCKED
+      } else {
+        suspend the running/calling process: steps 1, 2, 3
+      }
+   } else {
+      cons_printf("Panic: no such mutex ID!\n");
+      breakpoint();
+  }
+}
+
+void SysUnlockMutex(void) {
+   int mutex_id, released_pid;
+
+   mutex_id = ...
+
+   if(mutex_id == ...) {
+      if(the suspend queue of the mutex is NOT empty) {
+        release the 1st process in the suspend queue: steps 1, 2, 3
+      } else {
+         set the lock of the mutex to be UNLOCKED
+      }
+   } else {
+      cons_printf("Panic: no such mutex ID!\n");
+      breakpoint();
+  }
+}
