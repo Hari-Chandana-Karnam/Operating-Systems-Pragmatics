@@ -7,12 +7,13 @@
 
 #include "const-type.h"
 
-extern int run_pid;                 // PID of current selected running process
-/*and other extern ...*/
+extern int run_pid;                 
 extern pcb_t pcb[PROC_MAX];
 extern que_t avail_que; 
 extern que_t ready_que;
 extern unsigned int sys_time_count;
-extern unsigned short *sys_cursor;  //like others, add the new sys_cursor newly declared in main.c 
+extern unsigned short *sys_cursor; 
+extern unsigned sys_rand_count;
+extern mutex_t video_mutex;
 
 #endif
