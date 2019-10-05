@@ -29,6 +29,13 @@ void BootStrap(void) {
    	Bzero((char *) &avail_que, sizeof(que_t));  //call tool Bzero() to clear avail queue
    	Bzero((char *) &ready_que, sizeof(que_t));  //call tool Bzero() to clear ready queue
 	Bzero((char *) &video_mutex->suspend_que, sizeof(que_t));  //call tool Bzero() to clear ready queue
+	/* I am thinking this... 
+	 * The statement above can be a problem.
+	 * We declared avail_que and ready_que and then passed their Addresses.
+	 * video_mutex was declared as a pointer. ans we have to work with the que of that mutex. 
+	 * 1. Do we have to used video_mutex as video_mutex[run_pid]->suspend_que.
+	 * 2. Do we pass it directly either way, because it is already just a pointer.
+	 */
 
    //enqueue all the available PID numbers to avail queue
    for(i = 0; i < QUE_MAX; i++)
