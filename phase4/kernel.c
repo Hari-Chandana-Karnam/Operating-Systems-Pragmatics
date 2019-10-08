@@ -1,6 +1,6 @@
 // kernel.c, 158, phase 4
 //
-// Team Name: "RuntimeErrors" (Members: Angad Pal Dhanoa & Dalton Caraway)
+// Team Name: "RuntimeErrors" (Members: Angad Pal Dhanoa, Dalton Caraway, & Hari Chandana Karnam)
 
 #include "spede.h"
 #include "const-type.h"
