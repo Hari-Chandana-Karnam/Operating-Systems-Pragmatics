@@ -10,62 +10,62 @@
 
 void SpawnSR(func_p_t p) 
 {     
-   int pid;
+   	int pid;
 
-   if(QueEmpty(&avail_que))
-   {
-      cons_printf("Panic: out of PID!\n");
-      breakpoint(); 
-   }
+   	if(QueEmpty(&avail_que))
+   	{
+    	cons_printf("Panic: out of PID!\n");
+      	breakpoint(); 
+   	}
 
-   pid = DeQue(&avail_que);
-   Bzero((char *) &pcb[pid], sizeof(pcb_t));
-   pcb[pid].state = READY;
+   	pid = DeQue(&avail_que);
+   	Bzero((char *) &pcb[pid], sizeof(pcb_t));
+   	pcb[pid].state = READY;
    
-   if(pid != IDLE)
-      EnQue(pid, &ready_que);
+   	if(pid != IDLE)
+    	EnQue(pid, &ready_que);
    
-   MemCpy((char *)(DRAM_START + (pid*STACK_MAX)), (char *) p, STACK_MAX);
-   pcb[pid].tf_p = (tf_t *)(DRAM_START + (pid + 1)*STACK_MAX - sizeof(tf_t));
-   pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;	
-   pcb[pid].tf_p->cs  = get_cs();                     	
-   pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
+   	MemCpy((char *)(DRAM_START + (pid*STACK_MAX)), (char *) p, STACK_MAX);
+   	pcb[pid].tf_p = (tf_t *)(DRAM_START + (pid + 1)*STACK_MAX - sizeof(tf_t));
+   	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;	
+   	pcb[pid].tf_p->cs  = get_cs();                     	
+   	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
 }
 
 void TimerSR(void) 
 {
-   int i;
-   outportb(PIC_CONT_REG, TIMER_SERVED_VAL); 	//1st notify PIC control register that timer event is now served
-   sys_time_count++;                         	//increment system time count by 1
-   pcb[run_pid].time_count++;                	//increment the time count of the process currently running by 1
-   pcb[run_pid].total_time++;			//increment the life span count of the process currently running by 1
+	int i;
+   	outportb(PIC_CONT_REG, TIMER_SERVED_VAL); 	//1st notify PIC control register that timer event is now served
+   	sys_time_count++;                         	//increment system time count by 1
+   	pcb[run_pid].time_count++;                	//increment the time count of the process currently running by 1
+   	pcb[run_pid].total_time++;			//increment the life span count of the process currently running by 1
    
-   for(i = 0; i < QUE_MAX; i++)
-   {
-	if((pcb[i].state == SLEEP) && (pcb[i].wake_time == sys_time_count))
-	{
-	    EnQue(i, &ready_que);
-	    pcb[i].state = READY;
-	}
-   }
+   	for(i = 0; i < QUE_MAX; i++)
+   	{
+		if((pcb[i].state == SLEEP) && (pcb[i].wake_time == sys_time_count))
+		{
+	    	EnQue(i, &ready_que);
+	    	pcb[i].state = READY;
+		}
+   	}
 
-  if(run_pid == IDLE)
-	return;
+  	if(run_pid == IDLE)
+		return;
 	
-  if(pcb[run_pid].time_count == TIME_MAX) 
-  { 
-      pcb[run_pid].state = READY;
-      EnQue(run_pid, &ready_que);
-      run_pid = NONE;
-   }
+  	if(pcb[run_pid].time_count == TIME_MAX) 
+  	{ 
+    	pcb[run_pid].state = READY;
+      	EnQue(run_pid, &ready_que);
+      	run_pid = NONE;
+   	}
 }
 
 void SyscallSR(void) 
 {
-   switch(pcb[run_pid].tf_p->eax)
-   {
-      	case SYS_GET_PID:
-	        pcb[run_pid].tf_p->ebx = run_pid;
+   	switch(pcb[run_pid].tf_p->eax)
+   	{
+    	case SYS_GET_PID:
+	    	pcb[run_pid].tf_p->ebx = run_pid;
 	        break;
       	case SYS_GET_TIME:
 	        pcb[run_pid].tf_p->ebx = sys_time_count;
@@ -73,14 +73,14 @@ void SyscallSR(void)
       	case SYS_SLEEP:
 	        SysSleep();
 	       	break;
-	case SYS_WRITE:
+		case SYS_WRITE:
 	      	SysWrite();
-		break;
+			break;
       	case SYS_SET_CURSOR:
-		SysSetCursor();
+			SysSetCursor();
          	break;
-	case SYS_FORK:
-		SysFork();
+		case SYS_FORK:
+			SysFork();
          	break;
       	case SYS_GET_RAND:
          	pcb[run_pid].tf_p->ebx = sys_rand_count;
@@ -91,12 +91,12 @@ void SyscallSR(void)
       	case SYS_UNLOCK_MUTEX:
          	SysUnlockMutex();
          	break;
-	case SYS_WAIT:
-		SysWait();
-		break;
-	case SYS_EXIT:
-		SysExit();
-		break;
+		case SYS_WAIT:
+			SysWait();
+			break;
+		case SYS_EXIT:
+			SysExit();
+			break;
       	default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
@@ -108,32 +108,32 @@ void SyscallSR(void)
       c. reset run_pid (is now NONE)*/
     if (run_pid != NONE)
     {
-	   pcb[run_pid].state = READY;
-	   EnQue(run_pid, &ready_que);
-           run_pid = NONE;
+	   	pcb[run_pid].state = READY;
+	   	EnQue(run_pid, &ready_que);
+        	run_pid = NONE;
     }
 }
 
 void SysSleep(void) 
 {
-   int sleep_sec = pcb[run_pid].tf_p->ebx;
-   pcb[run_pid].wake_time = sys_time_count + (sleep_sec * 10);   //Updated this from 100 to 10. Faster now.
-   pcb[run_pid].state = SLEEP;
-   run_pid = NONE;
+   	int sleep_sec = pcb[run_pid].tf_p->ebx;
+   	pcb[run_pid].wake_time = sys_time_count + (sleep_sec * 10);   //Updated this from 100 to 10. Faster now.
+   	pcb[run_pid].state = SLEEP;
+   	run_pid = NONE;
 }
 
 void SysWrite(void) 
 {
-   char *str = (char *) pcb[run_pid].tf_p->ebx;
-   int i = 0;
-   while(str[i] != '\0')
-   {	
-	if(sys_cursor == VIDEO_END)
-	     sys_cursor = VIDEO_START;	
-	*sys_cursor = str[i] + VGA_MASK_VAL;
-	sys_cursor++;
-	i++;
-   }
+   	char *str = (char *) pcb[run_pid].tf_p->ebx;
+   	int i = 0;
+   	while(str[i] != '\0')
+   	{	
+		if(sys_cursor == VIDEO_END)
+	    	sys_cursor = VIDEO_START;	
+		*sys_cursor = str[i] + VGA_MASK_VAL;
+		sys_cursor++;
+		i++;
+   	}
 }
 
 void SysSetCursor(void) 
@@ -153,13 +153,11 @@ void SysFork(void)
 
     if(QueEmpty(&avail_que))
     {
-	   	
-	    
-	//When running out of PID, SysFork service should place NONE
-   	//to ebx in trapframe of process for sys_fork call to return.\
-	pcb[run_pid].tf_p->ebx = NONE;  
+		//When running out of PID, SysFork service should place NONE
+   		//to ebx in trapframe of process for sys_fork call to return.\
+		pcb[run_pid].tf_p->ebx = NONE;  
        	return;
-	// cons_printf("Panic: out of PID!\n");		phase 4
+		// cons_printf("Panic: out of PID!\n");		phase 4
         //breakpoint();					phase 4
     }
 
@@ -189,20 +187,19 @@ void SysFork(void)
 
 void SysLockMutex(void) {   // phase4
     int mutex_id;
-
     mutex_id = pcb[run_pid].tf_p->ebx;
 
     if(mutex_id == VIDEO_MUTEX)
     {
     	if(video_mutex.lock == UNLOCKED)
-	{
+		{
             video_mutex.lock = LOCKED;
       	} 
-	else 
-	{
-	    EnQue(run_pid, &video_mutex.suspend_que);
-	    pcb[run_pid].state = SUSPEND;
-	    run_pid = NONE;
+		else 
+		{
+	    	EnQue(run_pid, &video_mutex.suspend_que);
+	    	pcb[run_pid].state = SUSPEND;
+	    	run_pid = NONE;
       	}
     } 
     else 
@@ -215,25 +212,62 @@ void SysLockMutex(void) {   // phase4
 void SysUnlockMutex(void) 
 {
     int mutex_id, released_pid;
-
     mutex_id = pcb[run_pid].tf_p->ebx;
 
     if(mutex_id == VIDEO_MUTEX) 
     {
         if(!QueEmpty(&video_mutex.suspend_que))
-	{
-	    released_pid = DeQue(&video_mutex.suspend_que);
-	    EnQue(released_pid, &ready_que);
-	    pcb[released_pid].state = READY;         	
+		{
+	    	released_pid = DeQue(&video_mutex.suspend_que);
+	    	EnQue(released_pid, &ready_que);
+	    	pcb[released_pid].state = READY;         	
       	} 
-	else 
-	{
-	    video_mutex.lock = UNLOCKED;
-      	}
+		else 
+		{
+	    	video_mutex.lock = UNLOCKED;
+     	}
     } 
     else 
     {
         cons_printf("Panic: no such mutex ID!\n");
       	breakpoint();
     }
+}
+
+void SysExit(void)
+{
+    int exit_code, cpid;
+	
+	exit_code = *pcb[run_pid].tf_p->ebx; // Have to dereference ebx as we pass pointer to sys_exit.
+	cpid = pcb[run_pid].tf_p->ecx;
+	
+	if(WAIT != pcb[run_pid].state)
+    {
+        /*running process cannot exit, it becomes a zombie
+        no running process anymore*/
+        pcb[cpid].state = ZOMBIE;
+    }
+    else
+    {
+    	pcb[run_pid].state = READY;	// upgrade parent's state
+		EnQue(run_pid, &ready_que);	// move parent to be ready to run again
+				
+		pcb[run_pid].tf_p->ecx = cpid;	//pass over exiting PID to parent
+		pcb[run_pid].tf_p->ebx = exit_code;	//pass over exit code to parent
+		
+		//reclaim child resources (alter state, move it)
+        //no running process anymore
+    }
+}
+
+void SysWait(void)
+{
+	/*search for any child that called to exit?
+    	if not any found:
+         	parent is blocked into WAIT state
+         	no running process anymore
+      	if found one:
+         	pass over its PID to parent
+         	pass over its exit code to parent
+         	reclaim child resources (alter state, move it) */
 }
