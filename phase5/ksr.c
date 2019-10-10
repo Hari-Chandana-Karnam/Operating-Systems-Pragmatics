@@ -95,6 +95,12 @@ void SyscallSR(void)
       	case SYS_UNLOCK_MUTEX:
          	SysUnlockMutex();
          	break;
+	case SYS_WAIT:
+		SysWait();
+		break;
+	case SYS_EXIT:
+		SysExit:
+		break;
       	default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
