@@ -262,12 +262,13 @@ void SysExit(void)
 
 void SysWait(void)
 {
-	/*search for any child that called to exit?
-    	if not any found:
-         	parent is blocked into WAIT state
-         	no running process anymore
-      	if found one:
-         	pass over its PID to parent
-         	pass over its exit code to parent
-         	reclaim child resources (alter state, move it) */
+	//search for any child that called to exit?
+      	if(){//if found one:
+         	pcb[run_pid].tf_p->ecx = cpid;//pass over its PID to parent
+         	pcb[run_pid].tf_p->ebx = exit_code;//pass over its exit code to parent
+         	//reclaim child resources (alter state, move it) */
+		else{//if not any found:
+         	pcb[run_pid].state = WAIT;//parent is blocked into WAIT state
+         	run_pid = NONE;//no running process anymore
+		}
 }
