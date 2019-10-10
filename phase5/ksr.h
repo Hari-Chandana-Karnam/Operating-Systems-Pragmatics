@@ -14,5 +14,7 @@ void SysSetCursor(void);
 void SysFork(void);
 void SysLockMutex(void);
 void SysUnlockMutex(void);
+void SysExit(void);
+void SysWait(void);
 
 #endif
