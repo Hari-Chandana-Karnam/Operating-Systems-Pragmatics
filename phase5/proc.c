@@ -54,7 +54,7 @@ void Init(void) {  // Init, PID 1, asks/tests various OS services
 	for(i=0;i<5;i++) 
 	{
 		forked_pid = sys_fork();// is forked_pid used elsewhere only get final fork's pid
-   		if(NONE == forked_pid )
+   		if(forked_pid == NONE)
 		{
 			sys_write("sys_fork() failed!\n");
 			Sys_Exit(NONE);
