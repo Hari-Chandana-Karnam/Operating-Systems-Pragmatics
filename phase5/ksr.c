@@ -151,8 +151,14 @@ void SysFork(void)
 
     if(QueEmpty(&avail_que))
     {
-        cons_printf("Panic: out of PID!\n");
-        breakpoint();
+	   	
+	    
+	//When running out of PID, SysFork service should place NONE
+   	//to ebx in trapframe of process for sys_fork call to return.\
+	pcb[run_pid].tf_p->ebx = NONE;  
+       	return;
+	// cons_printf("Panic: out of PID!\n");		phase 4
+        //breakpoint();					phase 4
     }
 
     PID = DeQue(&avail_que);
