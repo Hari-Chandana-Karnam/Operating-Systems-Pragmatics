@@ -7,7 +7,6 @@
 #include "ksr.h"
 #include "proc.h"
 #include "syscall.h"
-int numt=1;
 
 void SpawnSR(func_p_t p) 
 {     
@@ -24,9 +23,7 @@ void SpawnSR(func_p_t p)
    pcb[pid].state = READY;
    
    if(pid != IDLE)
-   {
       EnQue(pid, &ready_que);
-   }
    
    MemCpy((char *)(DRAM_START + (pid*STACK_MAX)), (char *) p, STACK_MAX);
    pcb[pid].tf_p = (tf_t *)(DRAM_START + (pid + 1)*STACK_MAX - sizeof(tf_t));
@@ -54,7 +51,7 @@ void TimerSR(void)
 
   if(run_pid == IDLE)
 	return;
-
+	
   if(pcb[run_pid].time_count == TIME_MAX) 
   { 
       pcb[run_pid].state = READY;
@@ -65,7 +62,6 @@ void TimerSR(void)
 
 void SyscallSR(void) 
 {
-	
    switch(pcb[run_pid].tf_p->eax)
    {
       	case SYS_GET_PID:
@@ -77,14 +73,14 @@ void SyscallSR(void)
       	case SYS_SLEEP:
 	        SysSleep();
 	       	break;
-		case SYS_WRITE:
+	case SYS_WRITE:
 	      	SysWrite();
-			break;
+		break;
       	case SYS_SET_CURSOR:
-			SysSetCursor();
+		SysSetCursor();
          	break;
-		case SYS_FORK:
-		 	SysFork();
+	case SYS_FORK:
+		SysFork();
          	break;
       	case SYS_GET_RAND:
          	pcb[run_pid].tf_p->ebx = sys_rand_count;
@@ -99,13 +95,12 @@ void SyscallSR(void)
 		SysWait();
 		break;
 	case SYS_EXIT:
-		SysExit:
+		SysExit();
 		break;
       	default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
-   }
-	
+   }	
 	
    /*if run_pid is not NONE, we penalize it by
       a. downgrade its state to READY
@@ -193,41 +188,52 @@ void SysFork(void)
 } 
 
 void SysLockMutex(void) {   // phase4
-	int mutex_id;
+    int mutex_id;
 
-   	mutex_id = pcb[run_pid].tf_p->ebx;
+    mutex_id = pcb[run_pid].tf_p->ebx;
 
-   	if(mutex_id == VIDEO_MUTEX) {
-      	if(video_mutex.lock == UNLOCKED)
-		{
-         	video_mutex.lock = LOCKED;
-      	} else {
-			EnQue(run_pid, &video_mutex.suspend_que);
-			pcb[run_pid].state = SUSPEND;
-			run_pid = NONE;
+    if(mutex_id == VIDEO_MUTEX)
+    {
+    	if(video_mutex.lock == UNLOCKED)
+	{
+            video_mutex.lock = LOCKED;
+      	} 
+	else 
+	{
+	    EnQue(run_pid, &video_mutex.suspend_que);
+	    pcb[run_pid].state = SUSPEND;
+	    run_pid = NONE;
       	}
-   	} else {
-      	cons_printf("Panic: no such mutex ID!\n");
+    } 
+    else 
+    {
+        cons_printf("Panic: no such mutex ID!\n");
       	breakpoint();
-  	}
+    }
 }
 
-void SysUnlockMutex(void) {
-   	int mutex_id, released_pid;
+void SysUnlockMutex(void) 
+{
+    int mutex_id, released_pid;
 
-   	mutex_id = pcb[run_pid].tf_p->ebx;
+    mutex_id = pcb[run_pid].tf_p->ebx;
 
-   	if(mutex_id == VIDEO_MUTEX) {
-      	if(!QueEmpty(&video_mutex.suspend_que))
-		{
-			released_pid = DeQue(&video_mutex.suspend_que);
-			EnQue(released_pid, &ready_que);
-			pcb[released_pid].state = READY;         	
-      	} else {
-			video_mutex.lock = UNLOCKED;
+    if(mutex_id == VIDEO_MUTEX) 
+    {
+        if(!QueEmpty(&video_mutex.suspend_que))
+	{
+	    released_pid = DeQue(&video_mutex.suspend_que);
+	    EnQue(released_pid, &ready_que);
+	    pcb[released_pid].state = READY;         	
+      	} 
+	else 
+	{
+	    video_mutex.lock = UNLOCKED;
       	}
-   	} else {
-      	cons_printf("Panic: no such mutex ID!\n");
+    } 
+    else 
+    {
+        cons_printf("Panic: no such mutex ID!\n");
       	breakpoint();
-  	}
+    }
 }
