@@ -128,8 +128,8 @@ int sys_wait(int *exit_code)	// phase 5
     int cpid;
     asm("movl %1 %%eax;          
         movl %2 %%ebx;          
-        int $128"
-	movl %%ecx, %0;
+        int $128;
+	movl %%ecx, %0"
        : "=g" (cpid)                    	   	// no output from asm()
        : "g" (SYS_WAIT), "g" (exit_code) 		// 2 inputs to asm()
        : "eax", "ebx", "ecx"            	   	// clobbered registers
