@@ -126,8 +126,8 @@ void sys_exit(int exit_code) 	// phase 5
 int sys_wait(int *exit_code)	// phase 5
 {
     int cpid;
-    asm("movl %1 %%eax;          
-        movl %2 %%ebx;          
+    asm("movl %1, %%eax;          
+        movl %2, %%ebx;          
         int $128;
 	movl %%ecx, %0"
        : "=g" (cpid)                    	   	// no output from asm()
