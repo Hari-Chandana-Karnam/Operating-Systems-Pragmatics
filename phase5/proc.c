@@ -41,7 +41,7 @@ void Idle(void)
 
 //Init for phase 5
 void Init(void) {
-   	int my_pid, column, rand, forked_pid, i, exit_pid, exit_code, sleep_period, total_sleep_period;
+   	int my_pid, column, forked_pid, i, exit_pid, exit_code, sleep_period, total_sleep_period;
    	char pid_str[PROC_MAX], str[PROC_MAX];
 	
 	for(i = 0; i < 5; i++) 
@@ -86,9 +86,9 @@ void Init(void) {
 		sys_write(pid_str);
 		sys_unlock_mutex(VIDEO_MUTEX);			
 		
-		rand =  1 + ((sys_get_rand()/my_pid) % 4);
-		sys_sleep(rand);
-		total_sleep_period += rand;
+		sleep_period =  1 + ((sys_get_rand()/my_pid) % 4);
+		sys_sleep(sleep_period);
+		total_sleep_period += sleep_period;
 		column++;
 	}
     sys_exit(total_sleep_period);		
