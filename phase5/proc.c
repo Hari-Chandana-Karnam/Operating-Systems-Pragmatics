@@ -73,13 +73,13 @@ void Init(void) {
 			sys_write(str);
 			sys_unlock_mutex(VIDEO_MUTEX);
 		}
-		sys_write("Init exits");	
-		SYS_EXIT(0);
+		sys_write("  Init exits");	
+		sys_exit(0);
 	}
 	
 	column = 0;
 	total_sleep_period = 0;
-	while(column <= 70)
+	while(column < 70)
 	{			
 		sys_lock_mutex(VIDEO_MUTEX);
 		sys_set_cursor(my_pid, column);
