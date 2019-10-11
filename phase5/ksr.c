@@ -232,39 +232,57 @@ void SysUnlockMutex(void)
 
 void SysExit(void)
 {
-    int exit_code, cpid;
+    int exit_code, parentPID;
 	
-	exit_code = *pcb[run_pid].tf_p->ebx; // Have to dereference ebx as we pass pointer to sys_exit.
-	cpid = pcb[run_pid].tf_p->ecx;
+	exit_code = pcb[run_pid].tf_p->ebx; 
+	parentPID = pcb[run_pid].ppid;
 	
-	if(WAIT != pcb[run_pid].state)
+	if(WAIT != pcb[parentPID].state)
     {
         /*running process cannot exit, it becomes a zombie
         no running process anymore*/
-        pcb[cpid].state = ZOMBIE;
+        pcb[run_pid].state = ZOMBIE;
+		run_pid = NONE;
     }
     else
     {
-    	pcb[run_pid].state = READY;	// upgrade parent's state
-		EnQue(run_pid, &ready_que);	// move parent to be ready to run again
+    	pcb[parentPID].state = READY;	// upgrade parent's state
+		EnQue(parentPID, &ready_que);	// move parent to be ready to run again
 				
-		pcb[run_pid].tf_p->ecx = cpid;	//pass over exiting PID to parent
-		pcb[run_pid].tf_p->ebx = exit_code;	//pass over exit code to parent
+		pcb[parentPID].tf_p->ecx = run_pid;		//pass over exiting PID to parent
+		pcb[parentPID].tf_p->ebx = exit_code;	//pass over exit code to parent
 		
 		//reclaim child resources (alter state, move it)
-        //no running process anymore
+	    pcb[run_pid].state = AVAIL;
+		EnQue(run_pid, &avail_que);
+	    run_pid = NONE;	//no running process anymore
     }
 }
 
 void SysWait(void)
 {
+	int PID; // To store Zombie child's pid.
+	
 	//search for any child that called to exit?
-      	if(){//if found one:
-         	pcb[run_pid].tf_p->ecx = cpid;//pass over its PID to parent
-         	pcb[run_pid].tf_p->ebx = exit_code;//pass over its exit code to parent
-         	//reclaim child resources (alter state, move it) */
-		else{//if not any found:
-         	pcb[run_pid].state = WAIT;//parent is blocked into WAIT state
-         	run_pid = NONE;//no running process anymore
+	for(PID = 0; PID < QUE_MAX; PID++)
+	{
+		if((pcb[PID].state == ZOMBIE) && (pcb[PID].ppid == run_pid))
+		{
+			break;
 		}
+	}
+     
+	if(PID == QUE_MAX) 		// No Zombie Process
+	{
+		pcb[run_pid].state = WAIT;	// parent is blocked into WAIT state
+		run_pid = NONE;				// no running process anymore
+	}
+	else
+	{
+		pcb[run_pid].tf_p->ecx = PID; 					// pass over child's PID to parent
+		pcb[run_pid].tf_p->ebx = pcb[PID].tf_p->ebx;	// pass over its exit code to parent
+		
+		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
+		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
+	}
 }
