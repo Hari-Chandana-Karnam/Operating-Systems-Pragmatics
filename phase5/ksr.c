@@ -179,6 +179,7 @@ void SysFork(void)
     *initBP 	= *initBP + distance;
 
     pcb[run_pid].tf_p->ebx = PID;		//set ebx to new pid in parent process's trapframe
+	pcb[PID].tf_p->ebx = 0;
 } 
 
 void SysLockMutex(void) {   // phase4
