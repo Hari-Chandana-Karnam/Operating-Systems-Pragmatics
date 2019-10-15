@@ -249,7 +249,7 @@ void SysExit(void)
 		EnQue(parentPID, &ready_que);	// move parent to be ready to run again
 				
 		pcb[parentPID].tf_p->ecx = run_pid;		//pass over exiting PID to parent
-		pcb[parentPID].tf_p->ebx = exit_code;	//pass over exit code to parent
+		* (int *) pcb[parentPID].tf_p->ebx = exit_code;	//pass over exit code to parent
 		
 		//reclaim child resources (alter state, move it)
 	    pcb[run_pid].state = AVAIL;
@@ -279,7 +279,7 @@ void SysWait(void)
 	else
 	{
 		pcb[run_pid].tf_p->ecx = PID; 					// pass over child's PID to parent
-		pcb[run_pid].tf_p->ebx = pcb[PID].tf_p->ebx;	// pass over its exit code to parent
+		*(int *) pcb[run_pid].tf_p->ebx = pcb[PID].tf_p->ebx;	// pass over its exit code to parent
 		
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
