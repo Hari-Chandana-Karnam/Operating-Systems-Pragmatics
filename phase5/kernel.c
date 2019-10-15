@@ -28,7 +28,8 @@ void BootStrap(void) {
 	//video_mutex = VIDEO_MUTEX; 			//set video_mutex to VIDEO_MUTEX
    	Bzero((char *) &avail_que, sizeof(que_t));  //call tool Bzero() to clear avail queue
    	Bzero((char *) &ready_que, sizeof(que_t));  //call tool Bzero() to clear ready queue
-
+	Bzero((char *) &video_mutex.suspend_que, sizeof(que_t));
+	video_mutex.lock=UNLOCKED;
    //enqueue all the available PID numbers to avail queue
    for(i = 0; i < QUE_MAX; i++)
    {
