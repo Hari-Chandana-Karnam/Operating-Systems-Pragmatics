@@ -25,11 +25,12 @@ void BootStrap(void) {
    	sys_time_count = 0;                    		//set sys time count to zero  	
 	sys_cursor = VIDEO_START;               	//have it set to VIDEO_START in BootStrap()
 	sys_rand_count = 0;							//set sys rand count to zero 
-	//video_mutex = VIDEO_MUTEX; 			//set video_mutex to VIDEO_MUTEX
-   	Bzero((char *) &avail_que, sizeof(que_t));  //call tool Bzero() to clear avail queue
-   	Bzero((char *) &ready_que, sizeof(que_t));  //call tool Bzero() to clear ready queue
-	Bzero((char *) &video_mutex.suspend_que, sizeof(que_t));
-	video_mutex.lock=UNLOCKED;
+	video_mutex.lock = UNLOCKED;				//set the lock of video_mutex to be UNLOCKED
+   	
+	Bzero((char *) &avail_que, sizeof(que_t));  				//call tool Bzero() to clear avail queue
+   	Bzero((char *) &ready_que, sizeof(que_t));  				//call tool Bzero() to clear ready queue
+	Bzero((char *) &video_mutex.suspend_que, sizeof(que_t));	//call tool Bzero() to clear video_mutex's suspend queue
+	
    //enqueue all the available PID numbers to avail queue
    for(i = 0; i < QUE_MAX; i++)
    {
@@ -42,14 +43,14 @@ void BootStrap(void) {
    outportb(PIC_MASK_REG, PIC_MASK_VAL); //send PIC control register the mask value for timer handling
 }
 
-int main(void) {
-
+int main(void) 
+{
    BootStrap();               	//do the boot strap things 1st
    SpawnSR(&Idle);             	//create Idle thread
    SpawnSR(&Init);             	//create Init thread
    run_pid = IDLE;           	//set run_pid to IDLE
    Loader(pcb[run_pid].tf_p); 	//call Loader() to load the trapframe of Idle
-   return 0; 			//never would actually reach here
+   return 0; 					//never would actually reach here
 }
 
 void Scheduler(void) // choose a run_pid to run
@@ -78,29 +79,28 @@ void Kernel(tf_t *tf_p) // kernel runs
         case TIMER_EVENT:
             TimerSR();         // handle tiemr event
       	    break;
-   	case SYSCALL_EVENT:
+   		case SYSCALL_EVENT:
       	    SyscallSR();       // all syscalls go here 1st
       	    break;
-	default:
+		default:
       	    cons_printf("Kernel Panic: no such event!\n");
-      	    breakpoint();
-   }
+			breakpoint();
+	}
 
-   if(cons_kbhit())           //Read the key being pressed into ch. If 'b' key on target PC is pressed, goto the GDB prompt.
-   {
-      ch = cons_getchar();
-      if(ch == 'b')	         //If 'b' is pressed, goto the GDB prompt.
-      {
-         cons_printf("You Pressed %c. Entering the breakpoint for GDB.\n", ch); //Message for user.
-         breakpoint();        //breakpoint() is the function used to enter the GDB prompt.
-      }
-	else if(ch == ' ')	         //If 'b' is pressed, goto the GDB prompt.
-      {
-         SpawnSR(&Init);        
-      }
-   }
-   
-   Scheduler();               //call Scheduler() to change run_pid if needed
-   Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
+	if(cons_kbhit())           //Read the key being pressed into ch. If 'b' key on target PC is pressed, goto the GDB prompt.
+	{
+    	ch = cons_getchar();
+    	if(ch == 'b')	         //If 'b' is pressed, goto the GDB prompt.
+    	{
+        	cons_printf("You Pressed %c. Entering the breakpoint for GDB.\n", ch); //Message for user.
+    		breakpoint();        //breakpoint() is the function used to enter the GDB prompt.
+    	}
+		else if(ch == ' ')	         //If 'b' is pressed, goto the GDB prompt.
+    	{
+        	SpawnSR(&Init);        
+    	}
+	}
+	
+   	Scheduler();               //call Scheduler() to change run_pid if needed
+   	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
 }
-
