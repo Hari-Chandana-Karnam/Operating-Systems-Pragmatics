@@ -8,10 +8,7 @@ int QueEmpty(que_t *ptr)
 {
     int isEmpty = 0;
     if (ptr->tail == 0)
-    {
         isEmpty = 1;
-	return isEmpty;
-    }
     return isEmpty;
 }
 
@@ -19,25 +16,21 @@ int QueFull(que_t *ptr)
 {
     int isFull = 0;
     if (ptr->tail == QUE_MAX) 
-    {
-	isFull = 1;
-	return isFull;
-    }
+		isFull = 1;
     return isFull;
 }
 
 int DeQue(que_t *ptr)
 {
-    int i, pos1 = ptr->que[0];  //1st position in the queue
+    int i, pos1;
+	pos1 = ptr->que[0];  //1st position in the queue
 	
     if(QueEmpty(ptr))	//Covering the case, "if the queue is empty"
         return NONE;
 	
     ptr->tail--;
     for(i = 0; i <= ptr->tail; i++)
-    {
-	ptr->que[i] = ptr->que[i+1];
-    }
+		ptr->que[i] = ptr->que[i+1];
     return pos1;
 }
 	
@@ -58,8 +51,8 @@ void Bzero (char *start, unsigned int max)
     int i;
     for(i = 0; i < max; i++)
     {
-	*start = (char) 0;
-	start++;
+		*start = (char) 0;
+		start++;
     }
 }
 
@@ -68,7 +61,7 @@ void MemCpy (char *dst, char *src, unsigned int max)
     int i;
     for(i = 0; i < max; i++)
     {
-	*dst = *src; //Coping data from src to dst, index by index
+		*dst = *src; //Coping data from src to dst, index by index
     	dst++;
     	src++;	
     }
@@ -84,14 +77,14 @@ void Number2Str(int x, char *str)
     {	
     	str[0] = '0';
     	str[1] = '\0';
-	return;
+		return;
     }
         
     //Filing the string to store the required outcome in reverse order.
     while(x != 0)
     {
-	str[i++]  = (x % 10) + '0'; //Storing the right most digit
-	x = x/10;//Removing the right most digit;
+		str[i++]  = (x % 10) + '0'; //Storing the right most digit
+		x = x/10;//Removing the right most digit;
     }
 	
     //reversing the order of the 'str' array to have the actual number in strring formation
@@ -99,7 +92,7 @@ void Number2Str(int x, char *str)
     {
         temp = str[j];
         str[j] = str[i-j-1];
-	str[i-j-1] = temp;
+		str[i-j-1] = temp;
     }
     str[i] = (char) 0; //Adding the null character to the end of the string;
     return;
