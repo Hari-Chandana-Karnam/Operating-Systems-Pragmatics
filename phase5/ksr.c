@@ -107,7 +107,7 @@ void SyscallSR(void)
     {
 	   	pcb[run_pid].state = READY;
 	   	EnQue(run_pid, &ready_que);
-        	run_pid = NONE;
+        run_pid = NONE;
     }
 }
 
@@ -137,7 +137,6 @@ void SysSetCursor(void)
 {
     int  cursor_position;
     sys_cursor = VIDEO_START;
-
     cursor_position = pcb[run_pid].tf_p->ebx;
     sys_cursor += cursor_position;
 }
@@ -265,12 +264,8 @@ void SysWait(void)
 	
 	//search for any child that called to exit?
 	for(PID = 0; PID < QUE_MAX; PID++)
-	{
 		if((pcb[PID].state == ZOMBIE) && (pcb[PID].ppid == run_pid))
-		{
 			break;
-		}
-	}
      
 	if(PID == QUE_MAX) 		// No Zombie Process
 	{
