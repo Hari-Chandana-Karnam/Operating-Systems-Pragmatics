@@ -43,13 +43,12 @@ void Idle(void)
 void Init(void) {
    	int my_pid, column, forked_pid, i, exit_pid, exit_code, sleep_period; 
 	int total_sleep_period;
-	
    	char pid_str[PROC_MAX], str[PROC_MAX];
 	
 	for(i = 0; i < 5; i++) 
 	{
 		forked_pid = sys_fork(); // is forked_pid used elsewhere only get final fork's pid
-		if(forked_pid==0)
+		if(forked_pid == 0)
 		{
 			break;
 		}
