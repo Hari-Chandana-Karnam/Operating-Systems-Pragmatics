@@ -62,7 +62,7 @@ void Init(void) {
 	my_pid = sys_get_pid();               // what's my PID
 	Number2Str(my_pid, pid_str);          // convert # to str
 
-	if((my_pid %6) == 1)
+	if(forked_pid > 0)    //((my_pid %6) == 1)  //going by the loop above. Child will have forked_pid == 0 
 	{	
 		for(i = 0; i < 5; i++)
 		{
@@ -87,7 +87,7 @@ void Init(void) {
 		while(column < 70)
 		{			
 			sys_lock_mutex(VIDEO_MUTEX);
-			sys_set_cursor(my_pid%20, column);
+			sys_set_cursor(my_pid, column);  //removed %20 from my_pid. Pid never more than 20.
 			sys_write(pid_str);
 			sys_unlock_mutex(VIDEO_MUTEX);			
 		
