@@ -99,3 +99,11 @@ void Init(void) {
 		sys_exit(total_sleep_period);		
 	}        	
 }
+
+void MyChildExitHandler(void)
+{
+	int cpid
+	int mpid
+	sys_wait();
+	sys_get_pid();
+}
