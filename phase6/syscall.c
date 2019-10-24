@@ -136,3 +136,13 @@ int sys_wait(int *exit_code)	// phase 5
     );
     return cpid;
 }
+
+/*void SysSignal(void)
+      use the signal name (as the array index) and function ptr
+      (as the value) passed from syscall to initialize the
+      signal-handler array in run_pid's PCB
+*/
+/*void SysKill(void)
+      the pid and signal name are passed via syscall
+      if the pid is zero and the signal is SIGCONT:
+      wake up sleeping children of run_pid
