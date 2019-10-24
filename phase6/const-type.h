@@ -22,6 +22,7 @@
 #define UNLOCKED 0               // mutex unlocked state is 0
 #define LOCKED 1                 // mutex locked state is 1
 
+// System Calls
 #define SYSCALL_EVENT 128        // syscall event identifier code, phase2
 #define SYS_GET_PID 129          // different types of syscalls
 #define SYS_GET_TIME 130
@@ -34,6 +35,13 @@
 #define SYS_UNLOCK_MUTEX 137     // phase 4
 #define SYS_EXIT 138             // phase 5
 #define SYS_WAIT 139             // phase 5
+#define SYS_SIGNAL 140           // phase 6
+#define SYS_KILL 141             // phase 6
+
+// Signals
+#define SIGCHLD 17               // phase 6
+#define SIGCONT 18               // phase 6
+
 #define VIDEO_START (unsigned short *)0xb8000
 #define VIDEO_END ((unsigned short *)0xb8000 + 25 * 80)
 
