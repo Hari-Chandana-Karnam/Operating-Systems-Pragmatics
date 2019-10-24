@@ -16,5 +16,7 @@ void SysLockMutex(void);
 void SysUnlockMutex(void);
 void SysExit(void);
 void SysWait(void);
+void SysSignal(void);
+void SysKill(void);
 
 #endif
