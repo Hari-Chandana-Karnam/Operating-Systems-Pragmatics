@@ -95,9 +95,9 @@ void sys_lock_mutex(int mutex_id)
     asm("movl %0, %%eax;          
         movl %1, %%ebx;          
         int $128"                
-       :                         	       		// no output from asm()
+       :                         	       			// no output from asm()
        : "g" (SYS_LOCK_MUTEX), "g" (mutex_id)		// 2 inputs to asm()
-       : "eax", "ebx"            	   		// clobbered registers
+       : "eax", "ebx"            	   				// clobbered registers
     );
 }
 
@@ -106,9 +106,9 @@ void sys_unlock_mutex(int mutex_id)
     asm("movl %0, %%eax;          
         movl %1, %%ebx;          
         int $128"                
-       :                         	   		// no output from asm()
+       :                         	   				// no output from asm()
        : "g" (SYS_UNLOCK_MUTEX), "g" (mutex_id) 	// 2 inputs to asm()
-       : "eax", "ebx"            	   		// clobbered registers
+       : "eax", "ebx"            	   				// clobbered registers
     );
 }
 
@@ -118,7 +118,7 @@ void sys_exit(int exit_code) 	// phase 5
         movl %1, %%ebx;          
         int $128"                
        :                         	   		// no output from asm()
-       : "g" (SYS_EXIT), "g" (exit_code) 		// 2 inputs to asm()
+       : "g" (SYS_EXIT), "g" (exit_code) 	// 2 inputs to asm()
        : "eax", "ebx"            	   		// clobbered registers
     );
 }
@@ -129,20 +129,38 @@ int sys_wait(int *exit_code)	// phase 5
     asm("movl %1, %%eax;          
         movl %2, %%ebx;          
         int $128;
-	movl %%ecx, %0"
-       : "=g" (cpid)                    	   	// no output from asm()
+		movl %%ecx, %0"
+       : "=g" (cpid)                    	   	// 1 output from asm()
        : "g" (SYS_WAIT), "g" (exit_code) 		// 2 inputs to asm()
        : "eax", "ebx", "ecx"            	   	// clobbered registers
     );
     return cpid;
 }
 
-/*void SysSignal(void)
-      use the signal name (as the array index) and function ptr
-      (as the value) passed from syscall to initialize the
-      signal-handler array in run_pid's PCB
-*/
-/*void SysKill(void)
-      the pid and signal name are passed via syscall
-      if the pid is zero and the signal is SIGCONT:
-      wake up sleeping children of run_pid
+void sys_signal(int signal_name, func_p_t p)	// phase 6
+{
+	// for a process to 'register' a function p as the handler for a certain signal
+	asm("movl %0, %%eax;          
+        movl %1, %%ebx; 
+		movl %2, %%ecx;
+        int $128"
+       :                     	   						// no output from asm()
+       : "g" (SYS_SIGNAL), "g" (signal_name), "g" (p) 	// 3 inputs to asm()
+       : "eax", "ebx", "ecx"            	   			// clobbered registers
+    );
+    return cpid;
+}
+
+void sys_kill(int pid, int signal_name)		// phase 6
+{
+	// for a process to send a signal to a process (or all in the same process group)
+	asm("movl %0, %%eax;          
+        movl %1, %%ebx; 
+		movl %2, %%ecx;
+        int $128"
+       :                     	   						// no output from asm()
+       : "g" (SYS_KILL), "g" (pid), "g" (signal_name) 	// 3 inputs to asm()
+       : "eax", "ebx", "ecx"            	   			// clobbered registers
+    );
+    return cpid;
+}
