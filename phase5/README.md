@@ -1,6 +1,3 @@
-Sacramento State, Computer Engineering / Computer Science
-CpE/CSc 159 Operating System Pragmatics (Fall 2019)
-Instructor: W. Chang
 
 OS Kernel Programming Phase 5
 Process Life Cycle
