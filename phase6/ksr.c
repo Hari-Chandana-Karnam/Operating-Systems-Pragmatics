@@ -8,7 +8,6 @@
 #include "proc.h"
 #include "syscall.h"
 
-
 void SpawnSR(func_p_t p) 
 {     
    	int pid;
@@ -32,7 +31,6 @@ void SpawnSR(func_p_t p)
    	pcb[pid].tf_p->cs  = get_cs();                     	
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
 }
-
 
 void TimerSR(void) 
 {
@@ -65,52 +63,52 @@ void TimerSR(void)
 void SyscallSR(void) 
 {
    	switch(pcb[run_pid].tf_p->eax)
-   	{
+	{
     	case SYS_GET_PID:
-	    	pcb[run_pid].tf_p->ebx = run_pid;
-	        break;
-      	case SYS_GET_TIME:
-	        pcb[run_pid].tf_p->ebx = sys_time_count;
-	        break;
-      	case SYS_SLEEP:
-	        SysSleep();
-	       	break;
+	   		pcb[run_pid].tf_p->ebx = run_pid;
+	     	break;
+    	case SYS_GET_TIME:
+	    	pcb[run_pid].tf_p->ebx = sys_time_count;
+	    	break;
+    	case SYS_SLEEP:
+	    	SysSleep();
+	   		break;
 		case SYS_WRITE:
-	      	SysWrite();
+	    	SysWrite();
 			break;
-      	case SYS_SET_CURSOR:
+    	case SYS_SET_CURSOR:
 			SysSetCursor();
-         	break;
+       		break;
 		case SYS_FORK:
 			SysFork();
-         	break;
-      	case SYS_GET_RAND:
-         	pcb[run_pid].tf_p->ebx = sys_rand_count;
-         	break;
-      	case SYS_LOCK_MUTEX:
-        	SysLockMutex();
-         	break;
-      	case SYS_UNLOCK_MUTEX:
-         	SysUnlockMutex();
-         	break;
-	case SYS_WAIT:
-		SysWait();
-		break;
-	case SYS_EXIT:
-		SysExit();
-		break;
-	case SYS_SIGNAL:
-		SysSignal();
-		break;
-	case SYS_KILL:
-		SysKill();
-		break;
-	default:
+       		break;
+    	case SYS_GET_RAND:
+       		pcb[run_pid].tf_p->ebx = sys_rand_count;
+       		break;
+    	case SYS_LOCK_MUTEX:
+      		SysLockMutex();
+       		break;
+    	case SYS_UNLOCK_MUTEX:
+       		SysUnlockMutex();
+       		break;
+		case SYS_WAIT:
+			SysWait();
+			break;
+		case SYS_EXIT:
+			SysExit();
+			break;
+		case SYS_SIGNAL:
+			SysSignal();
+			break;
+		case SYS_KILL:
+			SysKill();
+			break;
+		default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
-   }	
+   	}	
 	
-    if (run_pid != NONE)
+	if (run_pid != NONE)
     {
 	   	pcb[run_pid].state = READY;
 	   	EnQue(run_pid, &ready_que);
@@ -290,10 +288,10 @@ void SysWait(void)
 }
 
 void SysSignal(void)
-      /*use the signal name (as the array index) and function ptr
-      (as the value) passed from syscall to initialize the
-      signal-handler array in run_pid's PCB*/
 {
+	/*use the signal name (as the array index) and function ptr
+    (as the value) passed from syscall to initialize the
+    signal-handler array in run_pid's PCB*/
 	int signame=pcb[run_pid].tf_p->ebx;
 	int syscl=pcb[run_pid].tf_p->ecx;
 		
@@ -302,12 +300,21 @@ void SysSignal(void)
 }
 
 void SysKill(void)
-     /* the pid and signal name are passed via syscall
-      if the pid is zero and the signal is SIGCONT:
-      wake up sleeping children of run_pid*/
 {
+	/* the pid and signal name are passed via syscall
+    if the pid is zero and the signal is SIGCONT:
+    wake up sleeping children of run_pid*/
 	if ((pcb[run_pid].tf_p->ebx==0)&&(pcb[run_pid].tf_p->ebx==SIGCONT))
 	{
 		//wake kids
 	}
+}
+
+void AlterStack(int pid, func_p_t p)
+{
+	/* Alter the current stack of process 'pid' by: 
+	      a. Lowering trapframe by 4 bytes
+		  b. Replacing EIP in trapframe with 'p'
+		  c. Insert the original EIP into the gap (between the lowered trapframe and what originally above)
+	*/
 }
