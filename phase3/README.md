@@ -1,6 +1,6 @@
-Sacramento State, Computer Engineering / Computer Science
+<h2>Sacramento State, Computer Engineering / Computer Science
 CpE/CSc 159 Operating System Pragmatics (Fall 2019)
-Instructor: W. Chang
+Instructor: W. Chang</h2>
 
 OS Kernel Programming Phase 3
 Parent & Child Processes
