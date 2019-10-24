@@ -54,12 +54,13 @@ typedef struct {
 } tf_t;  // 'trapframe' type
 
 typedef struct {
-   state_t state;             //State of the system
-   tf_t *tf_p;                //Trapframe
-   unsigned int time_count;   //time_count is the timer for the processes 
-   unsigned int total_time;   //total_time is the CPU Run Time.
-   unsigned int wake_time;    //wake_time is when the CPU will wake up.
-   unsigned int ppid;         //process id of parent, i suppose.
+   state_t state;                // State of the system.
+   tf_t *tf_p;                   // Trapframe.
+   unsigned int time_count;      // time_count is the timer for the processes 
+   unsigned int total_time;      // total_time is the CPU Run Time.
+   unsigned int wake_time;       // wake_time is when the CPU will wake up.
+   unsigned int ppid;            // Process ID of parent.
+   func_p_t signal_handler[32];  // 32 is the number of total signals possible in a 32-bit OS.
 } pcb_t;    //PCB type
 
 typedef struct {
