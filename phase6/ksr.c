@@ -92,13 +92,19 @@ void SyscallSR(void)
       	case SYS_UNLOCK_MUTEX:
          	SysUnlockMutex();
          	break;
-		case SYS_WAIT:
-			SysWait();
-			break;
-		case SYS_EXIT:
-			SysExit();
-			break;
-      	default:
+	case SYS_WAIT:
+		SysWait();
+		break;
+	case SYS_EXIT:
+		SysExit();
+		break;
+	case SYS_SIGNAL:
+		SysSignal();
+		break;
+	case SYS_KILL:
+		SysKill();
+		break;
+	default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
    }	
@@ -279,5 +285,28 @@ void SysWait(void)
 		
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
+	}
+}
+
+void SysSignal(void)
+      /*use the signal name (as the array index) and function ptr
+      (as the value) passed from syscall to initialize the
+      signal-handler array in run_pid's PCB*/
+{
+	int signame=pcb[run_pid].tf_p->ebx;
+	int syscl=pcb[run_pid].tf_p->ecx;
+		
+	pcb[run_pid].signal_handler[signame] = signame;//check assignment value
+	//pcb[run_pid].signal_handler[SIGCHLD] = pcb[run_pid].tf_p->ecx;//check assignment value
+}
+
+void SysKill(void)
+     /* the pid and signal name are passed via syscall
+      if the pid is zero and the signal is SIGCONT:
+      wake up sleeping children of run_pid*/
+{
+	if ((pcb[run_pid].tf_p->ebx==0)&&(pcb[run_pid].tf_p->ebx==SIGCONT))
+	{
+		//wake kids
 	}
 }
