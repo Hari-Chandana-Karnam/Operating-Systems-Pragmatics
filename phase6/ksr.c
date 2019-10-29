@@ -245,6 +245,9 @@ void SysExit(void)
         no running process anymore*/
         pcb[run_pid].state = ZOMBIE;
 		run_pid = NONE;
+		
+		if(*pcb[parentPID].signal_handler[SIGCHLD] == SIGCHLD)	// Check if parent registered SIGCHLD or not.
+			AlterState(parentPID, pcb[parentPID].signal_handler[SIGCHLD]);
     }
     else
     {
@@ -294,7 +297,7 @@ void SysSignal(void)
 	signal_name = pcb[run_pid].tf_p->ebx;
 	syscall = *pcb[run_pid].tf_p->ecx;
 		
-	pcb[run_pid].signal_handler[signal_name] = syscall;
+	*(func_p_t) pcb[run_pid].signal_handler[signal_name] = syscall;
 }
 
 void SysKill(void)
