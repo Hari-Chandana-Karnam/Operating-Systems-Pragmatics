@@ -102,8 +102,17 @@ void Init(void) {
 
 void MyChildExitHandler(void)
 {
-	int cpid
-	int mpid
-	sys_wait();
-	sys_get_pid();
+	int exitCode;
+	int exit_cpid = sys_wait(&exitCode);//call sys_wait() to get exiting child PID and exit code
+	int mpid = sys_get_pid(); //call sys_get_pid() to get my PID
+	
+      	Number2Str(exit_cpid, pid_str1); //convert exiting child pid to a string
+      	Number2Str(exit_cpid, pid_str2); //convert exiting code to another string
+
+     	sys_lock_mutex(VIDEO_MUTEX);//lock the video mutex
+      	sys_set_cursor(exit_cpid, 72); //set the video cursor to row: exiting child pid, column: 72
+      	sys_write(pid_str1);//write 1st string
+     	sys_write(":");// write ":"
+      	sys_write(pid_str2);//write 2nd string
+      	sys_unlock_mutex(VIDEO_MUTEX);//unlock the video mutex
 }
