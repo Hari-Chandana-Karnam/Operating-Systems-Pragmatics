@@ -45,6 +45,9 @@ void Init(void) {
 	int total_sleep_period;
    	char pid_str[PROC_MAX], str[PROC_MAX];
 	
+	sys_signal();//parent calls sys_signal() to 'register' the above handler
+       //(when SIGCHLD/child exiting occurs, the handler will run)
+	
 	for(i = 0; i < 5; i++) 
 	{
 		forked_pid = sys_fork(); // is forked_pid used elsewhere only get final fork's pid
@@ -59,45 +62,53 @@ void Init(void) {
 		}
 	}
 
-	my_pid = sys_get_pid();               // what's my PID
-	Number2Str(my_pid, pid_str);          // convert # to str
+	my_pid = sys_get_pid();               // call sys_get_pid() to get my PID
+	Number2Str(my_pid, pid_str);          // convert my PID to a string
 
-	if(forked_pid > 0)    //((my_pid %6) == 1)  //going by the loop above. Child will have forked_pid == 0 
+	if(forked_pid > 0)   //if I'm the pround parent { //going by the loop above. Child will have forked_pid == 0 
 	{	
-		for(i = 0; i < 5; i++)
-		{
-			exit_pid = sys_wait(&exit_code);
-			sys_lock_mutex(VIDEO_MUTEX);
-			sys_set_cursor(my_pid, i*14);
-			sys_write("PID ");
-			Number2Str(exit_pid, str);
-			sys_write(str);
-			sys_write(": ");
-			Number2Str(exit_code, str);
-			sys_write(str);
-			sys_unlock_mutex(VIDEO_MUTEX);
-		}
-		sys_write("  Init exits");	
-		sys_exit(0);
-	}
+		sys_sleep(1);//sleep for a second (probably it's 10 by now)
+          	sys_kill();//call sys_kill() to send SIGCONT to all child processes (0)
+
+         	while(1){// parent runs infinite loop 
+             		sys_lock_mutex(VIDEO_MUTEX);//lock video mutex
+             		sys_set_cursor(my_pid, 0);//set video cursor to the start of my row
+             		sys_write(pid_str);//write my PID string
+             		sys_unlock_mutex(VIDEO_MUTEX);	//unlock video mutex
+
+             		sys_sleep(1);//sleep for a second
+
+             		sys_lock_mutex(VIDEO_MUTEX);//lock video mutex
+             		sys_set_cursor(my_pid, 0);//set video cursor to the start of my row
+             		sys_write("-");//write a dash symbol (add another if needed)
+             		sys_unlock_mutex(VIDEO_MUTEX);//unlock video mutex
+
+            		sys_sleep(1); //sleep for a second
+          		}
+      		 }
 	else
 	{
-		column = 0;
+		sys_sleep(1000000);//child sleeps for 1000000     // child code continues here
+		column = 0; //reset col & total sleep period
 		total_sleep_period = 0;
-		while(column < 70)
+		while(column < 70)//while col is less than 70 {
 		{			
-			sys_lock_mutex(VIDEO_MUTEX);
-			sys_set_cursor(my_pid, column);  //removed %20 from my_pid. Pid never more than 20.
-			sys_write(pid_str);
-			sys_unlock_mutex(VIDEO_MUTEX);			
+			sys_lock_mutex(VIDEO_MUTEX);//lock video mutex
+			sys_set_cursor(my_pid, column);  //set video cursor to my row, col
+			sys_write(pid_str);//write my PID string
+			sys_unlock_mutex(VIDEO_MUTEX);//unlock video mutex		
 		
-			sleep_period =  1 + ((sys_get_rand()/my_pid) % 4);
-			sys_sleep(sleep_period);
-			total_sleep_period += sleep_period;
-			column++;
+			sleep_period =  1 + ((sys_get_rand()/my_pid) % 4);//call and get a random sleep period 1~4
+			sys_sleep(sleep_period);// sleep for that period
+			total_sleep_period += sleep_period;//add it to total sleep period
+			sys_lock_mutex(VIDEO_MUTEX);//lock video mutex
+			sys_set_cursor(my_pid, column); //set video cursor to my row, col
+			sys_write(".");//write a dot symbol (add another if needed)
+			sys_unlock_mutex(VIDEO_MUTEX);// unlock video mutex
+			column++;//increment col by 1
 		}
-		sys_exit(total_sleep_period);		
-	}        	
+		sys_exit(total_sleep_period);//child exits with total sleep period		
+	} 	
 }
 
 void MyChildExitHandler(void)
