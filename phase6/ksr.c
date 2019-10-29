@@ -288,33 +288,45 @@ void SysWait(void)
 }
 
 void SysSignal(void)
-{
-	/*use the signal name (as the array index) and function ptr
-    (as the value) passed from syscall to initialize the
-    signal-handler array in run_pid's PCB*/
-	int signame=pcb[run_pid].tf_p->ebx;
-	int syscl=pcb[run_pid].tf_p->ecx;
+{                                                                                                                                                                         
+	int signal_name, syscall;
+	
+	signal_name = pcb[run_pid].tf_p->ebx;
+	syscall = *pcb[run_pid].tf_p->ecx;
 		
-	pcb[run_pid].signal_handler[signame] = signame;//check assignment value
-	//pcb[run_pid].signal_handler[SIGCHLD] = pcb[run_pid].tf_p->ecx;//check assignment value
+	pcb[run_pid].signal_handler[signal_name] = syscall;
 }
 
 void SysKill(void)
 {
-	/* the pid and signal name are passed via syscall
-    if the pid is zero and the signal is SIGCONT:
-    wake up sleeping children of run_pid*/
-	if ((pcb[run_pid].tf_p->ebx==0)&&(pcb[run_pid].tf_p->ebx==SIGCONT))
+	int i, pid, signal_name;
+	
+	pid = pcb[run_pid].tf_p->ebx;			// ebx of run_pid has the pid
+	signal_name = pcb[run_pid].tf_p->ecx;	// ecx of the run_pid has the signal_name
+	
+	if ((pid == 0) && (signal_name == SIGCONT)) 
 	{
-		//wake kids
+		for(i = 0; i < QUE_MAX; i++) // We check for the children of run_pid who are sleeping and wake them.
+		{
+			if((pcb[i].ppid == run_pid) && (pcb[i].state == SLEEP))
+			{
+				pcb[i].state = READY;
+				EnQue(i, &ready_que);
+			}
+		}
 	}
 }
 
 void AlterStack(int pid, func_p_t p)
 {
-	/* Alter the current stack of process 'pid' by: 
-	      a. Lowering trapframe by 4 bytes
-		  b. Replacing EIP in trapframe with 'p'
-		  c. Insert the original EIP into the gap (between the lowered trapframe and what originally above)
-	*/
+	int *tempEFL;
+	tf_t temporaryTF;
+	
+	tempEFL = &pcb[pid].tf_p->efl;
+	temporaryTF = *pcb[pid].tf_p;
+	
+	*tempEFl = temporaryTF.eip;				
+	*(int *) temporaryTF.eip = *p;			// Replacing EIP in trapframe with 'p'
+	pcb[pid].tf_p = pcb[pid].tf_p - 4;		// Lowering trapframe by 4 bytes [1 Register]
+	pcb[pid].tf_p = temporaryTF;			// Insert the original EIP between lowered trapframe and what originally above
 }
