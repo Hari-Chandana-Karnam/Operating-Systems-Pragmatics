@@ -14,6 +14,7 @@
 #define PROC_MAX 20              // max number of processes
 #define STACK_MAX 4096           // process stack in bytes
 #define QUE_MAX 20               // capacity of a process queue
+#define STR_MAX 20
 
 #define NONE -1                  // to indicate none
 #define IDLE 0                   // Idle thread PID 0
@@ -37,6 +38,7 @@
 #define SYS_WAIT 139             // phase 5
 #define SYS_SIGNAL 140           // phase 6
 #define SYS_KILL 141             // phase 6
+#define SYS_READ 142             // phase 7
 
 // Signals
 #define SIGCHLD 17               // phase 6
@@ -47,7 +49,7 @@
 
 typedef void (*func_p_t)(void);
 
-typedef enum {AVAIL, READY, RUN, SLEEP, SUSPEND, WAIT, ZOMBIE} state_t;
+typedef enum {AVAIL, READY, RUN, SLEEP, SUSPEND, WAIT, ZOMBIE, IO_WAIT} state_t;
 
 typedef struct {
    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax, event, eip, cs, efl;
@@ -72,5 +74,10 @@ typedef struct {
    int lock;
    que_t suspend_que;
 } mutex_t;
+
+typedef struct {
+   int buffer[STR_MAX];
+   int wait_que[STR_MAX];
+} kb_t;
 
 #endif      // to prevent name mangling
