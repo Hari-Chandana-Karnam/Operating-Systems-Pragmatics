@@ -103,6 +103,9 @@ void SyscallSR(void)
 		case SYS_KILL:
 			SysKill();
 			break;
+		case SYS_READ:
+			SysRead;
+			break;
 		default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
@@ -330,4 +333,29 @@ void AlterStack(int pid, func_p_t p)
 	temporaryTF.eip 		= (unsigned int) p;	// replacing EIP in trapframe with 'p'
 	*pcb[pid].tf_p 			= temporaryTF;	
 	*tempEFL 				= tempEIP;			// Insert the original EIP between lowered trapframe and what originally above
+}
+
+void SysRead(void)
+{
+	/*if the buffer in the KB data structure is not empty:
+      	  	get the 1st character and give it to the running process
+   	  else
+      		queue the running PID to the wait queue in the KB data
+      		change the process state to IO_WAIT
+      		running process is NONE*/
+}
+
+void KBSR(void)
+{
+	/*if keyboard is not pressed: return
+   			read the key
+   	  if the key is '$,' breakpoint() // used to be 'b'
+
+   	  if NO process awaits (KB wait queue is empty):
+      		enqueue the key to the KB buffer
+   	  else
+      		release a waiting process from the wait queue
+      		queue it to the ready-to-run queue
+      		update its state
+      		give it the key*/
 }
