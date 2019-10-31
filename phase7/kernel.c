@@ -13,6 +13,7 @@
 int run_pid;                  //declare an integer: run_pid;  // current running PID; if -1, none selected
 que_t avail_que, ready_que;   //declare 2 queues: avail_que and ready_que;  // avail PID and those created/ready to run
 pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  // Process Control Blocks
+kb_t kb[STR_MAX];
 
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
 unsigned short *sys_cursor;   //Add the new cursor position that OS keep
@@ -30,6 +31,8 @@ void BootStrap(void) {
 	Bzero((char *) &avail_que, sizeof(que_t));  				//call tool Bzero() to clear avail queue
    	Bzero((char *) &ready_que, sizeof(que_t));  				//call tool Bzero() to clear ready queue
 	Bzero((char *) &video_mutex.suspend_que, sizeof(que_t));	//call tool Bzero() to clear video_mutex's suspend queue
+	Bzero((char *) &kb.buffer, sizeof(que_t));					//call tool Bzero() to clear kb's buffer que
+	Bzero((char *) &kb.wait_que, sizeof(que_t));				//call tool Bzero() to clear kb's wait_que que
 	
    //enqueue all the available PID numbers to avail queue
    for(i = 0; i < QUE_MAX; i++)
@@ -47,7 +50,7 @@ int main(void)
 {
    BootStrap();               	//do the boot strap things 1st
    SpawnSR(&Idle);             	//create Idle thread
-   SpawnSR(&Init);             	//create Init thread
+   SpawnSR(&Login);             	//create Init thread
    run_pid = IDLE;           	//set run_pid to IDLE
    Loader(pcb[run_pid].tf_p); 	//call Loader() to load the trapframe of Idle
    return 0; 					//never would actually reach here
@@ -87,20 +90,7 @@ void Kernel(tf_t *tf_p) // kernel runs
 			breakpoint();
 	}
 
-	if(cons_kbhit())           //Read the key being pressed into ch. If 'b' key on target PC is pressed, goto the GDB prompt.
-	{
-    	ch = cons_getchar();
-    	if(ch == 'b')	         //If 'b' is pressed, goto the GDB prompt.
-    	{
-        	cons_printf("You Pressed %c. Entering the breakpoint for GDB.\n", ch); //Message for user.
-    		breakpoint();        //breakpoint() is the function used to enter the GDB prompt.
-    	}
-		else if(ch == ' ')	         //If 'b' is pressed, goto the GDB prompt.
-    	{
-        	SpawnSR(&Init);        
-    	}
-	}
-	
+	KBSR();
    	Scheduler();               //call Scheduler() to change run_pid if needed
    	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
 }
