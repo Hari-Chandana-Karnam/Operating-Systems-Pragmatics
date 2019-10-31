@@ -35,7 +35,7 @@ void sys_sleep(int sleep_sec)
         movl %1, %%ebx;          
         int $128"                
        :                         	   		// no output from asm()
-       : "g" (SYS_SLEEP), "g" (sleep_sec)  		// 2 inputs to asm()
+       : "g" (SYS_SLEEP), "g" (sleep_sec)  	// 2 inputs to asm()
        : "eax", "ebx"            	   		// clobbered registers
     );
 }
@@ -161,4 +161,28 @@ void sys_kill(int pid, int signal_name)		// phase 6
        : "g" (SYS_KILL), "g" (pid), "g" (signal_name) 	// 3 inputs to asm()
        : "eax", "ebx", "ecx"            	   			// clobbered registers
     );
+}
+
+void sys_read(char *read_str) 
+{
+	asm("movl %0, %%eax;                      
+        movl %1, %%ebx;                      
+        int 128"                            
+       :                                     		// no output from asm()
+       : "g" (SYS_READ), "g" (read_str)    			// 2 inputs to asm()
+       : "eax", "ebx"                        		// clobbered registers
+    ); 
+	/*...
+      Apply a loop for the following logic:
+      Issue asm("... issue an 'int ?' to do SYS_READ);
+      and get a character at a time.
+
+      'Echo' back the character to the console video:
+      build from it a small string and call sys_write().
+
+      Add the character to the string unless it's the RETURN
+      key ('\r') in which a null character ('\0') is added.
+ 
+ 	  The string should not exceed STR_MAX bytes: when adding
+      the STR_MAX-1th character, append NUL and return.*/
 }
