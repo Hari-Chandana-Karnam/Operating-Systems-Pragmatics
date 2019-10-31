@@ -135,4 +135,20 @@ void Init(void) {
 	sys_exit(total_sleep_period); 	
 }
 
+ void Login(void) 
+ {
+      char login_str[STR_MAX], passwd_str[STR_MAX];
 
+      while(1) {
+         prompt for login entry
+         read keyboard into login_str
+         prompt for password entry
+         read keyboard into passwd_str
+
+         call StrCmp() to compare the 2 strings 
+         if same -> prompt: login successful!\r  // & break; in next phase
+         else -> prompt: login failed!\r
+      }
+	 
+//      sys_vfork(Shell);  // virtual-fork Shell (virtual memeory) phase8
+}
