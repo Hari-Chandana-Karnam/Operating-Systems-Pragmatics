@@ -139,7 +139,7 @@ void SysWrite(void)
    	while(str[i] != '\0')
    	{	
 		
-		if(str[i]=='r' && str[i-1]=='\\')
+		if(str[i+1]=='r' && str[i]=='\\')
 		{
 			nrow=(((sys_cursor-i)/80)+1);//were is row passed? does the pid have anything to do with it will it alwasy be 2 ahead?
 			ncolumn=0;
