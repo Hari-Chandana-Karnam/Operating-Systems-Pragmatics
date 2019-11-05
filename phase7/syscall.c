@@ -163,26 +163,35 @@ void sys_kill(int pid, int signal_name)		// phase 6
     );
 }
 
-void sys_read(char *read_str) 
+sys_read(char *read_str) 
 {
-	asm("movl %0, %%eax;                      
-        movl %1, %%ebx;                      
-        int 128"                            
-       :                                     		// no output from asm()
-       : "g" (SYS_READ), "g" (read_str)    			// 2 inputs to asm()
-       : "eax", "ebx"                        		// clobbered registers
-    ); 
-	/*...
-      Apply a loop for the following logic:
-      Issue asm("... issue an 'int ?' to do SYS_READ);
-      and get a character at a time.
-
-      'Echo' back the character to the console video:
-      build from it a small string and call sys_write().
-
-      Add the character to the string unless it's the RETURN
-      key ('\r') in which a null character ('\0') is added.
- 
- 	  The string should not exceed STR_MAX bytes: when adding
-      the STR_MAX-1th character, append NUL and return.*/
+	int count = 0;
+	char ch;
+	
+	while(1)
+	{
+		asm("movl %0, %%eax;                      
+			 int ?"                            
+		   	 :                          // no output from asm()
+		   	 : "g" (SYS_READ)   		// 2 inputs to asm()
+		     : "eax", "ebx"             // clobbered registers
+		); 
+		
+		if(cons_kbhit()) 
+		{
+    		ch = cons_getchar();
+		}
+			
+		sys_write(ch);
+		if(ch == '\r' || count == STR_MAX)
+		{
+			*read_str = '\0';
+			return;
+		}
+		else
+			*read_str = ch;
+		
+		read_str++;
+		count++;
+	}
 }
