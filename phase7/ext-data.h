@@ -15,5 +15,6 @@ extern unsigned int sys_time_count;
 extern unsigned short *sys_cursor; 
 extern unsigned sys_rand_count;
 extern mutex_t video_mutex;
+extern kb_t kb[STR_MAX];
 
 #endif
