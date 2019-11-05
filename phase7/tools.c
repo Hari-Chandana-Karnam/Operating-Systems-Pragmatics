@@ -97,3 +97,17 @@ void Number2Str(int x, char *str)
     str[i] = (char) 0; //Adding the null character to the end of the string;
     return;
 }
+
+int StrCmp(char str1[], char str2[]){
+	int i = 0, isEqual = 1;
+    	while(str1[i] != '\0' && str2[i] != '\0') // until atleast one string ends
+    	{
+        	if(str1[i] != str2[i]) 
+        	{
+            		isEqual = 0;
+            		break;
+       	 	}
+       	 i++;
+    }
+    return isEqual;
+}
