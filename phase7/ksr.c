@@ -129,21 +129,46 @@ void SysSleep(void)
 
 void SysWrite(void) 
 {
-	int pid_row = pcb[run_pid].ppid
+	int nrow = 0 ;
+	int ncolumn = 0 ;
+	int drow;
+	int dcolumn;
    	char *str = (char *) pcb[run_pid].tf_p->ebx;
    	int i = 0;
 	//int j = 0;
    	while(str[i] != '\0')
    	{	
+		
+		if(str[i]=='r' && str[i-1]=='\\')
+		{
+			nrow=(((sys_cursor-i)/80)+1);//were is row passed? does the pid have anything to do with it will it alwasy be 2 ahead?
+			ncolumn=0;
+			sys_set_cursor(nrow,ncolumn);
+			
+		}
+		
 		if(sys_cursor == VIDEO_END)
 	    	sys_cursor = VIDEO_START;	
 		*sys_cursor = str[i] + VGA_MASK_VAL;
 		sys_cursor++;
 		i++;
-		if(str[i]=='r' && str[i-1]=='\\')
+		
+		drow = (sys_cursor-i)/80;
+		dcolumn = i
+		else if(sys_cursor == VIDEO_START)
 		{
-			sys_set_cursor(pid_run+2,VIDEO_START)//were is row passed? does the pid have anything to do with it will it alwasy be 2 ahead?
+			while (drow!=0)
+			{
+				while (dcolumn!=0)
+				{
+					sys_set_cursor(drow,dcolumn);
+					sys_write(" ");
+					dcolumn--;
+				}
+				dcolumn=80;
+				drow--;
 		}
+	
    	}
 }
 
