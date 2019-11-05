@@ -369,7 +369,7 @@ void AlterStack(int pid, func_p_t p)
 void SysRead(void)
 {
 	char ch;
-	if(QueEmpty(&kb.buffer) != 0) {   //if the buffer in the KB data structure is not empty:
+	if(!QueEmpty(&kb.buffer)) {   //if the buffer in the KB data structure is not empty:
      		//get the 1st character and give it to the running process
 	}
    	  else{
