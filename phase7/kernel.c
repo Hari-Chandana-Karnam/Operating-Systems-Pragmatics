@@ -92,7 +92,7 @@ void Kernel(tf_t *tf_p) // kernel runs
 	if(cons_kbhit())           //Read the key being pressed into ch. If 'b' key on target PC is pressed, goto the GDB prompt.
 	{
     	ch = cons_getchar();
-	KBSR(ch);
+		KBSR(ch);
 	}
    	Scheduler();               //call Scheduler() to change run_pid if needed
    	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
