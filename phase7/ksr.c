@@ -370,7 +370,7 @@ void SysRead(void)
 {
 	char ch;
 	if(!QueEmpty(&kb.buffer)) {   //if the buffer in the KB data structure is not empty:
-     		//get the 1st character and give it to the running process
+     		pcb[run_pid].tf_p->ebx = (int)DeQue(&kb.buffer)//get the 1st character and give it to the running process
 	}
    	  else{
       		EnQue(run_pid, &kb.wait_que);    //queue the running PID to the wait queue in the KB data
@@ -398,7 +398,7 @@ void KBSR(void)
       		pid = DeQue(&kb.wait_que);//release a waiting process from the wait queue
       		EnQue(pid, &ready_que); //queue it to the ready-to-run queue
       		pcb[pid].state = READY; //update its state
-      		give it the key
+      		pcb[pid].tf_p->ebx = (int) ch;//give it the key which means to copy the key into ebx trapframe
 		}
 	}
 	else{  //if keyboard is not pressed: return
