@@ -129,8 +129,10 @@ void SysSleep(void)
 
 void SysWrite(void) 
 {
+	int pid_row = pcb[run_pid].ppid
    	char *str = (char *) pcb[run_pid].tf_p->ebx;
    	int i = 0;
+	//int j = 0;
    	while(str[i] != '\0')
    	{	
 		if(sys_cursor == VIDEO_END)
@@ -138,6 +140,10 @@ void SysWrite(void)
 		*sys_cursor = str[i] + VGA_MASK_VAL;
 		sys_cursor++;
 		i++;
+		if(str[i]=='r' && str[i-1]=='\\')
+		{
+			sys_set_cursor(pid_run+2,VIDEO_START)//were is row passed? does the pid have anything to do with it will it alwasy be 2 ahead?
+		}
    	}
 }
 
