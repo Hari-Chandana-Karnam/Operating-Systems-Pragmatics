@@ -73,8 +73,7 @@ void Scheduler(void) // choose a run_pid to run
 }
 
 void Kernel(tf_t *tf_p) // kernel runs
-{       
-    char ch;
+{      
     pcb[run_pid].tf_p = tf_p; //copy tf_p to the trapframe ptr (in PCB) of the process in run
 
     switch(tf_p->event) 
@@ -89,11 +88,8 @@ void Kernel(tf_t *tf_p) // kernel runs
       	    cons_printf("Kernel Panic: no such event!\n");
 			breakpoint();
 	}
-	if(cons_kbhit())           //Read the key being pressed into ch. If 'b' key on target PC is pressed, goto the GDB prompt.
-	{
-    	ch = cons_getchar();
-		KBSR(ch);
-	}
+	
+	KBSR();
    	Scheduler();               //call Scheduler() to change run_pid if needed
    	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
 }
