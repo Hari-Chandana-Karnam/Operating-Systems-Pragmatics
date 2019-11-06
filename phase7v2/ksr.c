@@ -129,66 +129,55 @@ void SysSleep(void)
 
 void SysWrite(void) 
 {
-	/*int nrow = 0;
-	int ncolumn = 0;
-	int drow;
-	int dcolumn;
-   	char *str = (char *) pcb[run_pid].tf_p->ebx;
-   	int i = 0;
-
-   	while(str[i] != '\0')
-   	{		
-		if(str[i] == '\r')
-		{
-			nrow = ((((int)sys_cursor-i)/80)+1); //were is row passed? does the pid have anything to do with it will it alwasy be 2 ahead?
-			sys_set_cursor(nrow, ncolumn);
-		}
-		
-		if(sys_cursor == VIDEO_END)
-	    	sys_cursor = VIDEO_START;	
-		
-		*sys_cursor = str[i] + VGA_MASK_VAL;
-		sys_cursor++;
-		i++;
-		drow = ((int) sys_cursor-i)/80;
-		dcolumn = i;
-
-		if(sys_cursor == VIDEO_START)
-		{
-			while (drow!=0)
-			{
-				while (dcolumn!=0)
-				{
-					sys_set_cursor(drow,dcolumn);
-					sys_write(" ");
-					dcolumn--;
-				}
-				dcolumn = 80;
-				drow--;
-			}
-		}
-   	}*/
-
-	int row = 0;
-	int i = 0;
+	int column;
 	char *str;
 	str = (char *) pcb[run_pid].tf_p->ebx;
 
-	while(str[i] != '\0')
+	/* Logic for the following - 
+	 * 1. The outer while loop will run until we hit the 'null' character.
+	 * 2. On the inside we check whether the *str is a '\r' or not:
+	 * 		a. If it is then we check the next row number:
+	 * 			i. If the sys_cursor is that the start of the last row,
+	 * 			   then we go row by row from row 25 to 0 & clear the entire  
+	 *			   screen while we reach the very first row.
+	 * 			ii. Else we set the cursor to the next row's first column.
+	 *		b. Else we print what is on the *str
+	 */
+	while(*str != '\0')
 	{
-		if(str[i] == '\r')
+		if(*str == '\r')
 		{
-			row++;
-			if(row == 21)
-				sys_set_cursor(0, 0);
+			if(sys_cursor == ((unsigned short *)0xb8000 + (24*80+1))) //Start of the last row
+			{
+				for(row = 25; row >= 0; row--)
+				{
+					sys_set_cursor(row, 0);
+					for(column = 0; column < 80; column++)
+					{
+						*sys_cursor = ' ' + VGA_MASK_VAL;
+						sys_cursor++;
+					}
+				}
+				sys_cursor = VIDEO_START;
+			}
 			else
-				sys_set_cursor(row, 0);
+			{
+				/* sys_cursor is given by the following formula:
+				 * sys_cursor == VIDEO_START + (row*80 + column)    // [max row = 25, max column = 79] 
+				 * 		i. If we mod the derefenced value of sys_cursor by 80, we get the column number because
+				 *		   VIDEO_START referes to [0, 0] and row is a multiple of 80.
+				 * To set it to the next row, we have to add 80 to the current position and then subtract the column number.
+				 */
+				column = (*(int *) sys_cursor) % 80; //sys_cursor is an unsigned short int pointer, so we will cast it first. 
+				sys_cursor += 80 - column;
 			return;
 		}
 		else
+		{
 			*sys_cursor = str[i] + VGA_MASK_VAL;
-		sys_cursor++;
-		i++;
+			sys_cursor++;
+		}
+		str++;
 	}
 }
 
