@@ -139,18 +139,18 @@ void SysWrite(void)
 		{			
 			if((sys_cursor == (VIDEO_START + 23*80 + 17)) || (sys_cursor == (VIDEO_START + 23*80 + 13))) //Start of the last row
 			{
-				row = 23;
-				sys_cursor = VIDEO_END;
-				while(row != -1)
+				row = 0;
+				sys_cursor = VIDEO_START;
+				while(row < 25)
 				{
-					column = 79; 
-					while(column != -1)
+					column = 0; 
+					while(column < 80)
 					{
 						*sys_cursor = ' ' + VGA_MASK_VAL;
-						sys_cursor--;
-						column--;
+						sys_cursor++;
+						column++;
 					}
-					row--;
+					row++;
 				}
 				sys_cursor = VIDEO_START;
 			}
