@@ -100,16 +100,19 @@ void Number2Str(int x, char *str)
 
 int StringCompare(char *str1, char *str2) 
 {
-	int isEqual = 1;
+	int isEqual = 1;  // 1 = True && 0 = False
     while(*str1 != '\0' && *str2 != '\0') // until atleast one string ends
     {
-       	if((*str1 != *str2)) 
+       	if(*str1 == *str2) 
        	{
-       		isEqual = 0;
-       		break;
+       		str1++;
+			str2++;
      	}
-    	str1++;
-		str2++;
+		else
+		{
+			isEqual = 0;
+			return isEqual;
+		}
     }
     return isEqual;
 }
