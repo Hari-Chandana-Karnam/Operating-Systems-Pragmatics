@@ -30,6 +30,10 @@ void SpawnSR(func_p_t p)
    	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;	
    	pcb[pid].tf_p->cs  = get_cs();                     	
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
+	pcb[pid].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
+   
+	/*mark down the equivalent DRAM page to be occupied by the new process
+   (e.g., Idle and Login), so the page array can skip these already used*/
 }
 
 void TimerSR(void) 
@@ -201,6 +205,10 @@ void SysFork(void)
     pcb[PID].tf_p       = (tf_t *) ((int) pcb[run_pid].tf_p + distance);
     pcb[PID].state      = READY;		//Changing the state of the child to READY.
     pcb[PID].ppid       = run_pid;		//Changinhg the PPID to the run_pid.
+	
+	pcb[PID].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
+	/*mark down the equivalent DRAM page to be occupied by the new process
+   (e.g., Idle and Login), so the page array can skip these already used*/
     
     MemCpy((char *) (DRAM_START + PID*STACK_MAX), (char *) (DRAM_START +run_pid*STACK_MAX), STACK_MAX);
 
