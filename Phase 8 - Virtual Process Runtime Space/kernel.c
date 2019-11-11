@@ -65,6 +65,7 @@ int main(void)
    SpawnSR(&Idle);             	//create Idle thread
    SpawnSR(&Login);             	//create Init thread
    run_pid = IDLE;           	//set run_pid to IDLE
+   set_cr3(pcb[run_pid].Dir);
    Loader(pcb[run_pid].tf_p); 	//call Loader() to load the trapframe of Idle
    return 0; 					//never would actually reach here
 }
@@ -104,5 +105,6 @@ void Kernel(tf_t *tf_p) // kernel runs
 	
 	KBSR();
    	Scheduler();               //call Scheduler() to change run_pid if needed
-   	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
+   	set_cr3(pcb[run_pid].Dir);
+	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
 }
