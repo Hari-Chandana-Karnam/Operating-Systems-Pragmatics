@@ -145,12 +145,18 @@ void Login(void)
 	{
     	sys_write("Login: ");         
 	    sys_read(login_str);;
-		sys_write("Passwd: ");
+		sys_write("Password: ");
 		sys_read(password_str);
 		
         if(StringCompare(login_str, password_str) == 1)
+		{
 			sys_write("Login Successful!\r");
+			sys_vfork();
+			sys_exit(0);
+		}
 		else
+		{
 			sys_write("Login Failed!\r");
+		}
 	}
 }
