@@ -180,14 +180,14 @@ void sys_read(char *read_str)
 		ch = DeQue(&kb.buffer);		
 		str[0] = ch;
 		str[1] = '\0';
-		
 		sys_write(str);
 
-		if((ch == '\r') || (count == STR_MAX-1))
+		if((ch == '\r') || (count == STR_MAX-1))	// If 'return' is pressed or 'maximum for a string' is reached.
 		{
 			*read_str = '\0';
 			return;
 		}
+		
 		*read_str = ch;
 		read_str++;
 		count++;	
