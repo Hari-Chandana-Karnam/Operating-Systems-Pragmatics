@@ -1,123 +1,123 @@
 p-code.txt for phase 8 virtual memory
 
-New constants
-   SYS_VFORK 143   creation of a virtual-space running process
-   PAGE_MAX 100    OS has 100 DRAM pages to dispatch
-   PAGE_SIZE 4096  each page size in bytes
-   G1 0x40000000   virtual space starts
-   G2 0x80000000   vitual space ends (1 less byte)
-   PRESENT 0x01    page present flag
-   RW 0x02         page is both read & writable
-   RO 0x00         page is read only
+1. New constants
+      SYS_VFORK 143   creation of a virtual-space running process
+      PAGE_MAX 100    OS has 100 DRAM pages to dispatch
+      PAGE_SIZE 4096  each page size in bytes
+      G1 0x40000000   virtual space starts
+      G2 0x80000000   vitual space ends (1 less byte)
+      PRESENT 0x01    page present flag
+      RW 0x02         page is both read & writable
+      RO 0x00         page is read only
 
-New in PCB
-   'unsigned Dir,' where the address-translation directory is
+2. New in PCB
+      'unsigned Dir,' where the address-translation directory is
 
-There's a new page_t that has
-   int pid  the process that uses the page (initially NONE)
-   union {                  // u is an alias of 3 meanings:
-      unsigned addr;        // its real byte address
-      char *content;        // as ptr to page content (bytes)
-      unsigned *entry;      // as an array, used as ...u.entry[..]
-   } u;
+3. There's a new page_t that has
+      int pid  the process that uses the page (initially NONE)
+      union {                  // u is an alias of 3 meanings:
+         unsigned addr;        // its real byte address
+         char *content;        // as ptr to page content (bytes)
+         unsigned *entry;      // as an array, used as ...u.entry[..]
+      } u;
 
-Kernel's new data
-   unsigned KDir -- Kernel's 'real address'-translation directory
-   use page_t to declare a 'page' array that has PAGE_MAX pages
+4. Kernel's new data
+      unsigned KDir -- Kernel's 'real address'-translation directory
+      use page_t to declare a 'page' array that has PAGE_MAX pages
 
-During bootstrap
-   initialize KDir with get_cr3() call, and
-   the page array:
-      each page is used by NONE, and its
-      page[i].u.addr = DRAM_START + i * PAGE_SIZE where i = 0..PAGE_MAX-1
+5. During bootstrap
+      initialize KDir with get_cr3() call, and
+      the page array:
+         each page is used by NONE, and its
+         page[i].u.addr = DRAM_START + i * PAGE_SIZE where i = 0..PAGE_MAX-1
 
-SpawnSR/ForkSR
-   set Dir in PCB to KDir for the new process (so it'll use real memory),
-   mark down the equivalent DRAM page to be occupied by the new process
-   (e.g., Idle and Login), so the page array can skip these already used
+6. SpawnSR/ForkSR
+      set Dir in PCB to KDir for the new process (so it'll use real memory),
+      mark down the equivalent DRAM page to be occupied by the new process
+      (e.g., Idle and Login), so the page array can skip these already used
 
-SyscallSR
-   at the end (not inside if), switch MMU to use KDir, unconditionally
+7. SyscallSR
+      at the end (not inside if), switch MMU to use KDir, unconditionally
 
-Certain service routines (functions in ksr.c) need to temporarily switch
+8. Certain service routines (functions in ksr.c) need to temporarily switch
 MMU in order to access a process' virtual space (that's not the run_pid)
 and switch back: ExitSR, WaitSR, AlterStack, and KBSR.
 
-sys_read
-   comment out the whole asm() and use the following 2 lines:
-      while(QueEmpty(&kb.buffer))sys_sleep(1);
-      ch = DeQue(&kb.buffer);
+9. sys_read
+      comment out the whole asm() and use the following 2 lines:
+         while(QueEmpty(&kb.buffer))sys_sleep(1);
+         ch = DeQue(&kb.buffer);
 
-SysExit/SysWait
-   remember to recycle the pages used by the exiting process
-   and since the translation information in them are no longer,
-   switch MMU to use the kernel directory
+10. SysExit/SysWait
+      remember to recycle the pages used by the exiting process
+      and since the translation information in them are no longer,
+      switch MMU to use the kernel directory
 
-Login
-   a successful login calls for the creation of a Shell process
-   via the sys_vfork() call, then Login: sys_exit(0)
+11. Login
+      a successful login calls for the creation of a Shell process
+      via the sys_vfork() call, then Login: sys_exit(0)
 
-kernel.c
-   before Loader() call (two places), set_cr3(pcb[run_pid].Dir)
+12. kernel.c
+      before Loader() call (two places), set_cr3(pcb[run_pid].Dir)
 
-Shell
-   loops to prompt for command input and execute:
-      show a prompt (see demo runs)
-      get a command input
-      compare input with one of the valid commands
-      to execute the command via sys_vfork() call
-      on input mismatch a valid-command list is shown
-      and the shell: sys_wait()
-      after, it write out exit PID and code (see demo)
+13.Shell
+      loops to prompt for command input and execute:
+         show a prompt (see demo runs)
+         get a command input
+         compare input with one of the valid commands
+         to execute the command via sys_vfork() call
+         on input mismatch a valid-command list is shown
+         and the shell: sys_wait()
+         after, it write out exit PID and code (see demo)
 
-ShellDir
-   show a faked directory listing
+14. ShellDir
+      show a faked directory listing
 
-ShellCal
-   show the calendar of the month
+15. ShellCal
+      show the calendar of the month
 
-ShellRoll
-   Roll two dices and call sys_exit() with their sum.
-   To roll a dice is to call sys_get_rand and modulus
-   its return with 6 (for a six-faced dice); and after
-   plus 1 in order to get a number between 1 and 6
-   inclusively.
+16. ShellRoll
+      Roll two dices and call sys_exit() with their sum.
+      To roll a dice is to call sys_get_rand and modulus
+      its return with 6 (for a six-faced dice); and after
+      plus 1 in order to get a number between 1 and 6
+      inclusively.
 
-SysVfork
-   for the 5 page indices: int Dir, IT, DT, IP, DP
+17. SysVfork
+      for the 5 page indices: int Dir, IT, DT, IP, DP
 
-   allocate a new pid
-   queue it to ready_que
-   copy PCB from parent process but change 5 places:
-      state, ppid, two time counts, and tf_p (see below)
+      allocate a new pid
+      queue it to ready_que
+      copy PCB from parent process but change 5 places:
+         state, ppid, two time counts, and tf_p (see below)
 
-   look into all pages to allocate 5 pages: 
-      if it's not used by any process, copy its array index
-      if we got enough (5) indices -> break the loop
+      look into all pages to allocate 5 pages: 
+         if it's not used by any process, copy its array index
+         if we got enough (5) indices -> break the loop
 
-   if less than 5 indices obtained:
-      show panic msg: don't have enough pages, breakpoint()
+      if less than 5 indices obtained:
+         show panic msg: don't have enough pages, breakpoint()
 
-   set the five pages to be occupied by the new pid
-   clear the content part of the five pages
+      set the five pages to be occupied by the new pid
+      clear the content part of the five pages
 
-   build Dir page
-      copy the first 16 entries from KDir to Dir
-      set entry 256 to the address of IT page (bitwise-or-ed
-      with the present and read/writable flags)
-      set entry 511 to the address of DT page (bitwise-or-ed
-      with the present and read/writable flags)
-   build IT page
-      set entry 0 to the address of IP page (bitwise-or-ed
-      with the present and read-only flags)
-      set entry 1023 to the address of DP page (bitwise-or-ed
-      with the present and read/writable flags)
-   build IP
-      copy instructions to IP (src addr is ebx of TF)
-   build DP
-      the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
-      2nd to last in u.entry[] is cs = get_cs()
-      3rd to last in u.entry[] is eip = G1
-      
-   copy u.addr of Dir page to Dir in PCB of the new process
-   tf_p in PCB of new process = G2 minus the size of a trapframe
+      build Dir page
+         copy the first 16 entries from KDir to Dir
+         set entry 256 to the address of IT page (bitwise-or-ed
+         with the present and read/writable flags)
+         set entry 511 to the address of DT page (bitwise-or-ed
+         with the present and read/writable flags)
+      build IT page
+         set entry 0 to the address of IP page (bitwise-or-ed
+         with the present and read-only flags)
+         set entry 1023 to the address of DP page (bitwise-or-ed
+         with the present and read/writable flags)
+      build IP
+         copy instructions to IP (src addr is ebx of TF)
+      build DP
+         the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
+         2nd to last in u.entry[] is cs = get_cs()
+         3rd to last in u.entry[] is eip = G1
+
+      copy u.addr of Dir page to Dir in PCB of the new process
+      tf_p in PCB of new process = G2 minus the size of a trapframe
