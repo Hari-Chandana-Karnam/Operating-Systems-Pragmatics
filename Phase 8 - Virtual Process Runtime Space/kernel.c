@@ -16,6 +16,8 @@ que_t avail_que, ready_que;   //declare 2 queues: avail_que and ready_que;  // a
 pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  // Process Control Blocks
 mutex_t video_mutex;
 kb_t kb;
+page_t  page[PAGE_MAX];
+unsigned int KDir;			  // Kernals's 'real address' - translation directory;
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
 unsigned short *sys_cursor;   //Add the new cursor position that OS keep
 unsigned sys_rand_count;		
@@ -28,7 +30,8 @@ void BootStrap(void)
 	sys_cursor = VIDEO_START;               	//have it set to VIDEO_START in BootStrap()
 	sys_rand_count = 0;							//set sys rand count to zero 
 	video_mutex.lock = UNLOCKED;				//set the lock of video_mutex to be UNLOCKED
-   	
+   	KDir = get_cr3();
+	
 	Bzero((char *) &avail_que, sizeof(que_t));  				//call tool Bzero() to clear avail queue
    	Bzero((char *) &ready_que, sizeof(que_t));  				//call tool Bzero() to clear ready queue
 	Bzero((char *) &video_mutex.suspend_que, sizeof(que_t));	//call tool Bzero() to clear video_mutex's suspend queue
@@ -38,6 +41,16 @@ void BootStrap(void)
    for(i = 0; i < QUE_MAX; i++)
    {
       EnQue(i, &avail_que);
+   }
+	
+   /* For the page array:
+    * each page is used by NONE, and its
+    * page[i].u.addr = DRAM_START + i * PAGE_SIZE where i = 0..PAGE_MAX-1
+	*/
+   for(i = 0; i <= PAGE_SIZE -1; i++)
+   {
+	   page[i].pid = NONE;
+	   page[i].u.addr = DRAM_START + i * PAGE_SIZE;
    }
 
    idt = get_idt_base();                                                      	  //get IDT location
