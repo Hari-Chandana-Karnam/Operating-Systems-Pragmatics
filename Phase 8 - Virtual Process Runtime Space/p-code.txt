@@ -36,7 +36,7 @@ p-code.txt for phase 8 virtual memory
        mark down the equivalent DRAM page to be occupied by the new process
        (e.g., Idle and Login), so the page array can skip these already used
 
-7. SyscallSR
+7. SyscallSR ?
         at the end (not inside if), switch MMU to use KDir, unconditionally
 
 8. Certain service routines (functions in ksr.c) need to temporarily switch
@@ -91,7 +91,7 @@ p-code.txt for phase 8 virtual memory
        copy PCB from parent process but change 5 places:
           state, ppid, two time counts, and tf_p (see below)
 
-       look into all pages to allocate 5 pages: 
+       look into all pages to allocate 5 pages:
           if it's not used by any process, copy its array index
           if we got enough (5) indices -> break the loop
 

@@ -8,42 +8,42 @@
 #include "proc.h"
 #include "syscall.h"
 
-void SpawnSR(func_p_t p) 
-{     
+void SpawnSR(func_p_t p)
+{
    	int pid;
 
    	if(QueEmpty(&avail_que))
    	{
     	cons_printf("Panic: out of PID!\n");
-      	breakpoint(); 
+      	breakpoint();
    	}
 
    	pid = DeQue(&avail_que);
    	Bzero((char *) &pcb[pid], sizeof(pcb_t));
    	pcb[pid].state = READY;
-   
+
    	if(pid != IDLE)
     	EnQue(pid, &ready_que);
-   
+
    	MemCpy((char *)(DRAM_START + (pid*STACK_MAX)), (char *) p, STACK_MAX);
    	pcb[pid].tf_p = (tf_t *)(DRAM_START + (pid + 1)*STACK_MAX - sizeof(tf_t));
-   	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;	
-   	pcb[pid].tf_p->cs  = get_cs();                     	
+   	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;
+   	pcb[pid].tf_p->cs  = get_cs();
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
 	pcb[pid].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
-   
+
 	/*mark down the equivalent DRAM page to be occupied by the new process
    (e.g., Idle and Login), so the page array can skip these already used*/
 }
 
-void TimerSR(void) 
+void TimerSR(void)
 {
 	int i;
    	outportb(PIC_CONT_REG, TIMER_SERVED_VAL); 	//1st notify PIC control register that timer event is now served
    	sys_time_count++;                         	//increment system time count by 1
    	pcb[run_pid].time_count++;                	//increment the time count of the process currently running by 1
    	pcb[run_pid].total_time++;			//increment the life span count of the process currently running by 1
-   
+
    	for(i = 0; i < QUE_MAX; i++)
    	{
 		if((pcb[i].state == SLEEP) && (pcb[i].wake_time == sys_time_count))
@@ -55,16 +55,16 @@ void TimerSR(void)
 
   	if(run_pid == IDLE)
 		return;
-	
-  	if(pcb[run_pid].time_count == TIME_MAX) 
-  	{ 
+
+  	if(pcb[run_pid].time_count == TIME_MAX)
+  	{
     	pcb[run_pid].state = READY;
       	EnQue(run_pid, &ready_que);
       	run_pid = NONE;
    	}
 }
 
-void SyscallSR(void) 
+void SyscallSR(void)
 {
    	switch(pcb[run_pid].tf_p->eax)
 	{
@@ -113,17 +113,20 @@ void SyscallSR(void)
 		default:
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
-   	}	
-	
+   	}
+
+
 	if (run_pid != NONE)
     {
 	   	pcb[run_pid].state = READY;
 	   	EnQue(run_pid, &ready_que);
         run_pid = NONE;
     }
+    //pcb[pid].dir=kDir
+    
 }
 
-void SysSleep(void) 
+void SysSleep(void)
 {
    	int sleep_sec = pcb[run_pid].tf_p->ebx;
    	pcb[run_pid].wake_time = sys_time_count + (sleep_sec * 10);
@@ -131,23 +134,23 @@ void SysSleep(void)
    	run_pid = NONE;
 }
 
-void SysWrite(void) 
+void SysWrite(void)
 {
-	int column, row; 
+	int column, row;
 	char *str;
 	str = (char *) pcb[run_pid].tf_p->ebx;
 
 	while(*str != '\0')
 	{
 		if(*str == '\r')
-		{			
+		{
 			if((sys_cursor == (VIDEO_START + 23*80 + 17)) || (sys_cursor == (VIDEO_START + 23*80 + 13))) //Start of the last row
 			{
 				row = 0;
 				sys_cursor = VIDEO_START;
 				while(row < 25)
 				{
-					column = 0; 
+					column = 0;
 					while(column < 80)
 					{
 						*sys_cursor = ' ' + VGA_MASK_VAL;
@@ -159,8 +162,8 @@ void SysWrite(void)
 				sys_cursor = VIDEO_START;
 			}
 			else
-			{				
-				column = (sys_cursor - VIDEO_START) % 80; //sys_cursor is an unsigned short int pointer, so we will cast it first. 				
+			{
+				column = (sys_cursor - VIDEO_START) % 80; //sys_cursor is an unsigned short int pointer, so we will cast it first.
 				sys_cursor += 80 - column;
 			}
 			return;
@@ -174,7 +177,7 @@ void SysWrite(void)
 	}
 }
 
-void SysSetCursor(void) 
+void SysSetCursor(void)
 {
     int  cursor_position;
     sys_cursor = VIDEO_START;
@@ -182,7 +185,7 @@ void SysSetCursor(void)
     sys_cursor += cursor_position;
 }
 
-void SysFork(void) 
+void SysFork(void)
 {
     int PID; 		//Child's pid
     int distance;       //Stores the distance between child and parent trapframe
@@ -190,30 +193,30 @@ void SysFork(void)
 
     if(QueEmpty(&avail_que))
     {
-		pcb[run_pid].tf_p->ebx = NONE;  
+		pcb[run_pid].tf_p->ebx = NONE;
        	return;
     }
 
     PID = DeQue(&avail_que);
     Bzero((char *) &pcb[PID], sizeof(pcb_t));
-    pcb[PID].state = READY;   
+    pcb[PID].state = READY;
     if(PID != IDLE)
     	EnQue(PID, &ready_que);
 
     distance = (PID - run_pid) * (STACK_MAX);
-    
+
     pcb[PID].tf_p       = (tf_t *) ((int) pcb[run_pid].tf_p + distance);
     pcb[PID].state      = READY;		//Changing the state of the child to READY.
     pcb[PID].ppid       = run_pid;		//Changinhg the PPID to the run_pid.
-	
+
 	pcb[PID].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
 	/*mark down the equivalent DRAM page to be occupied by the new process
    (e.g., Idle and Login), so the page array can skip these already used*/
-    
+
     MemCpy((char *) (DRAM_START + PID*STACK_MAX), (char *) (DRAM_START +run_pid*STACK_MAX), STACK_MAX);
 
-    pcb[PID].tf_p->eip = pcb[PID].tf_p->eip + distance;	//set eip in trapframe to eip+distance  
-    pcb[PID].tf_p->ebp = pcb[PID].tf_p->ebp + distance; //set ebp in trapframe to ebp+distance 
+    pcb[PID].tf_p->eip = pcb[PID].tf_p->eip + distance;	//set eip in trapframe to eip+distance
+    pcb[PID].tf_p->ebp = pcb[PID].tf_p->ebp + distance; //set ebp in trapframe to ebp+distance
 
     initBP      = (int *)pcb[PID].tf_p->ebp;
     *initBP++   = *initBP + distance;
@@ -221,7 +224,7 @@ void SysFork(void)
 
     pcb[run_pid].tf_p->ebx = PID;		//set ebx to new pid in parent process's trapframe
 	pcb[PID].tf_p->ebx = 0;
-} 
+}
 
 void SysLockMutex(void) {   // phase4
     int mutex_id;
@@ -232,40 +235,40 @@ void SysLockMutex(void) {   // phase4
     	if(video_mutex.lock == UNLOCKED)
 		{
             video_mutex.lock = LOCKED;
-      	} 
-		else 
+      	}
+		else
 		{
 	    	EnQue(run_pid, &video_mutex.suspend_que);
 	    	pcb[run_pid].state = SUSPEND;
 	    	run_pid = NONE;
       	}
-    } 
-    else 
+    }
+    else
     {
         cons_printf("Panic: no such mutex ID!\n");
       	breakpoint();
     }
 }
 
-void SysUnlockMutex(void) 
+void SysUnlockMutex(void)
 {
     int mutex_id, released_pid;
     mutex_id = pcb[run_pid].tf_p->ebx;
 
-    if(mutex_id == VIDEO_MUTEX) 
+    if(mutex_id == VIDEO_MUTEX)
     {
         if(!QueEmpty(&video_mutex.suspend_que))
 		{
 	    	released_pid = DeQue(&video_mutex.suspend_que);
 	    	EnQue(released_pid, &ready_que);
-	    	pcb[released_pid].state = READY;         	
-      	} 
-		else 
+	    	pcb[released_pid].state = READY;
+      	}
+		else
 		{
 	    	video_mutex.lock = UNLOCKED;
      	}
-    } 
-    else 
+    }
+    else
     {
         cons_printf("Panic: no such mutex ID!\n");
       	breakpoint();
@@ -274,29 +277,29 @@ void SysUnlockMutex(void)
 
 void SysExit(void)
 {
-    int exit_code; 
+    int exit_code;
 	int parentPID;
-	 
+
 	parentPID = pcb[run_pid].ppid;
-	
+
 	if(WAIT != pcb[parentPID].state)
     {
         pcb[run_pid].state = ZOMBIE;
-		run_pid = NONE;		
+		run_pid = NONE;
 
-		if(pcb[parentPID].signal_handler[SIGCHLD] != NULL)	
+		if(pcb[parentPID].signal_handler[SIGCHLD] != NULL)
 			AlterStack(parentPID, pcb[parentPID].signal_handler[SIGCHLD]);
     }
     else
     {
 		exit_code = pcb[run_pid].tf_p->ebx;
-    	
+
 		pcb[parentPID].state = READY;	// upgrade parent's state
 		EnQue(parentPID, &ready_que);	// move parent to be ready to run again
-				
+
 		pcb[parentPID].tf_p->ecx = run_pid;		//pass over exiting PID to parent
 		* (int *) pcb[parentPID].tf_p->ebx = exit_code;	//pass over exit code to parent
-		
+
 		//reclaim child resources (alter state, move it)
 	    pcb[run_pid].state = AVAIL;
 		EnQue(run_pid, &avail_que);
@@ -307,12 +310,12 @@ void SysExit(void)
 void SysWait(void)
 {
 	int PID; // To store Zombie child's pid.
-	
+
 	//search for any child that called to exit?
 	for(PID = 0; PID < QUE_MAX; PID++)
 		if((pcb[PID].state == ZOMBIE) && (pcb[PID].ppid == run_pid))
 			break;
-     
+
 	if(PID == QUE_MAX) 		// No Zombie Process
 	{
 		pcb[run_pid].state = WAIT;	// parent is blocked into WAIT state
@@ -322,28 +325,28 @@ void SysWait(void)
 	{
 		pcb[run_pid].tf_p->ecx = PID; 	// pass over child's PID to parent
 		*(int *) pcb[run_pid].tf_p->ebx = pcb[PID].tf_p->ebx;	// pass over its exit code to parent
-		
+
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
 	}
 }
 
 void SysSignal(void)
-{                                                                                                                                                                         
+{
 	int signal_name;
 	signal_name = pcb[run_pid].tf_p->ebx;
-		
+
 	pcb[run_pid].signal_handler[signal_name] = (func_p_t) pcb[run_pid].tf_p->ecx;;
 }
 
 void SysKill(void)
 {
 	int i, pid, signal_name;
-	
+
 	pid = pcb[run_pid].tf_p->ebx;			// ebx of run_pid has the pid
 	signal_name = pcb[run_pid].tf_p->ecx;	// ecx of the run_pid has the signal_name
-	
-	if ((pid == 0) && (signal_name == SIGCONT)) 
+
+	if ((pid == 0) && (signal_name == SIGCONT))
 	{
 		for(i = 0; i < QUE_MAX; i++) // We check for the children of run_pid who are sleeping and wake them.
 		{
@@ -361,21 +364,21 @@ void AlterStack(int pid, func_p_t p)
 	int *tempEFL;
 	int tempEIP;
 	tf_t temporaryTF;
-	
+
 	tempEFL 	= &pcb[pid].tf_p->efl;
-	tempEIP 	= pcb[pid].tf_p->eip;	
+	tempEIP 	= pcb[pid].tf_p->eip;
 	temporaryTF = *pcb[pid].tf_p;
-			
+
 	(int) pcb[pid].tf_p    -= 4;				// Lowering trapframe by 4 bytes [1 Register]
 	temporaryTF.eip 		= (unsigned int) p;	// replacing EIP in trapframe with 'p'
-	*pcb[pid].tf_p 			= temporaryTF;	
+	*pcb[pid].tf_p 			= temporaryTF;
 	*tempEFL 				= tempEIP;			// Insert the original EIP between lowered trapframe and what originally above
 }
 
 void SysRead(void)
-{	
-	if(!QueEmpty(&kb.buffer)) 
-		pcb[run_pid].tf_p->ebx = DeQue(&kb.buffer); 
+{
+	if(!QueEmpty(&kb.buffer))
+		pcb[run_pid].tf_p->ebx = DeQue(&kb.buffer);
    	else
 	{
 		EnQue(run_pid, &kb.wait_que);
@@ -388,11 +391,11 @@ void KBSR(void)
 {
 	char ch;
 	int pid;
-	if(!cons_kbhit())           
+	if(!cons_kbhit())
 		return;
 
 	ch = cons_getchar();
-    if(ch == '$')	      
+    if(ch == '$')
 	{
        	cons_printf("You Pressed %c. Entering the breakpoint for GDB.\n", ch);
     	breakpoint();
