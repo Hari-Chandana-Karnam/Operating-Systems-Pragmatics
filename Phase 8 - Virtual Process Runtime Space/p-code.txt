@@ -57,10 +57,10 @@ p-code.txt for phase 8 virtual memory
        a successful login calls for the creation of a Shell process
        via the sys_vfork() call, then Login: sys_exit(0)
 
-12. kernel.c
+(DONE)12. kernel.c
         before Loader() call (two places), set_cr3(pcb[run_pid].Dir)
 
-(DONE)13. Shell(DONE)
+13. Shell
        loops to prompt for command input and execute:
           show a prompt (see demo runs)
           get a command input
