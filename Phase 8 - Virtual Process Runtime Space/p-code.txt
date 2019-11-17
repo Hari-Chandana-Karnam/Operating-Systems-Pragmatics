@@ -60,7 +60,7 @@ p-code.txt for phase 8 virtual memory
 (DONE)12. kernel.c
         before Loader() call (two places), set_cr3(pcb[run_pid].Dir)
 
-13. Shell
+(done)13. Shell(done)
        loops to prompt for command input and execute:
           show a prompt (see demo runs)
           get a command input
@@ -70,10 +70,10 @@ p-code.txt for phase 8 virtual memory
           and the shell: sys_wait()
           after, it write out exit PID and code (see demo)
 
-14. ShellDir
+(done)14. ShellDir(done)
         show a faked directory listing
 
-15. ShellCal
+(done)15. ShellCal(done)
         show the calendar of the month
 
 16. ShellRoll
@@ -85,6 +85,7 @@ p-code.txt for phase 8 virtual memory
 
 17. SysVfork
        for the 5 page indices: int Dir, IT, DT, IP, DP
+
 
        allocate a new pid
        queue it to ready_que
