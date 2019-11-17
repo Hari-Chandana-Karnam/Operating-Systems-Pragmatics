@@ -199,6 +199,11 @@ void ShellCal(void){
 	sys_write("17 18 19 20 21 22 23\r");
 	sys_write("24 25 26 27 28 29 30\r");
 }
-
+void ShellRoll(void){
+	int dice1,dice2;
+	dice1=(sys_get_rand()%6)+1;
+	dice2=(sys_get_rand()%6)+1;
+	sys_exit(dice1+dice2);
+}
 
 
