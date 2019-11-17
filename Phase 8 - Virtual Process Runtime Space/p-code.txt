@@ -76,7 +76,7 @@ p-code.txt for phase 8 virtual memory
 (done)15. ShellCal(done)
         show the calendar of the month
 
-16. ShellRoll
+(DONE)16. ShellRoll
        Roll two dices and call sys_exit() with their sum.
        To roll a dice is to call sys_get_rand and modulus
        its return with 6 (for a six-faced dice); and after
