@@ -417,20 +417,20 @@ void SysVfork(void){
 	pcb[new_pid].state = READY;
 	EnQue(new_pid, &ready_que);
 	// build Dir page
-          //copy the first 16 entries from KDir to Dir
-          page[Dir].u.entry[256]=page[IT].addr;//set entry 256 to the address of IT page (bitwise-or-ed with the present and read/writable flags)
-          page[Dir].u.entry[511]=page[DT].addr;//set entry 511 to the address of DT page (bitwise-or-ed with the present and read/writable flags)
+         MemCpy((char *) KDir, (char *) Dir, sizeof(16));//copy the first 16 entries from KDir to Dir
+          page[Dir].u.entry[256]=page[IT].u.addr | PRESENT | RW;//set entry 256 to the address of IT page (bitwise-or-ed with the present and read/writable flags)
+          page[Dir].u.entry[511]=page[DT].u.addr | PRESENT | RW;//set entry 511 to the address of DT page (bitwise-or-ed with the present and read/writable flags)
       // build IT page
-           page[IT].u.entry[0]=page[IP].addr;//set entry 0 to the address of IP page (bitwise-or-ed with the present and read-only flags)
+           page[IT].u.entry[0]=page[IP].addr | PRESENT | RW;//set entry 0 to the address of IP page (bitwise-or-ed with the present and read-only flags)
       //build DT page
-          page[DT].u.entry[1023]=page[DP].addr;//set entry 1023 to the address of DP page (bitwise-or-ed with the present and read/writable flags)
+          page[DT].u.entry[1023]=page[DP].addr | PRESENT | RW;//set entry 1023 to the address of DP page (bitwise-or-ed with the present and read/writable flags)
        //build IP
           //copy instructions to IP (src addr is ebx of TF)
 //        build DP
-//           the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
+	//           the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
 //           2nd to last in u.entry[] is cs = get_cs()
 //           3rd to last in u.entry[] is eip = G1
 
-//        copy u.addr of Dir page to Dir in PCB of the new process
-//        tf_p in PCB of new process = G2 minus the size of a trapframe
+	pcb[new_pid].Dir=page[Dir].u.addr;//        copy u.addr of Dir page to Dir in PCB of the new process
+	pcb[new_pid].tf_p= G2-sizeof(tf_t);//        tf_p in PCB of new process = G2 minus the size of a trapframe
 }
