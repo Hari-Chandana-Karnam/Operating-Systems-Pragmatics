@@ -142,7 +142,7 @@ void SysWrite(void)
 
 	while(*str != '\0')
 	{
-		if(*str == '\r')
+		/*if(*str == '\r')
 		{
 			if((sys_cursor == (VIDEO_START + 23*80 + 17)) || (sys_cursor == (VIDEO_START + 23*80 + 13))) //Start of the last row
 			{
@@ -166,6 +166,40 @@ void SysWrite(void)
 				column = (sys_cursor - VIDEO_START) % 80; //sys_cursor is an unsigned short int pointer, so we will cast it first.
 				sys_cursor += 80 - column;
 			}
+			return;
+		}
+		else
+		{
+			*sys_cursor = *str + VGA_MASK_VAL;
+			sys_cursor++;
+		}*/
+		
+		/* 1. Check the cursor position foremost, not just at '\r'.
+		 * 2. If it is at VIDEO_END the n clear the sacreen before 
+		 *    writing anything and set the cursor position to the start.
+		 */
+		if(sys_cursor == VIDEO_END)
+		{
+			row = 0;
+			sys_cursor = VIDEO_START;
+			while(row < 25)
+			{
+				column = 0;
+				while(column < 80)
+				{
+					*sys_cursor = ' ' + VGA_MASK_VAL;
+					sys_cursor++;
+					column++;
+				}
+				row++;
+			}
+			sys_cursor = VIDEO_START;
+		}
+		
+		if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
+		{
+			column = (sys_cursor - VIDEO_START) % 80;
+			sys_cursor += 80 - column;
 			return;
 		}
 		else
