@@ -181,23 +181,23 @@ void Shell (void)
 	}
 }
 void ShellDir(void){
-	sys_write(" Desktop\r");   
-	sys_write(" Documents \r");   
-	sys_write(" Downloads \r");
-	sys_write(" Music\r");  
-	sys_write(" Pictures\r"); 
-	sys_write(" Public\r");  
-	sys_write(" Templates\r");   
-	sys_write(" Videos\r");   
+	sys_write("		Desktop\r");   
+	sys_write("		Documents \r");   
+	sys_write("		Downloads \r");
+	sys_write("		Music\r");  
+	sys_write("		Pictures\r"); 
+	sys_write("		Public\r");  
+	sys_write("		Templates\r");   
+	sys_write("		Videos\r");   
 }
 void ShellCal(void){
-	sys_write("    November 2019\r");
-	sys_write("Su Mo Tu We Th Fr Sa\r");
-	sys_write(" 1  2\r");
-	sys_write(" 3  4  5  6  7  8  9\r");
-	sys_write("10 11 12 13 14 15 16\r");
-	sys_write("17 18 19 20 21 22 23\r");
-	sys_write("24 25 26 27 28 29 30\r");
+	sys_write("        November 2019\r");
+	sys_write("		Su Mo Tu We Th Fr Sa\r");
+	sys_write("	                    1  2\r");
+	sys_write("		 3  4  5  6  7  8  9\r");
+	sys_write("		10 11 12 13 14 15 16\r");
+	sys_write("		17 18 19 20 21 22 23\r");
+	sys_write("		24 25 26 27 28 29 30\r");
 }
 void ShellRoll(void){
 	int dice1,dice2;
