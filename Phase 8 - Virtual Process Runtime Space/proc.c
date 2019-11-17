@@ -160,31 +160,16 @@ void Login(void)
 		}
 	}
 }
-
-
-void shell (void)
-{  		
-	char team_str[STR_MAX],comand[STR_MAX];
-	while(1)
-			{	
-			sys_write("Team Name");        
-		    sys_read(team_str);
-			sys_write("valid commands are: \n dir -- display directory cotent \n cal -- display calender\n roll -- roll a pari of dice"); 
-			sys_read(comand);
-			if (comand == "dir")
-			{
-				Shelldir;
-			}
-			else if (comand == "cal")
-			{
-				Shellcal;
-			}				
-			else if (comand == "roll")
-			{
-				Shellroll();	
-			}			
+void ShellDir(void){
+	sys_write(" Desktop\r");   
+	sys_write(" Documents \r");   
+	sys_write(" Downloads \r");
+	sys_write(" Music\r");  
+	sys_write(" Pictures\r"); 
+	sys_write(" Public\r");  
+	sys_write(" Templates\r");   
+	sys_write(" Videos\r");   
 }
-
 void ShellCal(){
 	sys_write("    November 2019\r");
 	sys_write("Su Mo Tu We Th Fr Sa\r");
