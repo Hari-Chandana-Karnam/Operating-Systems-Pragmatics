@@ -36,7 +36,7 @@ p-code.txt for phase 8 virtual memory
        mark down the equivalent DRAM page to be occupied by the new process
        (e.g., Idle and Login), so the page array can skip these already used
 
-7. SyscallSR ?
+(DONE)7. SyscallSR ?
         at the end (not inside if), switch MMU to use KDir, unconditionally
 
 8. Certain service routines (functions in ksr.c) need to temporarily switch
