@@ -122,7 +122,8 @@ void SyscallSR(void)
 	   	EnQue(run_pid, &ready_que);
         run_pid = NONE;
     }
-    pcb[pid].dir=KDir;
+    set_cr3(KDir);
+	// pcb[pid].dir=KDir;
     
 }
 
