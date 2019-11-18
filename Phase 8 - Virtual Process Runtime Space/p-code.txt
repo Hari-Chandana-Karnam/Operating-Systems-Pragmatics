@@ -48,7 +48,7 @@ p-code.txt for phase 8 virtual memory
             while(QueEmpty(&kb.buffer))sys_sleep(1);
             ch = DeQue(&kb.buffer);
 
-10. SysExit/SysWait
+(done)10. SysExit/SysWait
        remember to recycle the pages used by the exiting process
        and since the translation information in them are no longer,
        switch MMU to use the kernel directory
