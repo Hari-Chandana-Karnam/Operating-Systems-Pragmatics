@@ -124,7 +124,7 @@ void SyscallSR(void)
     }
     set_cr3(KDir);
 	// pcb[pid].dir=KDir;
-    
+
 }
 
 void SysSleep(void)
@@ -174,9 +174,9 @@ void SysWrite(void)
 			*sys_cursor = *str + VGA_MASK_VAL;
 			sys_cursor++;
 		}*/
-		
+
 		/* 1. Check the cursor position foremost, not just at '\r'.
-		 * 2. If it is at VIDEO_END the n clear the sacreen before 
+		 * 2. If it is at VIDEO_END the n clear the sacreen before
 		 *    writing anything and set the cursor position to the start.
 		 */
 		if(sys_cursor == VIDEO_END)
@@ -196,7 +196,7 @@ void SysWrite(void)
 			}
 			sys_cursor = VIDEO_START;
 		}
-		
+
 		if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
 		{
 			column = (sys_cursor - VIDEO_START) % 80;
@@ -340,6 +340,12 @@ void SysExit(void)
 		EnQue(run_pid, &avail_que);
 	    run_pid = NONE;	//no running process anymore
     }
+    /*10. SysExit/SysWait
+           remember to recycle the pages used by the exiting process
+           and since the translation information in them are no longer,
+           switch MMU to use the kernel directory*/
+        Bzero((char *)page_t[pid],4096);
+
 }
 
 void SysWait(void)
@@ -364,6 +370,7 @@ void SysWait(void)
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
 	}
+    Bzero((char *)page_t[pid],4096);
 }
 
 void SysSignal(void)
