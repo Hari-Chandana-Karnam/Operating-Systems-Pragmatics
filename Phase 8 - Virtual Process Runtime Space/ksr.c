@@ -32,7 +32,7 @@ void SpawnSR(func_p_t p)
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
 	
 	pcb[pid].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
-	pcb[pid].pid =pid;
+	page[pid].pid = pid;
 	/*mark down the equivalent DRAM page to be occupied by the new process
    (e.g., Idle and Login), so the page array can skip these already used*/
 }
