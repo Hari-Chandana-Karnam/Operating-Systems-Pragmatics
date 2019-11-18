@@ -30,6 +30,7 @@ void SpawnSR(func_p_t p)
    	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;
    	pcb[pid].tf_p->cs  = get_cs();
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
+	
 	pcb[pid].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
 
 	/*mark down the equivalent DRAM page to be occupied by the new process
@@ -114,17 +115,16 @@ void SyscallSR(void)
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
    	}
-
-
+	
 	if (run_pid != NONE)
     {
 	   	pcb[run_pid].state = READY;
 	   	EnQue(run_pid, &ready_que);
         run_pid = NONE;
     }
+	
     set_cr3(KDir);
 	// pcb[pid].dir=KDir;
-
 }
 
 void SysSleep(void)
@@ -143,42 +143,6 @@ void SysWrite(void)
 
 	while(*str != '\0')
 	{
-		/*if(*str == '\r')
-		{
-			if((sys_cursor == (VIDEO_START + 23*80 + 17)) || (sys_cursor == (VIDEO_START + 23*80 + 13))) //Start of the last row
-			{
-				row = 0;
-				sys_cursor = VIDEO_START;
-				while(row < 25)
-				{
-					column = 0;
-					while(column < 80)
-					{
-						*sys_cursor = ' ' + VGA_MASK_VAL;
-						sys_cursor++;
-						column++;
-					}
-					row++;
-				}
-				sys_cursor = VIDEO_START;
-			}
-			else
-			{
-				column = (sys_cursor - VIDEO_START) % 80; //sys_cursor is an unsigned short int pointer, so we will cast it first.
-				sys_cursor += 80 - column;
-			}
-			return;
-		}
-		else
-		{
-			*sys_cursor = *str + VGA_MASK_VAL;
-			sys_cursor++;
-		}*/
-
-		/* 1. Check the cursor position foremost, not just at '\r'.
-		 * 2. If it is at VIDEO_END the n clear the sacreen before
-		 *    writing anything and set the cursor position to the start.
-		 */
 		if(sys_cursor == VIDEO_END)
 		{
 			row = 0;
@@ -196,7 +160,7 @@ void SysWrite(void)
 			}
 			sys_cursor = VIDEO_START;
 		}
-
+		
 		if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
 		{
 			column = (sys_cursor - VIDEO_START) % 80;
@@ -244,10 +208,6 @@ void SysFork(void)
     pcb[PID].state      = READY;		//Changing the state of the child to READY.
     pcb[PID].ppid       = run_pid;		//Changinhg the PPID to the run_pid.
 
-	pcb[PID].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
-	/*mark down the equivalent DRAM page to be occupied by the new process
-   (e.g., Idle and Login), so the page array can skip these already used*/
-
     MemCpy((char *) (DRAM_START + PID*STACK_MAX), (char *) (DRAM_START +run_pid*STACK_MAX), STACK_MAX);
 
     pcb[PID].tf_p->eip = pcb[PID].tf_p->eip + distance;	//set eip in trapframe to eip+distance
@@ -259,6 +219,10 @@ void SysFork(void)
 
     pcb[run_pid].tf_p->ebx = PID;		//set ebx to new pid in parent process's trapframe
 	pcb[PID].tf_p->ebx = 0;
+	
+	pcb[PID].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
+	/*mark down the equivalent DRAM page to be occupied by the new process
+   (e.g., Idle and Login), so the page array can skip these already used*/
 }
 
 void SysLockMutex(void) {   // phase4
@@ -340,12 +304,6 @@ void SysExit(void)
 		EnQue(run_pid, &avail_que);
 	    run_pid = NONE;	//no running process anymore
     }
-    /*10. SysExit/SysWait
-           remember to recycle the pages used by the exiting process
-           and since the translation information in them are no longer,
-           switch MMU to use the kernel directory*/
-        Bzero((char *)page_t[pid],4096);
-
 }
 
 void SysWait(void)
@@ -370,7 +328,6 @@ void SysWait(void)
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
 	}
-    Bzero((char *)page_t[pid],4096);
 }
 
 void SysSignal(void)
@@ -453,26 +410,113 @@ void KBSR(void)
     	pcb[pid].tf_p->ebx = ch;   //give it the key which means to copy the key into ebx trap}frame
 	}
 }
-void SysVfork(void){
-	int Dir, IT, DT, IP, DP;
-	int new_pid=SysFork();
+void SysVfork(void)
+{
+	int DIR, IT, DT, IP, DP;
+	int new_pid, distance;
+	int index[5];	//To store the page numbers that are not occupied.
+	int i = 0;		//For lopping PAGE_AMX times
+	int j = 0;		//To be used by index[]; 
+	int *p; 		//This will point to the DRAM pages.
+	
+	/*new_pid = SysFork();
 	pcb[new_pid].state = READY;
 	EnQue(new_pid, &ready_que);
+	
 	// build Dir page
-         MemCpy((char *) KDir, (char *) Dir, sizeof(16));//copy the first 16 entries from KDir to Dir
-          page[Dir].u.entry[256]=page[IT].u.addr | PRESENT | RW;//set entry 256 to the address of IT page (bitwise-or-ed with the present and read/writable flags)
-          page[Dir].u.entry[511]=page[DT].u.addr | PRESENT | RW;//set entry 511 to the address of DT page (bitwise-or-ed with the present and read/writable flags)
-      // build IT page
-           page[IT].u.entry[0]=page[IP].addr | PRESENT | RW;//set entry 0 to the address of IP page (bitwise-or-ed with the present and read-only flags)
-      //build DT page
-          page[DT].u.entry[1023]=page[DP].addr | PRESENT | RW;//set entry 1023 to the address of DP page (bitwise-or-ed with the present and read/writable flags)
-       //build IP
-          //copy instructions to IP (src addr is ebx of TF)
-//        build DP
-	//           the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
-//           2nd to last in u.entry[] is cs = get_cs()
-//           3rd to last in u.entry[] is eip = G1
+    MemCpy((char *) pcb[new_pid].Dir, (char *) KDir, 16*STACK_MAX);//copy the first 16 entries from KDir to Dir
+    page[Dir].u.entry[256]=page[IT].u.addr | PRESENT | RW;//set entry 256 to the address of IT page (bitwise-or-ed with the present and read/writable flags)
+    page[Dir].u.entry[511]=page[DT].u.addr | PRESENT | RW;//set entry 511 to the address of DT page (bitwise-or-ed with the present and read/writable flags)
+    // build IT page
+    page[IT].u.entry[0]=page[IP].addr | PRESENT | RW;//set entry 0 to the address of IP page (bitwise-or-ed with the present and read-only flags)
+    //build DT page
+    page[DT].u.entry[1023]=page[DP].addr | PRESENT | RW;//set entry 1023 to the address of DP page (bitwise-or-ed with the present and read/writable flags)
+    //build IP
+    //copy instructions to IP (src addr is ebx of TF)
+    //build DP
+	//the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
+    //2nd to last in u.entry[] is cs = get_cs()
+    //3rd to last in u.entry[] is eip = G1
 
 	pcb[new_pid].Dir=page[Dir].u.addr;//        copy u.addr of Dir page to Dir in PCB of the new process
-	pcb[new_pid].tf_p= G2-sizeof(tf_t);//        tf_p in PCB of new process = G2 minus the size of a trapframe
+	pcb[new_pid].tf_p= G2-sizeof(tf_t);//        tf_p in PCB of new process = G2 minus the size of a trapframe*/
+	
+	//allocate a new pid
+	//queue it to ready_que
+	new_pid = DeQue(&avail_que);
+    Bzero((char *) &pcb[new_pid], sizeof(pcb_t));
+	if(new_pid != IDLE)
+    	EnQue(new_pid, &ready_que);
+
+    /*copy PCB from parent process but change 5 places:
+      state, ppid, two time counts, and tf_p (see below)*/
+	distance = (PID - run_pid) * (STACK_MAX);
+    pcb[new_pid].state      	= READY;		//Changing the state of the child to READY.
+	pcb[new_pid].tf_p       	= (tf_t *) ((int) pcb[run_pid].tf_p + distance);
+    pcb[new_pid].time_count 	= 0;
+	pcd[new_pid].total_time 	= 0;
+	pcb[new_pid].wake_time  	= pcb[run_pid].wake_time;
+    pcb[new_pid].ppid       	= run_pid;		//Changinhg the PPID to the run_pid.
+	pcb[new_pid].signal_handler = pcb[run_pid].signal_handler;
+	pcb[new_pid].dir			= pcb[run_pid].dir;
+
+	/* look into all pages to allocate 5 pages:
+    	  if it's not used by any process, copy its array index
+          if we got enough (5) indices -> break the loop
+          if less than 5 indices obtained:
+          	 show panic msg: don't have enough pages, breakpoint()*/
+	for(i = 0; i < PAGE_MAX; i++)	{
+		if((page[i].pid == NONE) && (j != 5))	{
+			index[j] = i;
+			j++;
+			if(j == 5)
+				break;
+		}
+	}
+	
+	if(j != 5)	{
+		cons_printf("SysVFork Panic: We do not have enough pages!\n");
+        breakpoint();
+	} 
+
+	/*set the five pages to be occupied by the new pid
+       clear the content part of the five pages*/
+	for(i = 0; i < 5; i++)	{
+		page[index[i]].pid = new_pid;
+		Bzero((char *) &page[index[0]].content, STACK_MAX);
+	}
+	
+	DIR = index[0];
+	IT  = index[1];
+	DT  = index[2];
+	IP  = index[3];
+	DP  = index[4];
+	
+	p = (int *) pages[index[0]].addr; //points to the very first page in the index array.
+
+   	/*build Dir page
+          copy the first 16 entries from KDir to Dir
+          set entry 256 to the address of IT page (bitwise-or-ed
+          with the present and read/writable flags)
+          set entry 511 to the address of DT page (bitwise-or-ed
+          with the present and read/writable flags)*/
+	
+   	/*build IT page
+          set entry 0 to the address of IP page (bitwise-or-ed
+          with the present and read-only flags)*/
+	
+    /*build DT page
+          set entry 1023 to the address of DP page (bitwise-or-ed
+          with the present and read/writable flags)*/
+	
+    /*build IP
+          copy instructions to IP (src addr is ebx of TF)*/
+    
+	/*build DP
+          the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
+          2nd to last in u.entry[] is cs = get_cs()
+          3rd to last in u.entry[] is eip = G1*/
+
+    /*copy u.addr of Dir page to Dir in PCB of the new process
+      tf_p in PCB of new process = G2 minus the size of a trapframe*/
 }
