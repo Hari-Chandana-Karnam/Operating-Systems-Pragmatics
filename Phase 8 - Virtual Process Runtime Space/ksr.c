@@ -280,25 +280,30 @@ void SysExit(void)
 	int parentPID;
 
 	parentPID = pcb[run_pid].ppid;
-
+	
 	if(WAIT != pcb[parentPID].state)
     {
         pcb[run_pid].state = ZOMBIE;
 		run_pid = NONE;
 
+		set_cr3(pcb[parentPID].dir);
 		if(pcb[parentPID].signal_handler[SIGCHLD] != NULL)
 			AlterStack(parentPID, pcb[parentPID].signal_handler[SIGCHLD]);
+		set_cr3(pcb[run_pid].dir);
     }
     else
     {
 		exit_code = pcb[run_pid].tf_p->ebx;
 
+		set_cr3(pcb[parentPID].dir);
 		pcb[parentPID].state = READY;	// upgrade parent's state
 		EnQue(parentPID, &ready_que);	// move parent to be ready to run again
 
 		pcb[parentPID].tf_p->ecx = run_pid;		//pass over exiting PID to parent
 		* (int *) pcb[parentPID].tf_p->ebx = exit_code;	//pass over exit code to parent
-
+		
+		set_cr3(pcb[run_pid].dir);
+		
 		//reclaim child resources (alter state, move it)
 	    pcb[run_pid].state = AVAIL;
 		EnQue(run_pid, &avail_que);
@@ -322,11 +327,13 @@ void SysWait(void)
 	}
 	else
 	{
+		set_cr3(pcb[PID].dir);
 		pcb[run_pid].tf_p->ecx = PID; 	// pass over child's PID to parent
 		*(int *) pcb[run_pid].tf_p->ebx = pcb[PID].tf_p->ebx;	// pass over its exit code to parent
 
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
+		set_cr3(pcb[run_pid].dir);
 	}
 }
 
@@ -405,9 +412,12 @@ void KBSR(void)
 	else
 	{
     	pid = DeQue(&kb.wait_que); //release a waiting process from the wait queue
+		
+		set_cr3(pcb[pid].dir);
     	EnQue(pid, &ready_que);    //queue it to the ready-to-run queue
     	pcb[pid].state = READY;    //update its state
-    	pcb[pid].tf_p->ebx = ch;   //give it the key which means to copy the key into ebx trap}frame
+    	pcb[pid].tf_p->ebx = ch;   //give it the key which means to copy the key into ebx trapframe
+		set_cr3(pcb[run_pid].dir);
 	}
 }
 void SysVfork(void)
