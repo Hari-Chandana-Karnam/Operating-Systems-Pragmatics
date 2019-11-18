@@ -30,7 +30,7 @@ void SpawnSR(func_p_t p)
    	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;
    	pcb[pid].tf_p->cs  = get_cs();
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
-	
+
 	pcb[pid].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
 
 	/*mark down the equivalent DRAM page to be occupied by the new process
@@ -115,14 +115,14 @@ void SyscallSR(void)
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
    	}
-	
+
 	if (run_pid != NONE)
     {
 	   	pcb[run_pid].state = READY;
 	   	EnQue(run_pid, &ready_que);
         run_pid = NONE;
     }
-	
+
     set_cr3(KDir);
 	// pcb[pid].dir=KDir;
 }
@@ -160,7 +160,7 @@ void SysWrite(void)
 			}
 			sys_cursor = VIDEO_START;
 		}
-		
+
 		if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
 		{
 			column = (sys_cursor - VIDEO_START) % 80;
@@ -219,7 +219,7 @@ void SysFork(void)
 
     pcb[run_pid].tf_p->ebx = PID;		//set ebx to new pid in parent process's trapframe
 	pcb[PID].tf_p->ebx = 0;
-	
+
 	pcb[PID].Dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
 	/*mark down the equivalent DRAM page to be occupied by the new process
    (e.g., Idle and Login), so the page array can skip these already used*/
@@ -304,6 +304,9 @@ void SysExit(void)
 		EnQue(run_pid, &avail_que);
 	    run_pid = NONE;	//no running process anymore
     }
+
+        Bzero((char *)page_t[pid],4096);
+        set_cr3[KDir];
 }
 
 void SysWait(void)
@@ -328,6 +331,9 @@ void SysWait(void)
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
 	}
+
+        Bzero((char *)page_t[pid],4096);
+        set_cr3[KDir];
 }
 
 void SysSignal(void)
@@ -416,13 +422,13 @@ void SysVfork(void)
 	int new_pid, distance;
 	int index[5];	//To store the page numbers that are not occupied.
 	int i = 0;		//For lopping PAGE_AMX times
-	int j = 0;		//To be used by index[]; 
+	int j = 0;		//To be used by index[];
 	int *p; 		//This will point to the DRAM pages.
-	
+
 	/*new_pid = SysFork();
 	pcb[new_pid].state = READY;
 	EnQue(new_pid, &ready_que);
-	
+
 	// build Dir page
     MemCpy((char *) pcb[new_pid].Dir, (char *) KDir, 16*STACK_MAX);//copy the first 16 entries from KDir to Dir
     page[Dir].u.entry[256]=page[IT].u.addr | PRESENT | RW;//set entry 256 to the address of IT page (bitwise-or-ed with the present and read/writable flags)
@@ -440,7 +446,7 @@ void SysVfork(void)
 
 	pcb[new_pid].Dir=page[Dir].u.addr;//        copy u.addr of Dir page to Dir in PCB of the new process
 	pcb[new_pid].tf_p= G2-sizeof(tf_t);//        tf_p in PCB of new process = G2 minus the size of a trapframe*/
-	
+
 	//allocate a new pid
 	//queue it to ready_que
 	new_pid = DeQue(&avail_que);
@@ -473,11 +479,11 @@ void SysVfork(void)
 				break;
 		}
 	}
-	
+
 	if(j != 5)	{
 		cons_printf("SysVFork Panic: We do not have enough pages!\n");
         breakpoint();
-	} 
+	}
 
 	/*set the five pages to be occupied by the new pid
        clear the content part of the five pages*/
@@ -485,13 +491,13 @@ void SysVfork(void)
 		page[index[i]].pid = new_pid;
 		Bzero((char *) &page[index[0]].content, STACK_MAX);
 	}
-	
+
 	DIR = index[0];
 	IT  = index[1];
 	DT  = index[2];
 	IP  = index[3];
 	DP  = index[4];
-	
+
 	p = (int *) pages[index[0]].addr; //points to the very first page in the index array.
 
    	/*build Dir page
@@ -500,18 +506,18 @@ void SysVfork(void)
           with the present and read/writable flags)
           set entry 511 to the address of DT page (bitwise-or-ed
           with the present and read/writable flags)*/
-	
+
    	/*build IT page
           set entry 0 to the address of IP page (bitwise-or-ed
           with the present and read-only flags)*/
-	
+
     /*build DT page
           set entry 1023 to the address of DP page (bitwise-or-ed
           with the present and read/writable flags)*/
-	
+
     /*build IP
           copy instructions to IP (src addr is ebx of TF)*/
-    
+
 	/*build DP
           the last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
           2nd to last in u.entry[] is cs = get_cs()
