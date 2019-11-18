@@ -417,7 +417,6 @@ void SysVfork(void)
 	int index[5];	//To store the page numbers that are not occupied.
 	int i = 0;		//For lopping PAGE_AMX times
 	int j = 0;		//To be used by index[]; 
-	int *p; 		//This will point to the DRAM pages.
 	
 	/*new_pid = SysFork();
 	pcb[new_pid].state = READY;
@@ -491,15 +490,13 @@ void SysVfork(void)
 	DT  = index[2];
 	IP  = index[3];
 	DP  = index[4];
-	
-	p = (int *) page[index[0]].addr; //points to the very first page in the index array.
 
    	/* Build Dir page:
      *   1. Copy the first 16 entries from KDir to Dir
      *   2. Set entry 256 to the address of IT page (bitwise-or-ed with the present and read/writable flags)
      *   3. Set entry 511 to the address of DT page (bitwise-or-ed with the present and read/writable flags)
      */
-	MemCpy((char *) p, (char *) KDir, sizeof(p)*16);
+	MemCpy((char *) page[index[0]].addr, (char *) KDir, sizeof(p)*16);
 	page[DIR].u.entry[256] = page[IT].u.addr | PRESENT | RW;
     page[DIR].u.entry[511] = page[DT].u.addr | PRESENT | RW;
 	
@@ -510,7 +507,7 @@ void SysVfork(void)
 	page[DT].u.entry[1023] = page[DP].addr | PRESENT | RW;
 	
     // Build IP page: Copy instructions to IP (src addr is ebx of TF)
-    page[IP].u.entry[] = 
+    page[IP].u.entry[0] = pcb[run_pid].tf_p->ebx;
 	
 	/* Build DP page:
      *   1. The last in u.entry[] is efl, = EF_DEF... (like SpawnSR)
