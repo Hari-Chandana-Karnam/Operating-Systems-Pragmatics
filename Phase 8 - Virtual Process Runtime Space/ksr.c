@@ -327,10 +327,10 @@ void SysWait(void)
 	}
 	else
 	{
-		set_cr3(pcb[PID].dir);
 		pcb[run_pid].tf_p->ecx = PID; 	// pass over child's PID to parent
 		*(int *) pcb[run_pid].tf_p->ebx = pcb[PID].tf_p->ebx;	// pass over its exit code to parent
 
+		set_cr3(pcb[PID].dir);
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
 		set_cr3(pcb[run_pid].dir);
