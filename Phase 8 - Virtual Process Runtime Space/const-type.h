@@ -90,7 +90,7 @@ typedef struct {
 } kb_t;
 
 typedef struct { 
-    int pid  the process that uses the page (initially NONE)
+    int pid;//  the process that uses the page (initially NONE)
     union {                  // u is an alias of 3 meanings:
         unsigned addr;        // its real byte address
         char *content;        // as ptr to page content (bytes)
