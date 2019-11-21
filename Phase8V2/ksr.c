@@ -426,7 +426,7 @@ void KBSR(void)
 
 void SysVFork(void)
 {
-	int DIR, IT, DT, IP, DP, DIR_addr, IT_addr, DT_addr, IP_addr, DP_addr;
+	int DIR, IT, DT, IP, DP;
 	int new_pid;
 	int distance;
 	int index[5];	//To store the page numbers that are not occupied.
@@ -473,28 +473,12 @@ void SysVFork(void)
 	IP  = index[3];
 	DP  = index[4];
 
-	DIR_addr = page[index[0]].u.addr;
-	IT_addr  = page[index[1]].u.addr;
-	DT_addr  = page[index[2]].u.addr;
-	IP_addr  = page[index[3]].u.addr;
-	DP_addr  = page[index[4]].u.addr;
-
 	for(i = 0; i < 5; i++)	{
 		page[index[i]].pid = new_pid;
-		Bzero((char *) &page[index[i]].u.content, STACK_MAX);
+		Bzero(page[index[i]].u.content, STACK_MAX);
 	}
-
-	page[DIR].u.addr = DIR_addr;
-	page[IT].u.addr = IT_addr;
-	page[DT].u.addr = DT_addr;
-	page[IP].u.addr = IP_addr;
-	page[DP].u.addr = DP_addr;
-
-	/*for(i = 0; i < 5; i++)	{
-		Bzero((char *) &page[index[i]].u.content, STACK_MAX);
-	}*/
-
-   	MemCpy((char *) DIR_addr, (char *) KDir, 16);
+	
+	MemCpy(page[DIR].u.content, (char *) KDir, 16*4);
 	page[DIR].u.entry[256] 	= page[IT].u.addr | PRESENT | RW;
     page[DIR].u.entry[511] 	= page[DT].u.addr | PRESENT | RW;
 	
@@ -504,10 +488,13 @@ void SysVFork(void)
    	page[DP].u.entry[1021] 	= G1;
 	
 	page[IT].u.entry[0] 	= page[IP].u.addr | PRESENT | RW;
-	//page[IP].u.entry[0]		= pcb[run_pid].tf_p->ebx;
-	MemCpy((char *) page[IP].u.entry, (char *) pcb[run_pid].tf_p->ebx, sizeof(tf_t));	
+
+	//According to professor, our page[IT].u.entry[0] should have the flag R0;
+	//NEED TO WORK FROM HERE I SUPPOSE.
+	
+	MemCpy((char *) page[IP].u.entry, (char *) pcb[run_pid].tf_p->ebx, STACK_MAX);	
 
     /*copy u.addr of DIR page to Dir in PCB of the new process tf_p in PCB of new process = G2 minus the size of a trapframe*/
 	MemCpy((char *) pcb[new_pid].dir, (char *) page[DIR].u.addr, G2 - sizeof(tf_t));
-	//pcb[new_pid].dir = ((int) page[DIR].u.addr + G2 - sizeof(tf_t));
+
 }
