@@ -196,16 +196,13 @@ void sys_read(char *read_str)
 
 void sys_vfork(func_p_t p) 
 {
-    int forked_pid;
-    asm("movl %1, %%eax;
-	 movl %2, %%ecx;
-         int $128;
-         movl %%ebx, %0"       
-       : "=g" (forked_pid)  				// output from asm()
-       : "g" (SYS_VFORK), "g"(p)     			// input to asm()
-       : "eax", "ebx","ecx"       			// clobbered registers
+    asm("movl %0, %%eax;
+	     movl %1, %%ebx;
+         int $128"       
+       : 			  				// no output from asm()
+       : "g" (SYS_VFORK), "g"(p)    // input to asm()
+       : "eax", "ebx"       	// clobbered registers
     );
-    return;
 }
 
 
