@@ -35,6 +35,14 @@ void SpawnSR(func_p_t p)
 	page[pid].pid = pid;
 	/*mark down the equivalent DRAM page to be occupied by the new process
    (e.g., Idle and Login), so the page array can skip these already used*/
+	
+	if(pid==0){  //if new pid is 0, set STDOUT in its PCB to CONSOLE; for others, to TTY
+		pcb[pid].STDOUT = CONSOLE;
+	}
+	else{
+		pcb[pid].STDOUT = TTY;
+	}
+
 }
 
 void TimerSR(void)
