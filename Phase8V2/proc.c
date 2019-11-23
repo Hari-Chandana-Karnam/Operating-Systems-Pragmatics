@@ -213,6 +213,7 @@ void Login(void)
 		{
 			sys_write("Login Successful!\r");
 			sys_vfork(&Shell);
+			sys_exit(0);
 			//ShellCal();
 		}
 		else
