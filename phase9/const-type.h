@@ -45,6 +45,10 @@
 #define SYS_READ 142             // phase 7
 #define SYS_VFORK 143            // phase 8 - creation of a virtual-space running process
 
+#define CONSOLE 100             // phase9, for STDIN of Idle
+#define TTY 200                 // for STDIN of Shell and its children
+#define TTY_EVENT 35            // TTY0/2, use 36 for TTY1
+
 // Signals
 #define SIGCHLD 17               // phase 6
 #define SIGCONT 18               // phase 6
@@ -54,6 +58,10 @@
 #define DRAM_START 0xe00000         // 14 MB
 #define G1 0x40000000               // phase 8 - Virtual space starts
 #define G2 0x80000000               // phase 8 - Vitual space ends (1 less byte)
+
+#define PIC_MASK_VAL ~0x09      // new mask: ~0..01001
+#define TTY_SERVED_VAL 0x63     // also for COM4, 0x64 for COM3
+#define TTY0 0x2f8              // TTY1 0x3e8, TTY2 0x2e8
 
 typedef void (*func_p_t)(void);
 
@@ -72,6 +80,7 @@ typedef struct {
     unsigned int ppid;              // Process ID of parent.
     func_p_t signal_handler[32];    // 32 is the number of total signals possible in a 32-bit OS.
     unsigned dir;                   // This is where the address-translation directory is.
+    int STDOUT;                     //which device (CONSOLE/TTY) for process output
 } pcb_t;    //PCB type
 
 typedef struct {
@@ -97,5 +106,11 @@ typedef struct {
         unsigned *entry;      // as an array, used as ...u.entry[..]
     } u;
 } page_t;
+
+typedef struct {            //A new tty_t for a TTY object:
+   char *str;               // addr of string to print
+   que_t wait_que;          // requesting process
+   int port;                // set to TTY0/1/2
+} tty_t;
 
 #endif      // to prevent name mangling
