@@ -113,3 +113,32 @@ void Kernel(tf_t *tf_p) // kernel runs
    	set_cr3(pcb[run_pid].dir);
 	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
 }
+void TTYinit(void) {                // phase9
+      int i, j;
+      
+      Bzero((char *)&tty, sizeof(tty_t));
+      tty.port = TTY0;
+
+      outportb(tty.port+CFCR, CFCR_DLAB);             // CFCR_DLAB is 0x80
+      outportb(tty.port+BAUDLO, LOBYTE(115200/9600)); // period of each of 9600 bauds
+      outportb(tty.port+BAUDHI, HIBYTE(115200/9600));
+      outportb(tty.port+CFCR, CFCR_PEVEN|CFCR_PENAB|CFCR_7BITS);
+   
+      outportb(tty.port+IER, 0);
+      outportb(tty.port+MCR, MCR_DTR|MCR_RTS|MCR_IENABLE);
+
+      for(i=0; i<166667; i++)asm("inb $0x80");       // wait .1 sec
+      outportb(tty.port+IER, IER_ERXRDY|IER_ETXRDY); // enable TX & RX intr
+      for(i=0; i<166667; i++)asm("inb $0x80");       // wait .1 sec
+
+      for(j=0; j<3; j++) {                           // clear 3 lines
+         outportb(tty.port, 'V');
+         for(i=0; i<83333; i++)asm("inb $0x80");     // wait .5 sec should do
+         outportb(tty.port, '\n');
+         for(i=0; i<83333; i++)asm("inb $0x80");
+         outportb(tty.port, '\r');
+         for(i=0; i<83333; i++)asm("inb $0x80");
+      }
+      inportb(tty.port);                             // get 1st key PROCOMM logo
+      for(i=0; i<83333; i++)asm("inb $0x80");        // wait .5 sec
+   }
