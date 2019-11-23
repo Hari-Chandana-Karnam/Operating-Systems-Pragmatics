@@ -39,3 +39,14 @@ ENTRY(SyscallEntry)         // similar to TimerEntry
    cld
    call CNAME(Kernel)
 
+ENTRY(TTYEntry)         // similar to TimerEntry updated for phase9
+   pushl $35             // push event identifier
+   pusha
+   movl %esp, %ecx
+   movw $0x10, %ax
+   mov %ax, %ds
+   mov %ax, %es
+   leal kstack+KSTACK_MAX, %esp
+   push %ecx
+   cld
+   call CNAME(Kernel)
