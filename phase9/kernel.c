@@ -16,6 +16,7 @@ que_t avail_que, ready_que;   //declare 2 queues: avail_que and ready_que;  // a
 pcb_t pcb[PROC_MAX];          //declare an array of PCB type: pcb[PROC_MAX];  // Process Control Blocks
 mutex_t video_mutex;
 kb_t kb;
+tty_t tty;  		//use tty_t to declare a 'tty' to interface a terminal port
 page_t  page[PAGE_MAX];
 unsigned int KDir;			  // Kernals's 'real address' - translation directory;
 unsigned int sys_time_count;  //declare an unsigned integer: sys_time_count
@@ -62,6 +63,7 @@ void BootStrap(void)
 int main(void) 
 {
    BootStrap();               	//do the boot strap things 1st
+   TTYinit();		        //to initialize a terminal port	
    SpawnSR(&Idle);             	//create Idle thread
    SpawnSR(&Login);             	//create Init thread
    run_pid = IDLE;           	//set run_pid to IDLE
@@ -98,6 +100,9 @@ void Kernel(tf_t *tf_p) // kernel runs
    		case SYSCALL_EVENT:
       	    SyscallSR();       // all syscalls go here 1st
       	    break;
+		case TTY_EVENT:      // phase9
+			 TTYSR();
+			 break;
 		default:
       	    cons_printf("Kernel Panic: no such event!\n");
 			breakpoint();
