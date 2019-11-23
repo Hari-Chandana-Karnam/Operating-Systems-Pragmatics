@@ -1,0 +1,99 @@
+p-code.txt for phase 9 TTY Output
+
+1. In spede.h, uncomment the line to include rs232.h for names of
+constants used to initialize the terminal connection port.
+
+(DONE) 2. New constants
+          CONSOLE 100             // phase9, for STDIN of Idle
+          TTY 200                 // for STDIN of Shell and its children
+          TTY_EVENT 35            // TTY0/2, use 36 for TTY1
+          PIC_MASK_VAL ~0x09      // new mask: ~0..01001
+          TTY_SERVED_VAL 0x63     // also for COM4, 0x64 for COM3
+          TTY0 0x2f8              // TTY1 0x3e8, TTY2 0x2e8
+
+(DONE) 3. New info in PCB
+         'int STDOUT,' which device (CONSOLE/TTY) for process output
+
+(DONE) 4. A new tty_t for a TTY object:
+   char *str;               // addr of string to print
+   que_t wait_que;          // requesting process
+   int port;                // set to TTY0/1/2
+
+(DONE) 5. Kernel's new data
+   use tty_t to declare a 'tty' to interface a terminal port
+
+6. During BootStrap()
+   add to IDT: entry # TTY_EVENT holds address of TTYEntry (in entry.S)
+   apply the new PIC mask
+
+(DONE) 7. During main()
+   after calling BootStrap(),
+   call TTYinit() (see code at the end) to initialize a terminal port
+
+(DONE) 8. During Kernel()
+   add a new case when TTY_EVENT -> call TTYSR()
+   
+(DONE) 9. entry.S
+   add a new code module TTYEntry (pushl $35)
+
+(DONE) 10. ksr.c
+   SpawnSR
+      if new pid is 0, set STDOUT in its PCB to CONSOLE; for others, to TTY
+
+11. SysWrite
+      if CONSOLE is the STDOUT of the calling process:
+         apply the old code 
+      else if it's TTY:
+         1. copy the string address to the 'str' in 'tty'
+         2. suspend the process in the wait queue of 'tty'
+         3. demote its state to IO_WAIT
+         4. run_pid is NONE
+         5. call TTYSR()
+      else
+         panic: no such device!
+         
+12. TTYSR
+      notify PIC TTY_SERVED_VAL (similar to how timer did its)
+
+      if no waiting process in 'tty,' just return
+
+      read in the PID # of the 1st process in the wait queue
+      (virtual memory switching, in order to use string addr)
+      get the char from the string
+      if the char is NOT NUL
+         1. prints it out (how, see in TTYinit below)
+         2. advance the pointer
+      else
+         release the waiting process (1-2-3)
+
+(DONE) 13. kernel.c
+   void TTYinit(void) {                // phase9
+      int i, j;
+      
+      Bzero((char *)&tty, sizeof(tty_t));
+      tty.port = TTY0;
+
+      outportb(tty.port+CFCR, CFCR_DLAB);             // CFCR_DLAB is 0x80
+      outportb(tty.port+BAUDLO, LOBYTE(115200/9600)); // period of each of 9600 bauds
+      outportb(tty.port+BAUDHI, HIBYTE(115200/9600));
+      outportb(tty.port+CFCR, CFCR_PEVEN|CFCR_PENAB|CFCR_7BITS);
+   
+      outportb(tty.port+IER, 0);
+      outportb(tty.port+MCR, MCR_DTR|MCR_RTS|MCR_IENABLE);
+
+      for(i=0; i<166667; i++)asm("inb $0x80");       // wait .1 sec
+      outportb(tty.port+IER, IER_ERXRDY|IER_ETXRDY); // enable TX & RX intr
+      for(i=0; i<166667; i++)asm("inb $0x80");       // wait .1 sec
+
+      for(j=0; j<3; j++) {                           // clear 3 lines
+         outportb(tty.port, 'V');
+         for(i=0; i<83333; i++)asm("inb $0x80");     // wait .5 sec should do
+         outportb(tty.port, '\n');
+         for(i=0; i<83333; i++)asm("inb $0x80");
+         outportb(tty.port, '\r');
+         for(i=0; i<83333; i++)asm("inb $0x80");
+      }
+      inportb(tty.port);                             // get 1st key PROCOMM logo
+      for(i=0; i<83333; i++)asm("inb $0x80");        // wait .5 sec
+   }
+
