@@ -190,8 +190,7 @@ void SysWrite(void)
 	{
 		
 		tty.str = &str;
-		tty.wait_que=pcb[run_pid].tf_t ;       //2. suspend the process in the wait queue of 'tty'
-		Enque(process,tty.wait.que);
+		Enque(run_pid,tty.wait.que); //2. suspend the process in the wait queue of 'tty'
 		pcb[run_pid].state=IO_WAIT;		
 		run_pid=NONE;
 		TTYSR();
