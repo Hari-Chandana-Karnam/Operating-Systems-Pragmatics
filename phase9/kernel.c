@@ -38,26 +38,28 @@ void BootStrap(void)
 	Bzero((char *) &video_mutex.suspend_que, sizeof(que_t));	//call tool Bzero() to clear video_mutex's suspend queue
 	Bzero((char *) &kb, sizeof(kb_t));
 	
-   //enqueue all the available PID numbers to avail queue
-   for(i = 0; i < QUE_MAX; i++)
-   {
-      EnQue(i, &avail_que);
-   }
+   	//enqueue all the available PID numbers to avail queue
+   	for(i = 0; i < QUE_MAX; i++)
+   	{
+    	EnQue(i, &avail_que);
+   	}
 	
-   /* For the page array:
-    * each page is used by NONE, and its
-    * page[i].u.addr = DRAM_START + i * PAGE_SIZE where i = 0..PAGE_MAX-1
-	*/
-   for(i = 0; i <= PAGE_SIZE -1; i++)
-   {
-	   page[i].pid = NONE;
-	   page[i].u.addr = DRAM_START + i * PAGE_SIZE;
-   }
+   	/* For the page array:
+     * each page is used by NONE, and its
+     * page[i].u.addr = DRAM_START + i * PAGE_SIZE where i = 0..PAGE_MAX-1
+	 */
+   	for(i = 0; i <= PAGE_SIZE -1; i++)
+   	{
+	   	page[i].pid = NONE;
+		page[i].u.addr = DRAM_START + i * PAGE_SIZE;
+   	}
 
-   idt = get_idt_base();                                                      	  //get IDT location
-   fill_gate(&idt[TIMER_EVENT], (int)TimerEntry, get_cs(), ACC_INTR_GATE, 0);	  //addr of TimerEntry is placed into proper IDT entry
-   fill_gate(&idt[SYSCALL_EVENT], (int)SyscallEntry, get_cs(), ACC_INTR_GATE, 0); //Have to program this one properly.
-   outportb(PIC_MASK_REG, PIC_MASK_VAL); //send PIC control register the mask value for timer handling
+   	idt = get_idt_base();                                                      	  	// get IDT location
+   	fill_gate(&idt[TIMER_EVENT], (int)TimerEntry, get_cs(), ACC_INTR_GATE, 0);		// addr of TimerEntry is placed into proper IDT entry
+   	fill_gate(&idt[SYSCALL_EVENT], (int)SyscallEntry, get_cs(), ACC_INTR_GATE, 0); 	// Have to program this one properly.
+  	outportb(PIC_MASK_REG, PIC_MASK_VAL); //send PIC control register the mask value for timer handling
+	fill_gate(&idt[TTY_EVENT], (int)TTYEntry, get_cs(), ACC_INTR_GATE, 0);			// addr of TTYEntry is placed into proper IDT entry
+	outportb(PIC_MASK_REG, TTY_SERVED_VAL);		//not very sure of this. May have to update PIC_MASK_REG
 }
 
 int main(void) 
@@ -113,7 +115,9 @@ void Kernel(tf_t *tf_p) // kernel runs
    	set_cr3(pcb[run_pid].dir);
 	Loader(pcb[run_pid].tf_p); //call Loader() to load the trapframe of the selected process
 }
-void TTYinit(void) {                // phase9
+
+void TTYinit(void) 		// phase 9
+{                
       int i, j;
       
       Bzero((char *)&tty, sizeof(tty_t));
