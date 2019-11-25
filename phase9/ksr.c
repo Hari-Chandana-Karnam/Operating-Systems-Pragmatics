@@ -149,40 +149,70 @@ void SysWrite(void)
 	int column, row;
 	char *str;
 	str = (char *) pcb[run_pid].tf_p->ebx;
-
-	while(*str != '\0')
+	if(STDOUT=CONSOLE)
 	{
-		if(sys_cursor == VIDEO_END)
+		while(*str != '\0')
 		{
-			row = 0;
-			sys_cursor = VIDEO_START;
-			while(row < 25)
+			if(sys_cursor == VIDEO_END)
 			{
-				column = 0;
-				while(column < 80)
+				row = 0;
+				sys_cursor = VIDEO_START;
+				while(row < 25)
 				{
-					*sys_cursor = ' ' + VGA_MASK_VAL;
-					sys_cursor++;
-					column++;
+					column = 0;
+					while(column < 80)
+					{
+						*sys_cursor = ' ' + VGA_MASK_VAL;
+						sys_cursor++;
+						column++;
+					}
+					row++;
 				}
-				row++;
+				sys_cursor = VIDEO_START;
 			}
-			sys_cursor = VIDEO_START;
+
+			if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
+			{
+				column = (sys_cursor - VIDEO_START) % 80;
+				sys_cursor += 80 - column;
+				return;
+			}
+			else
+			{
+				*sys_cursor = *str + VGA_MASK_VAL;
+				sys_cursor++;
+			}
+			str++;
 		}
-		
-		if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
-		{
-			column = (sys_cursor - VIDEO_START) % 80;
-			sys_cursor += 80 - column;
-			return;
-		}
-		else
-		{
-			*sys_cursor = *str + VGA_MASK_VAL;
-			sys_cursor++;
-		}
-		str++;
 	}
+	
+	else if(STDOUT=TTY)
+	{
+		
+		tty.str = &str;
+		tty.wait_que=pcb[run_pid].tf_t ;       //2. suspend the process in the wait queue of 'tty'
+		Enque(process,tty.wait.que);
+		pcb[run_pid].state=IO_WAIT;		
+		run_pid=NONE;
+		TTYSR();
+    	
+		/* else if it's TTY:
+        	1. copy the string address to the 'str' in 'tty'
+        	2. suspend the process in the wait queue of 'tty'
+        	3. demote its state to IO_WAIT
+        	4. run_pid is NONE
+        	5. call TTYSR()
+        else
+        	panic: no such device!*/
+	}
+	else
+		{
+			cons_printf("Panic: no such device!*/!\n");
+			breakpoint();				
+		}
+	
+	
+	
 }
 
 void SysSetCursor(void)
