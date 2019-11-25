@@ -22,7 +22,7 @@ constants used to initialize the terminal connection port.
 (DONE) 5. Kernel's new data
    use tty_t to declare a 'tty' to interface a terminal port
 
-6. During BootStrap()
+(DONE but not confirmed) 6. During BootStrap()
    add to IDT: entry # TTY_EVENT holds address of TTYEntry (in entry.S)
    apply the new PIC mask
 
