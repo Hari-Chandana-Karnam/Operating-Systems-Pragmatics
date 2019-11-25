@@ -5,7 +5,7 @@
 
 #define TIMER_EVENT 32           // timer interrupt signal code
 #define PIC_MASK_REG 0x21        // I/O loc # of PIC mask
-#define PIC_MASK_VAL ~0x01       // mask code for PIC
+//#define PIC_MASK_VAL ~0x01       // mask code for PIC
 #define PIC_CONT_REG 0x20        // I/O loc # of PIc control
 #define TIMER_SERVED_VAL 0x60    // control code sent to PIC
 #define VGA_MASK_VAL 0x0f00      // bold face, white on black
