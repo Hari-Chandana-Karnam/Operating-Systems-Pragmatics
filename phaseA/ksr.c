@@ -547,16 +547,9 @@ void TTYSR(void)
 		not_e = *tty.str;
 		if(not_e != '\0')
 		{
-			if(not_e == '\r')
-			{
-				outportb(tty.port, '\n');
-	        	for(i=0; i<83333; i++)asm("inb $0x80");
-	      	}			
 			outportb(tty.port, not_e);
-       		for(i=0; i<83333; i++)asm("inb $0x80");     
 			tty.str++;
-      
-		}
+      	}
 		else
 			{
 				DeQue(&tty.wait_que);

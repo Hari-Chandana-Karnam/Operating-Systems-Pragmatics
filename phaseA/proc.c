@@ -158,16 +158,16 @@ void ShellDir(void)
 			row++;
 		}
 		sys_cursor = VIDEO_START;
-		sys_write(" Wrapped cursor last command> dir\r");
+		sys_write(" Wrapped cursor last command> dir\r\n");
 	}	
-	sys_write("     Desktop\r");   
-	sys_write("     Documents \r");   
-	sys_write("     Downloads \r");
-	sys_write("     Music\r");  
-	sys_write("     Pictures\r"); 
-	sys_write("     Public\r");  
-	sys_write("     Templates\r");   
-	sys_write("     Videos\r");   
+	sys_write("     Desktop\r\n");   
+	sys_write("     Documents \r\n");   
+	sys_write("     Downloads \r\n");
+	sys_write("     Music\r\n");  
+	sys_write("     Pictures\r\n"); 
+	sys_write("     Public\r\n");  
+	sys_write("     Templates\r\n");   
+	sys_write("     Videos\r\n");   
 	sys_exit(0);
 }
 
@@ -191,16 +191,16 @@ void ShellCal(void)
 			row++;
 		}
 		sys_cursor = VIDEO_START;
-		sys_write(" Wrapped cursor last command> cal\r");
+		sys_write(" Wrapped cursor last command> cal\r\n");
 	}
 	
-	sys_write("        November 2019     \r");
-	sys_write("     Su Mo Tu We Th Fr Sa \r");
-	sys_write("                     1  2 \r");
-	sys_write("      3  4  5  6  7  8  9 \r");
-	sys_write("     10 11 12 13 14 15 16 \r");
-	sys_write("     17 18 19 20 21 22 23 \r");
-	sys_write("     24 25 26 27 28 29 30 \r");
+	sys_write("        November 2019     \r\n");
+	sys_write("     Su Mo Tu We Th Fr Sa \r\n");
+	sys_write("                     1  2 \r\n");
+	sys_write("      3  4  5  6  7  8  9 \r\n");
+	sys_write("     10 11 12 13 14 15 16 \r\n");
+	sys_write("     17 18 19 20 21 22 23 \r\n");
+	sys_write("     24 25 26 27 28 29 30 \r\n");
 	sys_exit(0);
 }
 
@@ -224,7 +224,7 @@ void ShellRoll(void)
 			row++;
 		}
 		sys_cursor = VIDEO_START;
-		sys_write(" Wrapped cursor last command> roll\r");
+		sys_write(" Wrapped cursor last command> roll\r\n");
 	}	
 
 
@@ -256,7 +256,7 @@ void Shell (void)
 			sys_write(pid_str);
 			sys_write("     Exit Code: ");
 			sys_write(str);
-			sys_write("\r");
+			sys_write("\r\n");
 		}
 		else if(StringCompare(cal_str, input_str) == 1)
 		{		
@@ -268,7 +268,7 @@ void Shell (void)
 			sys_write(pid_str);
 			sys_write("     Exit Code: ");
 			sys_write(str);
-			sys_write("\r");
+			sys_write("\r\n");
 		}
 		else if(StringCompare(roll_str, input_str) == 1)
 		{		
@@ -280,7 +280,7 @@ void Shell (void)
 			sys_write(pid_str);
 			sys_write("     Exit Code: ");
 			sys_write(str);
-			sys_write("\r");
+			sys_write("\r\n");
 		}
 		else
 		{
@@ -301,12 +301,12 @@ void Shell (void)
 					row++;
 				}
 				sys_cursor = VIDEO_START;
-				sys_write(" Wrapped cursor last command was invalid\r");
+				sys_write(" Wrapped cursor last command was invalid\r\n");
 			}				
-			sys_write("     Valid commands are:\r");
-			sys_write("          dir  -- display directory cotent.\r");
-			sys_write("          cal  -- display calender.\r");
-        	sys_write("          roll -- roll a pair of dice.\r"); 
+			sys_write("     Valid commands are:\r\n");
+			sys_write("          dir  -- display directory cotent.\r\n");
+			sys_write("          cal  -- display calender.\r\n");
+        	sys_write("          roll -- roll a pair of dice.\r\n"); 
 		}				
 	}
 }
@@ -319,18 +319,20 @@ void Login(void)
 	{
     	sys_write("Login: ");         
 	    sys_read(login_str);
+		sys_write("\r\n");
 		sys_write("Password: ");
 		sys_read(password_str);
+		sys_write("\r\n");
 		
         if(StringCompare(login_str, password_str) == 1)
 		{
-			sys_write("Login Successful!\r");
+			sys_write("Login Successful!\r\n");
 			sys_vfork(&Shell);
 			sys_exit(0);
 		}
 		else
 		{
-			sys_write("Login Failed!\r");
+			sys_write("Login Failed!\r\n");
 		}
 	}
 }
