@@ -133,7 +133,7 @@ void SyscallSR(void)
     }
 	
     set_cr3(KDir);
-	pcb[run_pid].dir=KDir;
+
 }
 
 void SysSleep(void)
@@ -343,7 +343,7 @@ void SysExit(void)
 		}
 
 		run_pid = NONE;	//no running process anymore
-		
+		set_cr3(KDir);	
     }
 }
 
@@ -378,6 +378,7 @@ void SysWait(void)
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
 		set_cr3(pcb[run_pid].dir);
 	}
+	set_cr3(KDir);
 }
 
 void SysSignal(void)
