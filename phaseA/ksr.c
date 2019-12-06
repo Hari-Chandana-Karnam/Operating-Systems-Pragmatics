@@ -30,7 +30,7 @@ void SpawnSR(func_p_t p)
    	pcb[pid].tf_p->efl = EF_DEFAULT_VALUE | EF_INTR;
    	pcb[pid].tf_p->cs  = get_cs();
    	pcb[pid].tf_p->eip = (DRAM_START + (pid*STACK_MAX));
-	
+
 	pcb[pid].dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
 	page[pid].pid = pid;
 	/*mark down the equivalent DRAM page to be occupied by the new process
@@ -128,14 +128,14 @@ void SyscallSR(void)
         	cons_printf("Kernel Panic: no such syscall!\n");
         	breakpoint();
    	}
-	
+
 	if (run_pid != NONE)
     {
 	   	pcb[run_pid].state = READY;
 	   	EnQue(run_pid, &ready_que);
         run_pid = NONE;
     }
-	
+
     set_cr3(KDir);
 
 }
@@ -175,7 +175,7 @@ void SysWrite(void)
 				}
 				sys_cursor = VIDEO_START;
 			}
-		
+
 			if(*str == '\r') //If '\r' is pressed then go to the start of the next line and return.
 			{
 				column = (sys_cursor - VIDEO_START) % 80;
@@ -192,18 +192,18 @@ void SysWrite(void)
 	}
 	else if(pcb[run_pid].STDOUT == TTY)
 	{
-		
-		tty.str = str; 
-		EnQue(run_pid,&tty.wait_que);
-		pcb[run_pid].state = IO_WAIT;		
+
+		tty.dsp_str = str;
+		EnQue(run_pid,&tty.dsp_wait_que);
+		pcb[run_pid].state = IO_WAIT;
 		run_pid = NONE;
-		TTYSR();
-  
+		TTYdspSR();
+
 	}
 	else
 		{
 			cons_printf("Panic: no such device!*/!\n");
-			breakpoint();				
+			breakpoint();
 		}
 }
 
@@ -250,7 +250,7 @@ void SysFork(void)
 
     pcb[run_pid].tf_p->ebx = PID;		//set ebx to new pid in parent process's trapframe
 	pcb[PID].tf_p->ebx = 0;
-	
+
 	pcb[PID].dir = KDir;  //set Dir in PCB to KDir for the new process (so it'll use real memory),
 	page[PID].pid = PID;/*mark down the equivalent DRAM page to be occupied by the new process
    (e.g., Idle and Login), so the page array can skip these already used*/
@@ -312,7 +312,7 @@ void SysExit(void)
 	int i = 0;
 
 	parentPID = pcb[run_pid].ppid;
-	
+
 	if(WAIT != pcb[parentPID].state)
     {
         pcb[run_pid].state = ZOMBIE;
@@ -333,9 +333,9 @@ void SysExit(void)
 
 		pcb[parentPID].tf_p->ecx = run_pid;		//pass over exiting PID to parent
 		* (int *) pcb[parentPID].tf_p->ebx = exit_code;	//pass over exit code to parent
-		
+
 		set_cr3(pcb[run_pid].dir);
-		
+
 		//reclaim child resources (alter state, move it)
 	    pcb[run_pid].state = AVAIL;
 		EnQue(run_pid, &avail_que);
@@ -343,11 +343,11 @@ void SysExit(void)
 		for(i = 0; i < PAGE_MAX; i++)
 		{
 			if(page[i].pid == run_pid)
-				page[i].pid = NONE;		
+				page[i].pid = NONE;
 		}
 
 		run_pid = NONE;	//no running process anymore
-		set_cr3(KDir);	
+		set_cr3(KDir);
     }
 }
 
@@ -372,11 +372,11 @@ void SysWait(void)
 
 		set_cr3(pcb[PID].dir);
 		pcb[PID].state = AVAIL;	// reclaim child resources by altering state
-		
+
 		for(i = 0; i < PAGE_MAX; i++)
 		{
 			if(page[i].pid == PID)
-				page[i].pid = NONE;		
+				page[i].pid = NONE;
 		}
 
 		EnQue(PID, &avail_que); // reclaim child resources by moving it to avail_que
@@ -442,7 +442,7 @@ void SysRead(void)
 	   		run_pid = NONE;
 		}
 	}
-	
+
 	else if(pcb[run_pid]STDOUT == TTY)
 	{
 		tty.kb_str = *pcb[run_pid]tf_p->ebx;
@@ -454,12 +454,12 @@ void SysRead(void)
 	{
 		cons_printf("SysRead Panic: no such device!\n");
 		breakpoint();
-         
+
 	}
 
 
 
-	
+
 }
 
 void KBSR(void)
@@ -481,7 +481,7 @@ void KBSR(void)
 	else
 	{
     	pid = DeQue(&kb.wait_que); //release a waiting process from the wait queue
-		
+
 		set_cr3(pcb[pid].dir);
     	EnQue(pid, &ready_que);    //queue it to the ready-to-run queue
     	pcb[pid].state = READY;    //update its state
@@ -496,13 +496,13 @@ void SysVFork(void)
 	int new_pid;
 	int index[5];	//To store the page numbers that are not occupied.
 	int i = 0;		//For lopping PAGE_MAX times
-	int j = 0;		//To be used by index[]; 
-	
+	int j = 0;		//To be used by index[];
+
 	new_pid = DeQue(&avail_que);
     Bzero((char *) &pcb[new_pid], sizeof(pcb_t));
 	if(new_pid != IDLE)
     	EnQue(new_pid, &ready_que);
-	
+
 	pcb[new_pid] = pcb[run_pid];
 
     pcb[new_pid].state      	= READY;		//Changing the state of the child to READY.
@@ -511,9 +511,9 @@ void SysVFork(void)
 	pcb[new_pid].total_time 	= 0;
     pcb[new_pid].ppid       	= run_pid;		//Changinhg the PPID to the run_pid.
 
-	for(i = 0; i < PAGE_MAX; i++)	
+	for(i = 0; i < PAGE_MAX; i++)
 	{
-		if((page[i].pid == NONE) && (j != 5))	
+		if((page[i].pid == NONE) && (j != 5))
 		{
 			index[j] = i;
 			j++;
@@ -521,12 +521,12 @@ void SysVFork(void)
 				break;
 		}
 	}
-	
-	if(j != 5)	
+
+	if(j != 5)
 	{
 		cons_printf("SysVFork Panic: We do not have enough pages!\n");
         breakpoint();
-	} 
+	}
 
 	DIR = index[0];
 	IT  = index[1];
@@ -534,11 +534,11 @@ void SysVFork(void)
 	IP  = index[3];
 	DP  = index[4];
 
-	for(i = 0; i < 5; i++)	
+	for(i = 0; i < 5; i++)
 	{
 		page[index[i]].pid = new_pid;
 	}
-		
+
 	Bzero(page[DIR].u.content, STACK_MAX);
 	Bzero(page[IT].u.content, STACK_MAX);
 	Bzero(page[DT].u.content, STACK_MAX);
@@ -550,30 +550,35 @@ void SysVFork(void)
     page[DIR].u.entry[511] 	= page[DT].u.addr | PRESENT | RW;
 	page[IT].u.entry[0] 	= page[IP].u.addr | PRESENT | RO;
 	page[DT].u.entry[1023] 	= page[DP].u.addr | PRESENT | RW;
-    MemCpy((char *) page[IP].u.entry, (char *) pcb[run_pid].tf_p->ebx, PAGE_SIZE);	
+    MemCpy((char *) page[IP].u.entry, (char *) pcb[run_pid].tf_p->ebx, PAGE_SIZE);
 	page[DP].u.entry[1023] 	= EF_DEFAULT_VALUE | EF_INTR;
 	page[DP].u.entry[1022] 	= get_cs();
    	page[DP].u.entry[1021] 	= G1;
-	
+
     pcb[new_pid].dir = page[DIR].u.addr;
 }
 
 
 
-//new looks good 
+//new looks good
 void TTYSR(void)
 {
 	int read_pid,i;
 	char not_e;
 	char status
 	outportb(PIC_CONT_REG, TTY_SERVED_VAL);
-	status = inport(tty.port+IIR) 
-	
+	status = inportb(tty.port+IIR)
+
 	if (status == IIR_TXRDY)
 		TTYdspSR();
 
 	else if (status == IIR_RXRDY)
-		TTYkbSR();
+		{
+            TTYkbSR();
+            TTYdspSR();
+        }
+
+
 
 }
 
@@ -583,12 +588,15 @@ void TTYdspSR(void)
 {
 	int read_pid;
 	char not_e;
+    char buff;
 	outportb(PIC_CONT_REG, TTY_SERVED_VAL);
 
 //if 'echo' buffer in 'tty' is NOT empty:
 	if (QueEmpty(&tty.echo))
 	{
-		      
+		     buff =DeQue(&tty.echo);
+             outportb(tty.port, buff);
+             return;
 	/*a. dequeue 1st char from the buffer
 	* b. send it to be displayed on the terminal (like how it's done before)
 	* c. return
@@ -598,13 +606,13 @@ void TTYdspSR(void)
 	}
 
 
-	if(QueEmpty(&tty.wait_que))
+	if(QueEmpty(&tty.dsp_wait_que))
 		return;
 	else
 	{
-		read_pid=tty.wait_que.que[0];
+		read_pid=tty.dsp_wait_que.que[0];
 		set_cr3(pcb[read_pid].dir);
-		not_e = *tty.str;
+		not_e = *tty.dsp_str;
 		if(not_e != '\0')
 		{
 			outportb(tty.port, not_e);
@@ -612,10 +620,10 @@ void TTYdspSR(void)
       	}
 		else
 			{
-				DeQue(&tty.wait_que);
+				DeQue(&tty.dsp_wait_que);
 				pcb[read_pid].state=READY;
 				EnQue(read_pid,&ready_que);
-							
+
 			}
 	}
 
@@ -625,15 +633,30 @@ void TTYdspSR(void)
 void TTYkbSR (void)
 {
 	char reader;
+    int first_pid, back;
+	reader = inportb(tty.port);
 
-	reader inport(tty.port+IIR);
-	
 	if(QueEmpty(tty.kb_wait_que))
 		return;
 
-	
+    EnQue(reader,&tty.echo)
+    first_pid=tty.kb_wait_que.que[0];
+	set_cr3(pcb[first_pid].dir)
+    if (reader!= '\r')
+    {
+        *tty.kb_str='\r';
+        tty.kb_str++;
+    }
 
-//incomplete
+    else
+    {
+        EnQue('\n',tty.echo);
+        *tty.kb_str='\0';
+        back=DeQue(tty.kb_wait_que)
+        EnQue(back, &ready_que)
+        pcb[back].state=READY
+    }
+
 
 
 }

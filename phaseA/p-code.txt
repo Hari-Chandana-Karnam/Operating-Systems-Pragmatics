@@ -19,7 +19,7 @@ The Upper Half
    (DONE)sys_read():(DONE)
       now has just an asm() macro like others in syscall.c.
 
-   SysWrite:
+   (DONE)SysWrite:(DONE)
       Since tty_t is modified (in some field names), in the
       case of TTY:
          use tty.dsp.str and tty.dsp.wait_que instead, and
@@ -48,14 +48,14 @@ The Lower Half
             call TTYdspSR() to echo back if a char received from input
          (else: do nothing. This syntax enforces 'status' be either above.)
 
-   TTYdspSR
+   (DONE)TTYdspSR(DONE)
       if 'echo' buffer in 'tty' is NOT empty:
          a. dequeue 1st char from the buffer
          b. send it to be displayed on the terminal (like how it's done before)
          c. return
       (the rest is the same as prev phase except changes in tty_t field names.)
 
-   TTYkbSR
+   (DONE)TTYkbSR(DONE)
       1. use inportb() to read a character from TTY port (tty.port)
       2. if the keyboard wait queue in 'tty' is empty:
             return
