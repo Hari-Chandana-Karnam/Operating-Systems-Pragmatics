@@ -133,7 +133,7 @@ void SyscallSR(void)
     }
 	
     set_cr3(KDir);
-	pcb[run_pid].dir=KDir;
+	
 }
 
 void SysSleep(void)
