@@ -37,17 +37,12 @@ void SpawnSR(func_p_t p)
    (e.g., Idle and Login), so the page array can skip these already used*/
 	if(pid==0){  //if new pid is 0, set STDOUT in its PCB to CONSOLE; for others, to TTY
 		pcb[pid].STDOUT = CONSOLE;
+		pcb[pid].STDIN = CONSOLE;
 	}
 	else{
 		pcb[pid].STDOUT = TTY;
-	}
-	if(pid!=0){  //if new pid is 0, set STDOUT in its PCB to CONSOLE; for others, to TTY
 		pcb[pid].STDIN = TTY;
 	}
-	else{
-		pcb[pid].STDIN = CONSOLE;
-	}
-
 }
 
 void TimerSR(void)
