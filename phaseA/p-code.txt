@@ -1,0 +1,70 @@
+p-code of phase A, CpE/CSc 159, TeleTYpe, Interrupt Driven Input
+
+
+PCB will have a new STDIN (counterpart of STDOUT from prev phase)
+
+(DONE) tty_t will be updated for TTY I/O: (DONE)
+   char *dsp_str;           // string ptr (to display these chars)
+   que_t dsp_wait_que;      // processes wait for strings to get displayed
+   int port;                // 0x2f8 (COM2), 0x3e8 (COM3), 0x2e8 (COM4)
+   char *kb_str;            // string ptr (to get terminal input)
+   que_t kb_wait_que;       // processes wait for terminal input strings
+   que_t echo;              // input queued here to echo back to terminal
+
+(DONE) SpawnSR (DONE)
+   set STDIN in the PCB to TTY if the new PID is not zero
+
+The Upper Half
+
+   (DONE)sys_read():(DONE)
+      now has just an asm() macro like others in syscall.c.
+
+   (DONE)SysWrite:(DONE)
+      Since tty_t is modified (in some field names), in the
+      case of TTY:
+         use tty.dsp.str and tty.dsp.wait_que instead, and
+         call TTYdspSR() instead.
+
+   (DONE)SysRead:(DONE)
+      if the STDIN of PCB for the calling process is CONSOLE:
+         (original code there)
+      else if the STDIN of PCB for the calling process is TTY:
+         a. copy str addr the calling process provided to kb_str of 'tty'
+         b. the calling process state is changed to IO_WAIT
+         c. the calling process is suspended in keyboard wait queue of 'tty'
+      else (none above):
+         a. show panic msg: no such device
+         b. call breakpoint().
+
+The Lower Half
+   (DONE)TTYSR(DONE)
+      1. send to PIC a TTY_SERVED_VAL (similar to what TimerSR does)
+      2. read the status of the Interrupt Indicator Register:
+            use inportb() to read from tty.port+IIR
+      3. if status is about terminal display (IIR_TXRDY):
+            call TTYdspSR() to handle it (previous phase)
+         else if status is about terminal keyboard (IIR_RXRDY):
+            call TTYkbSR() to handle for input, then
+            call TTYdspSR() to echo back if a char received from input
+         (else: do nothing. This syntax enforces 'status' be either above.)
+
+   (DONE)TTYdspSR(DONE)
+      if 'echo' buffer in 'tty' is NOT empty:
+         a. dequeue 1st char from the buffer
+         b. send it to be displayed on the terminal (like how it's done before)
+         c. return
+      (the rest is the same as prev phase except changes in tty_t field names.)
+
+   (DONE)TTYkbSR(DONE)
+      1. use inportb() to read a character from TTY port (tty.port)
+      2. if the keyboard wait queue in 'tty' is empty:
+            return
+      3. enqueue the read character to the 'buffer' of 'tty'
+      4. switch to the virtual space of the 1st process in TTY keyboard wait queue
+      5. if the character read is NOT '\r:'
+            a. add it to where TTY keyboard string pointer points to
+            b. advance the pointer
+         else:
+            a. enqueue '\n' to the TTY keyboard buffer,
+            b. add '\0' to where the TTY keyboard string pointer points to,
+            c. release the 1st waiting process from the TTY keyboard wait queue. (3 steps.)
