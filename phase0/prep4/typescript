@@ -1,0 +1,620 @@
+Script started on Sat 07 Sep 2019 07:38:35 PM PDT
+[dhanoaa@cetus:21]> kls[K[K[Kls
+prep2/	typescript
+[dhanoaa@cetus:22]> mkdir prep3
+[dhanoaa@cetus:23]> cd prep2
+[dhanoaa@cetus:24]> cp -p sample.c ~/cpe159/prep[K[K[Khase0/prep3/
+[dhanoaa@cetus:25]> cd ..
+[dhanoaa@cetus:26]> cd prep3
+[dhanoaa@cetus:27]> ls
+sample.c
+[dhanoaa@cetus:28]> vi sample.c
+[?1049h[?1h=[2;1H▽[6n[2;1H  [1;1H[1;55r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[55;1H"sample.c" 16L, 383C[>c[1;1H[34m/*Name - Angad Pal Dhanoa
+ *Class - CPE 159
+ *Phase - 0
+ *Prep - 2
+*/[m
+
+[35m#include [m[31m<spede/stdio.h>[m[8C[34m// For printf() to project on Linux pc[m
+[35m#include [m[31m<spede/flames.h>[m[7C[34m// For cons_printf() to project on DOS pc  [m
+
+[32mint[m main([32mvoid[m)
+{[12;9H[32mint[m i = [31m128[m;[13;9Hprintf( [31m"[m[35m%d[m[31m Hello World [m[35m%d[m[31m [m[35m\n[m[31m ECS"[m, i, [31m2[m*i );   [34m//For Host[m[14;9Hcons_printf( [31m"--> Hello World <--[m[35m\n[m[31m CPE/CSC"[m ); [34m//For Target[m[15;9H[33mreturn[m [31m0[m;
+} [34m//end main()[m
+[1m[34m~                                                                                                                                                                                                              [18;1H~                                                                                                                                                                                                              [19;1H~                                                                                                                                                                                                              [20;1H~                                                                                                                                                                                                              [21;1H~                                                                                                                                                                                                              [22;1H~                                                                                                                                                                                                              [23;1H~                                                                                                                                                                                                              [24;1H~                                                                                                                                                                                                              [25;1H~                                                                                                                                                                                                              [26;1H~                                                                                                                                                                                                              [27;1H~                                                                                                                                                                                                              [28;1H~                                                                                                                                                                                                              [29;1H~                                                                                                                                                                                                              [30;1H~                                                                                                                                                                                                              [31;1H~                                                                                                                                                                                                              [32;1H~                                                                                                                                                                                                              [33;1H~                                                                                                                                                                                                              [34;1H~                                                                                                                                                                                                              [35;1H~                                                                                                                                                                                                              [36;1H~                                                                                                                                                                                                              [37;1H~                                                                                                                                                                                                              [38;1H~                                                                                                                                                                                                              [39;1H~                                                                                                                                                                                                              [40;1H~                                                                                                                                                                                                              [41;1H~                                                                                                                                                                                                              [42;1H~                                                                                                                                                                                                              [43;1H~                                                                                                                                                                                                              [44;1H~                                                                                                                                                                                                              [45;1H~                                                                                                                                                                                                              [46;1H~                                                                                                                                                                                                              [47;1H~                                                                                                                                                                                                              [48;1H~                                                                                                                                                                                                              [49;1H~                                                                                                                                                                                                              [50;1H~                                                                                                                                                                                                              [51;1H~                                                                                                                                                                                                              [52;1H~                                                                                                                                                                                                              [53;1H~                                                                                                                                                                                                              [54;1H~                                                                                                                                                                                                              [m[55;190H1,1[11CAll[1;1H[?12l[?25hP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[?25l[55;190H2[2;1H[?12l[?25h[?25l[55;190H3[3;1H[?12l[?25h[?25l[55;190H4[4;1H[?12l[?25h[?25l[55;190H5[5;1H[?12l[?25h[?25l[55;190H6,0-1[6;1H[?12l[?25h[?25l[55;190H7,1  [7;1H[?12l[?25h[?25l[55;190H8[8;1H[?12l[?25h[?25l[55;190H9,0-1[9;1H[?12l[?25h[?25l[55;190H10,1 [10;1H[?12l[?25h[?25l
+[46m{[16;1H}[m[55;191H1[11;1H[?12l[?25h[?25l{[16;1H}[55;191H2,1-8[12;8H[?12l[?25h[?25l[55;191H3[13;8H[?12l[?25h[?25l[55;191H4[14;8H[?12l[?25h[?25l[55;191H5[15;8H[?12l[?25h[?25l[11;1H[46m{[16;1H}[m[55;191H6,1  [16;1H[?12l[?25h[?25l[11;1H{[16;1H}[55;193H2[16;2H[?12l[?25h[?25l[55;193H3[16;3H[?12l[?25h[?25l[55;193H4[16;4H[?12l[?25h[?25l[55;193H5[16;5H[?12l[?25h[?25l[55;193H6[16;6H[?12l[?25h[?25l[55;193H7[16;7H[?12l[?25h[?25l[55;193H8[16;8H[?12l[?25h[?25l[55;193H9[16;9H[?12l[?25h[?25l[55;193H10[16;10H[?12l[?25h[?25l[55;194H1[16;11H[?12l[?25h[?25l[55;194H2[16;12H[?12l[?25h[?25l[1C[34m[46m()[m[55;194H3[16;13H[?12l[?25h[?25l[55;194H4[16;14H[?12l[?25h[?25l[55;1H[1m-- INSERT --[m[55;13H[K[55;190H16,14[9CAll[16;14H[?12l[?25h[?25l[46m [m
+[1m[37m[41m)[m[17;2H[K[16;13H[34m([m[16;14H[K[55;191H7,1 [17;1H[?12l[?25h[?25l[17;1H[K[18;1H[1m[37m[41m)[m[18;2H[K[55;191H8[18;1H[?12l[?25h[?25l[17;1H[1m[37m[41m)[m
+[1m[34m~                                                                                                                                                                                                              [m[55;191H7[17;1H[?12l[?25h[?25l[16;14H[34m)[m
+[1m[34m~                                                                                                                                                                                                              [m[16;13H[34m[46m()[m[55;191H6,14[16;14H[?12l[?25h[?25l[55;194H5[16;15H[?12l[?25h[?25l[17;1H[K[16;13H[34m()[m[55;191H7,1 [17;1H[?12l[?25h[?25l[18;1H[K[55;191H8[18;1H[?12l[?25h[?25l[19;1H[K[55;191H9[19;1H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa
+ *  *Class - CPE 159[m[20;21H[K[21;1H[34m *   *Phase - 0[m[21;16H[K[22;1H[34m *    *Prep - 3[m[22;16H[K[23;1H[34m *    */[m[23;9H[K[24;1H[K[25;1H[35m#include [m[31m<spede/stdio.h>[m        [34m// For printf() to project on Linux pc[m[25;71H[K[26;1H[35m#include [m[31m<spede/flames.h>[m       [34m// For cons_printf() to project on DOS pc  [m[26;76H[K[27;1H[K[28;1H[32mvoid[m DisplayMsg( [32mint[m i)[28;24H[K[29;1H{[29;2H[K[30;1H        [32mint[m j;[30;15H[K[31;1H        [33mfor[m(j = [31m0[m; j < [31m5[m; j++)[31;31H[K[32;1H        {[32;10H[K[33;1H                printf( [31m"[m[35m%d[m[31m Hello World [m[35m%d\n[m[31m ECS[m[35m\n[m[31m"[m, (i), [31m2[m*(i) );  [34m//For Host[m[33;79H[K[34;1H                cons_printf( [31m"--> Hello World <--[m[35m\n[m[31mCPE/CSC[m[35m\n[m[31m"[m );    [34m//For Target[m[34;81H[K[35;1H                i++;[35;21H[K[36;1H        }[36;10H[K[37;1H}[37;2H[K[38;1H[K[39;1H[32mint[m main([32mvoid[m)[39;15H[K[40;1H{[40;2H[K[41;1H        [32mint[m i = [31m111[m;[41;21H[K[42;1H[K[43;1H        DisplayMsg(i);[43;23H[K[44;1H[K[45;1H        [33mreturn[m [31m0[m;[45;18H[K[46;1H} [34m//end main()[m[46;15H[K[47;1H[K[55;190H47[47;1H[?12l[?25h[?25l[1m[34m~                                                                                                                                                                                                              [m[46;13H[34m[46m()[m[55;191H6,15[46;15H[?12l[?25h[?25l[34m()[m[55;191H5[45;15H[?12l[?25h[?25l[55;191H4,1 [44;1H[?12l[?25h[?25l[55;191H3,15[43;15H[?12l[?25h[?25l[55;191H2,1 [42;1H[?12l[?25h[?25l[55;191H1,15[41;15H[?12l[?25h[?25l[40;1H[46m{[46;1H}[m[55;191H0,2 [40;2H[?12l[?25h[?25l{[46;1H}[55;190H39[39;2H[?12l[?25h[?25l[55;191H8,1[38;1H[?12l[?25h[?25l[29;1H[46m{[37;1H}[m[55;191H7,2[37;2H[?12l[?25h[?25l[29;1H{[37;1H}[55;191H6[36;2H[?12l[?25h[?25l[55;191H5[35;2H[?12l[?25h[?25l[55;191H4[34;2H[?12l[?25h[?25l[55;191H3[33;2H[?12l[?25h[?25l[55;191H2[32;2H[?12l[?25h[?25l[55;191H1[31;2H[?12l[?25h[?25l[55;191H0[30;2H[?12l[?25h[?25l[29;1H[46m{[37;1H}[m[55;190H29[29;2H[?12l[?25h[?25l{[37;1H}[55;191H8[28;2H[?12l[?25h[?25l[55;191H7,1[27;1H[?12l[?25h[?25l[55;191H6,2[26;2H[?12l[?25h[?25l[55;191H5[25;2H[?12l[?25h[?25l[55;191H4,1[24;1H[?12l[?25h[?25l[55;191H3,2[23;2H[?12l[?25h[?25l[55;191H2[22;2H[?12l[?25h[?25l[55;191H1[21;2H[?12l[?25h[?25l[55;191H0[20;2H[?12l[?25h[?25l[55;190H19[19;2H[?12l[?25h[?25l[55;191H8,1[18;1H[?12l[?25h[?25l[55;191H9,2[19;2H[?12l[?25h[?25l[55;193H1[19;1H[?12l[?25h[?25l[18;54r[54;1H
+[1;55r[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H18,1[10CAll[18;1H[?12l[?25h[?25l[17;54r[54;1H
+[1;55r[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H17,1[10CAll[17;1H[?12l[?25h[?25l[16;54r[54;1H
+[1;55r[16;1H} [34m//end main()/*Name - Angad Pal Dhanoa[m
+ *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H16,15[9CAll[16;13H[34m[46m()[?12l[?25h[?25l/[m[34m*Name - Angad Pal Dhanoa[m[16;39H[K[16;13H[34m(/[m[55;194H4[16;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;38H[K[55;194H3[16;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;37H[K[55;194H2[16;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;36H[K[55;194H1[16;11H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;35H[K[55;194H0[16;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;34H[K[55;193H9 [16;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;33H[K[55;193H8[16;8H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;32H[K[55;193H7[16;7H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;31H[K[55;193H6[16;6H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;30H[K[55;193H5[16;5H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[16;29H[K[55;193H4[16;4H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[16;28H[K[17;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;193H3[16;3H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[16;27H[K[11;1H[46m{[16;1H}[m[55;193H2[16;2H[?12l[?25h[?25l[34m[46m/[m[34m*Name - Angad Pal Dhanoa[m[16;26H[K[11;1H{[16;1H[34m/[m[55;193H1[16;1H[?12l[?25h[?25l[15;54r[54;1H
+[1;55r[15;1H        [33mreturn[m [31m0[m;[34m/*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H15,11-18      All[15;18H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;42H[K[55;194H0-17[15;17H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;41H[K[55;193H9-16 [15;16H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;40H[K[55;193H8-15[15;15H[?12l[?25h[?25lretur[34m/*Name - Angad Pal Dhanoa[m[15;39H[K[55;193H7-14[15;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;38H[K[55;193H6-13[15;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;37H[K[55;193H5-12[15;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;36H[K[55;193H4-11[15;11H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;35H[K[55;193H3-10[15;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[15;34H[K[55;193H2-9 [15;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhano[m[15;26H[K[55;193H1  [15;1H[?12l[?25h[?25l[14;54r[54;1H
+[1;55r[14;1H        cons_printf( [31m"--> Hello World <--[m[35m\n[m[31m CPE/CSC"[m ); [34m//For Target/*Name - Angad Pal Dhanoa[m
+ *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H14,62-69      All[14;69H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;93H[K[55;194H1-68[14;68H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;92H[K[55;194H0-67[14;67H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;91H[K[55;193H59-66[14;66H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;90H[K[55;194H8-65[14;65H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;89H[K[55;194H7-64[14;64H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;88H[K[55;194H6-63[14;63H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;87H[K[55;194H5-62[14;62H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;86H[K[55;194H4-61[14;61H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;85H[K[55;194H3-60[14;60H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;84H[K[55;194H2-59[14;59H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[14;83H[K[55;194H1-58[14;58H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[14;82H[K[15;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;194H0-57[14;57H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;81H[K[55;193H49-56[14;56H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;80H[K[14;20H[46m([33C)[m[55;194H8-55[14;55H[?12l[?25h[?25l[34m[46m/[m[34m*Name - Angad Pal Dhanoa[m[14;79H[K[24;1H[1m[37m[41m{[27;9H{[31;9H}[m[14;20H([33C[34m/[m[55;194H7-54[14;54H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;78H[K[55;194H6-53[14;53H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;77H[K[15;1H[31m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */
+
+#include [15C        // For printf() to project on Linux pc
+#include [16C       // For cons_printf() to project on DOS pc  
+
+void DisplayMsg( int i)
+{
+        int j;
+        for(j = 0; j < 5; j++)
+        {
+                printf( [m[1C%d Hello World %d\n ECS\n[1C[31m, (i), 2*(i) );  //For Host
+                cons_printf( [m[1C--> Hello World <--\nCPE/CSC\n[1C[31m );    //For Target
+                i++;
+        }
+}
+
+int main(void)
+{
+        int i = 111;
+
+        DisplayMsg(i);
+
+        return 0;
+} //end main()[m[55;194H5-52[14;52H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;76H[K[55;194H4-51[14;51H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;75H[K[55;194H3-50[14;50H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;74H[K[55;194H2-49[14;49H[?12l[?25h[?25l[31m*Name - Angad Pal Dhanoa[m[14;73H[K[55;194H1-48[14;48H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;72H[K[55;194H0-47[14;47H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;71H[K[55;193H39-46[14;46H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;70H[K[55;194H8-45[14;45H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;69H[K[55;194H7-44[14;44H[?12l[?25h[?25l[35m/[m[31m*Name - Angad Pal Dhanoa[m[14;68H[K[55;194H6-43[14;43H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;67H[K[55;194H5-42[14;42H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;66H[K[55;194H4-41[14;41H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;65H[K[55;194H3-40[14;40H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;64H[K[55;194H2-39[14;39H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;63H[K[55;194H1-38[14;38H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;62H[K[55;194H0-37[14;37H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;61H[K[55;193H29-36[14;36H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;60H[K[55;194H8-35[14;35H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;59H[K[55;194H7-34[14;34H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;58H[K[55;194H6-33[14;33H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;57H[K[55;194H5-32[14;32H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;56H[K[55;194H4-31[14;31H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;55H[K[55;194H3-30[14;30H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;54H[K[55;194H2-29[14;29H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;53H[K[55;194H1-28[14;28H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;52H[K[55;194H0-27[14;27H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;51H[K[55;193H19-26[14;26H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;50H[K[55;194H8-25[14;25H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;49H[K[55;194H7-24[14;24H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[14;48H[K[55;194H6-23[14;23H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;47H[K[15;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m
+
+[35m#include [m[15C        [34m// For printf() to project on Linux pc[m
+[35m#include [m[16C       [34m// For cons_printf() to project on DOS pc  [m
+
+[32mvoid[m DisplayMsg( [32mint[m i)
+[1m[37m[41m{[m
+        [32mint[m j;
+        [33mfor[m(j = [1C; j < [1C; j++)
+        [1m[37m[41m{[m
+                printf( [1C[35m%d[m[31m Hello World [m[35m%d\n[m[31m ECS[m[35m\n[m[1C, (i), [1C*(i) );  [34m//For Host[m
+                cons_printf( [1C[31m--> Hello World <--[m[35m\n[m[31mCPE/CSC[m[35m\n[m[1C );    [34m//For Target[m
+                i++;
+        [1m[37m[41m}[m
+}
+
+[32mint[m main([32mvoid[m)
+{
+        [32mint[m i = [3C;
+
+        DisplayMsg(i);
+
+        [33mreturn[m [1C;
+} [34m//end main()[m[55;194H5-22[14;22H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;46H[K[55;194H4-21[14;21H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;45H[K[24;1H{[27;9H{[31;9H}[55;194H3-20[14;20H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;44H[K[55;194H2-19[14;19H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;43H[K[55;194H1-18[14;18H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;42H[K[55;194H0-17[14;17H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;41H[K[55;193H9-16 [14;16H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;40H[K[55;193H8-15[14;15H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;39H[K[55;193H7-14[14;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;38H[K[55;193H6-13[14;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;37H[K[55;193H5-12[14;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;36H[K[55;193H4-11[14;11H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;35H[K[55;193H3-10[14;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[14;34H[K[55;193H2-9 [14;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhano[m[14;26H[K[55;193H1  [14;1H[?12l[?25h[?25l[13;54r[54;1H
+[1;55r[13;1H        printf( [31m"[m[35m%d[m[31m Hello World [m[35m%d[m[31m [m[35m\n[m[31m ECS"[m, i, [31m2[m*i );   [34m//For Host/*Name - Angad Pal Dhanoa[m
+ *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H13,58-67      All[13;67H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;91H[K[55;194H7-66[13;66H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;90H[K[55;194H6-65[13;65H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;89H[K[55;194H5-64[13;64H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;88H[K[55;194H4-63[13;63H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;87H[K[55;194H3-62[13;62H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;86H[K[55;194H2-61[13;61H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;85H[K[55;194H1-60[13;60H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;84H[K[55;194H0-59[13;59H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[13;83H[K[55;193H49-58[13;58H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[13;82H[K[14;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;194H8-57[13;57H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhano[m[13;79H[K[55;194H7-54[13;54H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;78H[K[13;15H[46m([36C)[m[55;194H6-53[13;53H[?12l[?25h[?25l[34m[46m/[m[34m*Name - Angad Pal Dhanoa[m[13;77H[K[23;1H[1m[37m[41m{[26;9H{[30;9H}[m[13;15H([36C[34m/[m[55;194H5-52[13;52H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;76H[K[55;194H4-51[13;51H[?12l[?25h[?25l[1m[37m[41m*/[m*Name - Angad Pal Dhanoa[13;75H[K[14;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;194H3-50[13;50H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;74H[K[14;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;194H2-49[13;49H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;73H[K[55;194H1-48[13;48H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;72H[K[55;194H0-47[13;47H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;71H[K[55;193H39-46[13;46H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;70H[K[55;194H8-45[13;45H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;69H[K[55;194H7-44[13;44H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;68H[K[55;194H6-43[13;43H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;67H[K[14;1H[31m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */
+
+#include [15C        // For printf() to project on Linux pc
+#include [16C       // For cons_printf() to project on DOS pc  
+
+void DisplayMsg( int i)
+{
+        int j;
+        for(j = 0; j < 5; j++)
+        {
+                printf( [m[1C%d Hello World %d\n ECS\n[1C[31m, (i), 2*(i) );  //For Host
+                cons_printf( [m[1C--> Hello World <--\nCPE/CSC\n[1C[31m );    //For Target
+                i++;
+        }
+}
+
+int main(void)
+{
+        int i = 111;
+
+        DisplayMsg(i);
+
+        return 0;
+} //end main()[m[55;194H5-42[13;42H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;66H[K[55;194H4-41[13;41H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;65H[K[55;194H3-40[13;40H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;64H[K[55;194H2-39[13;39H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;63H[K[55;194H1-38[13;38H[?12l[?25h[?25l[35m/[m[31m*Name - Angad Pal Dhanoa[m[13;62H[K[55;194H0-37[13;37H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;61H[K[55;193H29-36[13;36H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;60H[K[55;194H8-35[13;35H[?12l[?25h[?25l[31m%/*Name - Angad Pal Dhanoa[m[13;59H[K[55;194H7-34[13;34H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;58H[K[55;194H6-33[13;33H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;57H[K[55;194H5-32[13;32H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;56H[K[55;194H4-31[13;31H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;55H[K[55;194H3-30[13;30H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;54H[K[55;194H2-29[13;29H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;53H[K[55;194H1-28[13;28H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;52H[K[55;194H0-27[13;27H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;51H[K[55;193H19-26[13;26H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;50H[K[55;194H8-25[13;25H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;49H[K[55;194H7-24[13;24H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;48H[K[55;194H6-23[13;23H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;47H[K[55;194H5-22[13;22H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;46H[K[55;194H4-21[13;21H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;45H[K[55;194H3-20[13;20H[?12l[?25h[?25l[31m%/*Name - Angad Pal Dhanoa[m[13;44H[K[55;194H2-19[13;19H[?12l[?25h[?25l[31m/*Name - Angad Pal Dhanoa[m[13;43H[K[55;194H1-18[13;18H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;42H[K[14;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m
+
+[35m#include [m[15C        [34m// For printf() to project on Linux pc[m
+[35m#include [m[16C       [34m// For cons_printf() to project on DOS pc  [m
+
+[32mvoid[m DisplayMsg( [32mint[m i)
+[1m[37m[41m{[m
+        [32mint[m j;
+        [33mfor[m(j = [1C; j < [1C; j++)
+        [1m[37m[41m{[m
+                printf( [1C[35m%d[m[31m Hello World [m[35m%d\n[m[31m ECS[m[35m\n[m[1C, (i), [1C*(i) );  [34m//For Host[m
+                cons_printf( [1C[31m--> Hello World <--[m[35m\n[m[31mCPE/CSC[m[35m\n[m[1C );    [34m//For Target[m
+                i++;
+        [1m[37m[41m}[m
+}
+
+[32mint[m main([32mvoid[m)
+{
+        [32mint[m i = [3C;
+
+        DisplayMsg(i);
+
+        [33mreturn[m [1C;
+} [34m//end main()[m[55;194H0-17[13;17H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;41H[K[55;193H9-16 [13;16H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;40H[K[23;1H{[26;9H{[30;9H}[55;193H8-15[13;15H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;39H[K[55;193H7-14[13;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;38H[K[55;193H6-13[13;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;37H[K[55;193H5-12[13;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;36H[K[55;193H4-11[13;11H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;35H[K[55;193H3-10[13;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[13;34H[K[55;193H2-9 [13;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhano[m[13;26H[K[55;193H1  [13;1H[?12l[?25h[?25l[12;54r[54;1H
+[1;55r[12;1H        [32mint[m i = [31m128[m;[34m/*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H12,14-21      All[12;21H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;45H[K[55;194H3-20[12;20H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;44H[K[55;194H2-19[12;19H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;43H[K[55;194H1-18[12;18H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;42H[K[55;194H0-17[12;17H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;41H[K[55;193H9-16 [12;16H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;40H[K[55;193H8-15[12;15H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;39H[K[55;193H7-14[12;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;38H[K[55;193H6-13[12;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;37H[K[55;193H5-12[12;12H[?12l[?25h[?25lin[34m/*Name - Angad Pal Dhanoa[m[12;36H[K[55;193H4-11[12;11H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;35H[K[55;193H3-10[12;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[12;34H[K[55;193H2-9 [12;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhano[m[12;26H[K[55;193H1  [12;1H[?12l[?25h[?25l[11;54r[54;1H
+[1;55r[11;1H{[34m/*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H11,2[10CAll[11;2H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[11;26H[K[55;193H1[11;1H[?12l[?25h[?25l[10;54r[54;1H
+[1;55r[10;1H[32mint[m main([32mvoid[m)[34m/*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H10,15[9CAll[10;9H[46m([4C)[?12l[?25h[?25l[m[34m[46m/[m[34m*Name - Angad Pal Dhanoa[m[10;39H[K[20;1H[1m[37m[41m{[23;9H{[27;9H}[m[10;9H([4C[34m/[m[55;194H4[10;14H[?12l[?25h[?25lvoi[34m/*Name - Angad Pal Dhanoa[m[10;38H[K[55;194H3[10;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;37H[K[55;194H2[10;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;36H[K[55;194H1[10;11H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;35H[K[55;194H0[10;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;34H[K[20;1H{[23;9H{[27;9H}[55;193H9 [10;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;33H[K[55;193H8[10;8H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;32H[K[55;193H7[10;7H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;31H[K[55;193H6[10;6H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;30H[K[55;193H5[10;5H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;29H[K[55;193H4[10;4H[?12l[?25h[?25lin[34m/*Name - Angad Pal Dhanoa[m[10;28H[K[55;193H3[10;3H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;27H[K[55;193H2[10;2H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[10;26H[K[55;193H1[10;1H[?12l[?25h[?25l[9;54r[54;1H
+[1;55r[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H9,1[11CAll[9;1H[?12l[?25h[?25l[8;54r[54;1H
+[1;55r[8;1H[35m#include [m[31m<spede/flames.h>[m[7C[34m// For cons_printf() to project on DOS pc  /*Name - Angad Pal Dhanoa[m
+ *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H8,70-76[7CAll[8;76H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;100H[K[55;192H69-75[8;75H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;99H[K[55;193H8-74[8;74H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;98H[K[55;193H7-73[8;73H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;97H[K[55;193H6-72[8;72H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;96H[K[55;193H5-71[8;71H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;95H[K[55;193H4-70[8;70H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;94H[K[55;193H3-69[8;69H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;93H[K[55;193H2-68[8;68H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;92H[K[55;193H1-67[8;67H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;91H[K[55;193H0-66[8;66H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;90H[K[55;192H59-65[8;65H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;89H[K[55;193H8-64[8;64H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;88H[K[55;193H7-63[8;63H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;87H[K[55;193H6-62[8;62H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;86H[K[55;193H5-61[8;61H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;85H[K[55;193H4-60[8;60H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;84H[K[55;193H3-59[8;59H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;83H[K[55;193H2-58[8;58H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;82H[K[55;193H1-57[8;57H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;81H[K[55;193H0-56[8;56H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;80H[K[55;192H49-55[8;55H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;79H[K[55;193H8-54[8;54H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;78H[K[8;51H[34m[46m()[m[55;193H7-53[8;53H[?12l[?25h[?25l[34m[46m/[m[34m*Name - Angad Pal Dhanoa[m[8;77H[K[8;51H[34m(/[m[55;193H6-52[8;52H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;76H[K[55;193H5-51[8;51H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;75H[K[55;193H4-50[8;50H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;74H[K[55;193H3-49[8;49H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;73H[K[55;193H2-48[8;48H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;72H[K[55;193H1-47[8;47H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;71H[K[55;193H0-46[8;46H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;70H[K[55;192H39-45[8;45H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;69H[K[55;193H8-44[8;44H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;68H[K[55;193H7-43[8;43H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;67H[K[55;193H6-42[8;42H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;66H[K[55;193H5-41[8;41H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;65H[K[55;193H4-40[8;40H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;64H[K[55;193H3-39[8;39H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;63H[K[55;193H2-38[8;38H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;62H[K[55;193H1-37[8;37H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;61H[K[55;193H0-36[8;36H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;60H[K[55;192H29-35[8;35H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[8;59H[K[55;193H8-34[8;34H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[8;58H[K[9;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;193H7-33[8;33H[?12l[?25h[?25l[8;26H[34m/*Name - Angad Pal Dhanoa[m[8;51H[K[55;193H6   [8;26H[?12l[?25h[?25l[8;10H[35m<[mspede/flames.h[34m/*Name - Angad Pal Dhanoa[m[8;50H[K[55;193H5[8;25H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;49H[K[55;193H4[8;24H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;48H[K[55;193H3[8;23H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;47H[K[55;193H2[8;22H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;46H[K[55;193H1[8;21H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;45H[K[55;193H0[8;20H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;44H[K[55;192H19[8;19H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;43H[K[55;193H8[8;18H[?12l[?25h[?25l[34m//*Name - Angad Pal Dhanoa[m[8;42H[K[9;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;193H7[8;17H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[8;41H[K[9;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;193H6[8;16H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;40H[K[55;193H5[8;15H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;39H[K[55;193H4[8;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;38H[K[55;193H3[8;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;37H[K[55;193H2[8;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;36H[K[55;193H1[8;11H[?12l[?25h[?25l#include [34m/*Name - Angad Pal Dhanoa[m[8;35H[K[55;193H0[8;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;34H[K[55;192H9 [8;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;33H[K[55;192H8[8;8H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;32H[K[55;192H7[8;7H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;31H[K[55;192H6[8;6H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;30H[K[55;192H5[8;5H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;29H[K[55;192H4[8;4H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;28H[K[55;192H3[8;3H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;27H[K[55;192H2[8;2H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[8;26H[K[55;192H1[8;1H[?12l[?25h[?25l[7;54r[54;1H
+[1;55r[7;1H[35m#include [m[31m<spede/stdio.h>[m [7C[34m// For printf() to project on Linux pc/*Name - Angad Pal Dhanoa[m
+ *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H7,64-71[7CAll[7;71H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;95H[K[55;193H3-70[7;70H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;94H[K[55;193H2-69[7;69H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;93H[K[55;193H1-68[7;68H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;92H[K[55;193H0-67[7;67H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;91H[K[55;192H59-66[7;66H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;90H[K[55;193H8-65[7;65H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;89H[K[55;193H7-64[7;64H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;88H[K[55;193H6-63[7;63H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;87H[K[55;193H5-62[7;62H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;86H[K[55;193H4-61[7;61H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;85H[K[55;193H3-60[7;60H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;84H[K[55;193H2-59[7;59H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;83H[K[55;193H1-58[7;58H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;82H[K[55;193H0-57[7;57H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;81H[K[55;192H49-56[7;56H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;80H[K[55;193H8-55[7;55H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;79H[K[55;193H7-54[7;54H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;78H[K[55;193H6-53[7;53H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;77H[K[55;193H5-52[7;52H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;76H[K[55;193H4-51[7;51H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;75H[K[55;193H3-50[7;50H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;74H[K[55;193H2-49[7;49H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;73H[K[7;46H[34m[46m()[m[55;193H1-48[7;48H[?12l[?25h[?25l[34m[46m/[m[34m*Name - Angad Pal Dhanoa[m[7;72H[K[7;46H[34m(/[m[55;193H0-47[7;47H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;71H[K[55;192H39-46[7;46H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;70H[K[55;193H8-45[7;45H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;69H[K[55;193H7-44[7;44H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;68H[K[55;193H6-43[7;43H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;67H[K[55;193H5-42[7;42H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;66H[K[55;193H4-41[7;41H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;65H[K[55;193H3-40[7;40H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;64H[K[55;193H2-39[7;39H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;63H[K[55;193H1-38[7;38H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;62H[K[55;193H0-37[7;37H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;61H[K[55;192H29-36[7;36H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;60H[K[55;193H8-35[7;35H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[7;59H[K[55;193H7-34[7;34H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[7;58H[K[8;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;193H6-33[7;33H[?12l[?25h[?25l[7;25H[34m/*Name - Angad Pal Dhano[m[7;50H[K[55;193H5   [7;25H[?12l[?25h[?25l[7;10H[35m<[mspede/stdio.h[34m/*Name - Angad Pal Dhanoa[m[7;49H[K[55;193H4[7;24H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;48H[K[55;193H3[7;23H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;47H[K[55;193H2[7;22H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;46H[K[55;193H1[7;21H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;45H[K[55;193H0[7;20H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;44H[K[55;192H19[7;19H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;43H[K[55;193H8[7;18H[?12l[?25h[?25l[34m//*Name - Angad Pal Dhanoa[m[7;42H[K[8;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;193H7[7;17H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[7;41H[K[8;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;193H6[7;16H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;40H[K[55;193H5[7;15H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;39H[K[55;193H4[7;14H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;38H[K[55;193H3[7;13H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;37H[K[55;193H2[7;12H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;36H[K[55;193H1[7;11H[?12l[?25h[?25l#include [34m/*Name - Angad Pal Dhanoa[m[7;35H[K[55;193H0[7;10H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;34H[K[55;192H9 [7;9H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;33H[K[55;192H8[7;8H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;32H[K[55;192H7[7;7H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;31H[K[55;192H6[7;6H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;30H[K[55;192H5[7;5H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;29H[K[55;192H4[7;4H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;28H[K[55;192H3[7;3H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;27H[K[55;192H2[7;2H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[7;26H[K[55;192H1[7;1H[?12l[?25h[?25l[6;54r[54;1H
+[1;55r[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H6,1[11CAll[6;1H[?12l[?25h[?25l[5;54r[54;1H
+[1;55r[5;1H[34m*//*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H5,3[11CAll[5;3H[?12l[?25h[?25l*Name - Angad Pal Dhanoa[5;27H[K[6;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;192H2[5;2H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[5;26H[K[6;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;192H1[5;1H[?12l[?25h[?25l[4;54r[54;1H
+[1;55r[4;1H[34m *Prep - 2[m[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H4,11[10CAll[4;11H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;35H[K[55;193H0[4;10H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;34H[K[55;192H9 [4;9H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;33H[K[55;192H8[4;8H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;32H[K[55;192H7[4;7H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;31H[K[55;192H6[4;6H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;30H[K[55;192H5[4;5H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;29H[K[55;192H4[4;4H[?12l[?25h[?25l[34m/[m*Name - Angad Pal Dhanoa[4;28H[K[5;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;192H3[4;3H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;27H[K[5;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;192H2[4;2H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[4;26H[K[55;192H1[4;1H[?12l[?25h[?25l[3;54r[54;1H
+[1;55r[3;1H[34m *Phase - 0[m[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H3,12[10CAll[3;12H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;36H[K[55;193H1[3;11H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;35H[K[55;193H0[3;10H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;34H[K[55;192H9 [3;9H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;33H[K[55;192H8[3;8H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;32H[K[55;192H7[3;7H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;31H[K[55;192H6[3;6H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;30H[K[55;192H5[3;5H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;29H[K[55;192H4[3;4H[?12l[?25h[?25l[34m/[m*Name - Angad Pal Dhanoa[3;28H[K[4;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;192H3[3;3H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;27H[K[4;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;192H2[3;2H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[3;26H[K[55;192H1[3;1H[?12l[?25h[?25l[2;54r[54;1H
+[1;55r[2;1H[34m *Class - CPE 159[m[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H2,18[10CAll[2;18H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;42H[K[55;193H7[2;17H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;41H[K[55;193H6[2;16H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;40H[K[55;193H5[2;15H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;39H[K[55;193H4[2;14H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;38H[K[55;193H3[2;13H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;37H[K[55;193H2[2;12H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;36H[K[55;193H1[2;11H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;35H[K[55;193H0[2;10H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;34H[K[55;192H9 [2;9H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;33H[K[55;192H8[2;8H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;32H[K[55;192H7[2;7H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;31H[K[55;192H6[2;6H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;30H[K[55;192H5[2;5H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;29H[K[55;192H4[2;4H[?12l[?25h[?25l[34m/[m*Name - Angad Pal Dhanoa[2;28H[K[3;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;192H3[2;3H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;27H[K[3;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;192H2[2;2H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[2;26H[K[55;192H1[2;1H[?12l[?25h[?25l[1;54r[54;1H
+[1;55r[1;1H[34m/*[m[23C[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[54;1H[1m[34m~                                                                                                                                                                                                              [m[55;190H[K[55;190H1,26[10CAll[1;26H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;50H[K[55;193H5[1;25H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;49H[K[55;193H4[1;24H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;48H[K[55;193H3[1;23H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;47H[K[55;193H2[1;22H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;46H[K[55;193H1[1;21H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;45H[K[55;193H0[1;20H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;44H[K[55;192H19[1;19H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;43H[K[55;193H8[1;18H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;42H[K[55;193H7[1;17H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;41H[K[55;193H6[1;16H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;40H[K[55;193H5[1;15H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;39H[K[55;193H4[1;14H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;38H[K[55;193H3[1;13H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;37H[K[55;193H2[1;12H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;36H[K[55;193H1[1;11H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;35H[K[55;193H0[1;10H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;34H[K[55;192H9 [1;9H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;33H[K[55;192H8[1;8H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;32H[K[55;192H7[1;7H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;31H[K[55;192H6[1;6H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;30H[K[55;192H5[1;5H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;29H[K[55;192H4[1;4H[?12l[?25h[?25l[1m[37m[41m/[m[34m*Name - Angad Pal Dhanoa[m[1;28H[K[55;192H3[1;3H[?12l[?25h[?25l[34m/*Name - Angad Pal Dhanoa[m[1;27H[K[2;1H *  *Class - CPE [31m159[m
+ *   *Phase - [31m0[m
+ *    *Prep - [31m3[m
+ *    [1m[37m[41m*/[m[55;192H2[1;2H[?12l[?25h[?25l[34m*Name - Angad Pal Dhanoa[m[1;26H[K[2;1H[34m *  *Class - CPE 159
+ *   *Phase - 0
+ *    *Prep - 3
+ *    */[m[55;192H1[1;1H[?12l[?25h[?25l[55;190H2[2;1H[?12l[?25h[?25l[55;192H2[2;2H[?12l[?25h[?25l[55;192H3[2;3H[?12l[?25h[?25l[55;192H4[2;4H[?12l[?25h[?25l[55;192H5[2;5H[?12l[?25h[?25l[55;192H6[2;6H[?12l[?25h[?25l[34mClass - CPE 159[m[2;20H[K[55;192H5[2;5H[?12l[?25h[?25l[34mClass - CPE 159[m[2;19H[K[55;192H4[2;4H[?12l[?25h[?25l[34mClass - CPE 159[m[2;18H[K[55;192H3[2;3H[?12l[?25h[?25l[55;190H3[3;3H[?12l[?25h[?25l[2C[34m*Phase - 0[m[3;15H[K[3;3H[?12l[?25h[?25l[1C[34m*Phase - 0[m[3;14H[K[3;3H[?12l[?25h[?25l[34m*Phase - 0[m[3;13H[K[3;3H[?12l[?25h[?25l[34mPhase - 0[m[3;12H[K[3;3H[?12l[?25h[?25l[55;190H4[4;3H[?12l[?25h[?25l[3C[34m*Prep - 3[m[4;15H[K[4;3H[?12l[?25h[?25l[2C[34m*Prep - 3[m[4;14H[K[4;3H[?12l[?25h[?25l[1C[34m*Prep - 3[m[4;13H[K[4;3H[?12l[?25h[?25l[34m*Prep - 3[m[4;12H[K[4;3H[?12l[?25h[?25l[34mPrep - 3[m[4;11H[K[4;3H[?12l[?25h[?25l[55;190H5[5;3H[?12l[?25h[?25l[34m    */[m[5;8H[K[55;192H2[5;2H[?12l[?25h[?25l[3C[34m*/[m[5;7H[K[55;192H1[5;1H[?12l[?25h[?25l[3C[34m*/[m[5;6H[K[5;1H[?12l[?25h[?25l[2C[34m*/[m[5;5H[K[5;1H[?12l[?25h[?25l[1C[34m*/[m[5;4H[K[5;1H[?12l[?25h[?25l[55;190H4[4;1H[?12l[?25h[?25l[55;190H3[3;1H[?12l[?25h[?25l[55;190H2[2;1H[?12l[?25h[?25l[55;190H1[1;1H[?12l[?25h[?25l[55;192H2[1;2H[?12l[?25h[?25l[55;192H3[1;3H[?12l[?25h[?25l[55;192H4[1;4H[?12l[?25h[?25l[55;192H5[1;5H[?12l[?25h[?25l[55;192H6[1;6H[?12l[?25h[?25l[55;192H7[1;7H[?12l[?25h[?25l[55;192H8[1;8H[?12l[?25h[?25l[34m - Angad Pal Dhanoa[m[55;192H9[1;9H[?12l[?25h[?25l[55;190H2[2;9H[?12l[?25h[?25l[55;190H3[3;9H[?12l[?25h[?25l[55;190H4[4;9H[?12l[?25h[?25l[55;192H8[4;8H[?12l[?25h[?25l[34m - 3[m[55;192H9[4;9H[?12l[?25h[?25l[55;190H5,4[5;4H[?12l[?25h[?25l[55;190H6,1[6;1H[?12l[?25h[?25l[55;190H7,9[7;9H[?12l[?25h[?25l[55;190H8[8;9H[?12l[?25h[?25l[55;190H9,1[9;1H[?12l[?25h[?25l[55;190H10,9[10;9H[?12l[?25h[?25l
+[46m{[19;1H}[m[55;191H1,2[11;2H[?12l[?25h[?25l{[19;1H}[55;191H2[12;2H[?12l[?25h[?25l[55;193H3[12;3H[?12l[?25h[?25l[55;193H4[12;4H[?12l[?25h[?25l[55;193H5[12;5H[?12l[?25h[?25l[55;193H6[12;6H[?12l[?25h[?25l[55;193H7[12;7H[?12l[?25h[?25l[55;193H8[12;8H[?12l[?25h[?25l[55;193H9[12;9H[?12l[?25h[?25l[55;193H10[12;10H[?12l[?25h[?25l[55;194H1[12;11H[?12l[?25h[?25l[55;194H2[12;12H[?12l[?25h[?25l[55;194H3[12;13H[?12l[?25h[?25l[55;194H4[12;14H[?12l[?25h[?25l[55;194H5[12;15H[?12l[?25h[?25l[55;194H6-17[12;17H[?12l[?25h[?25l/[55;194H7-18[12;18H[?12l[?25h[?25l[34m//[m[55;194H8-19[12;19H[?12l[?25h[?25l[34mT[m[55;194H9-20[12;20H[?12l[?25h[?25l[34mh[m[55;193H20-21[12;21H[?12l[?25h[?25l[34mi[m[55;194H1-22[12;22H[?12l[?25h[?25l[34ms[m[55;194H2-23[12;23H[?12l[?25h[?25l[34m [m[55;194H3-24[12;24H[?12l[?25h[?25l[34mv[m[55;194H4-25[12;25H[?12l[?25h[?25l[34ma[m[55;194H5-26[12;26H[?12l[?25h[?25l[34mr[m[55;194H6-27[12;27H[?12l[?25h[?25l[34mu[m[55;194H7-28[12;28H[?12l[?25h[?25l[34ma[m[55;194H8-29[12;29H[?12l[?25h[?25l[12;28H[K[55;194H7-28[12;28H[?12l[?25h[?25l[12;27H[K[55;194H6-27[12;27H[?12l[?25h[?25l[34mi[m[55;194H7-28[12;28H[?12l[?25h[?25l[34ma[m[55;194H8-29[12;29H[?12l[?25h[?25l[34mb[m[55;194H9-30[12;30H[?12l[?25h[?25l[34ml[m[55;193H30-31[12;31H[?12l[?25h[?25l[34me[m[55;194H1-32[12;32H[?12l[?25h[?25l[34m [m[55;194H2-33[12;33H[?12l[?25h[?25l[34mw[m[55;194H3-34[12;34H[?12l[?25h[?25l[34mi[m[55;194H4-35[12;35H[?12l[?25h[?25l[34ml[m[55;194H5-36[12;36H[?12l[?25h[?25l[34ml[m[55;194H6-37[12;37H[?12l[?25h[?25l[34m [m[55;194H7-38[12;38H[?12l[?25h[?25l[34mh[m[55;194H8-39[12;39H[?12l[?25h[?25l[34me[m[55;194H9-40[12;40H[?12l[?25h[?25l[34ml[m[55;193H40-41[12;41H[?12l[?25h[?25l[34mp[m[55;194H1-42[12;42H[?12l[?25h[?25l[34m [m[55;194H2-43[12;43H[?12l[?25h[?25l[34mw[m[55;194H3-44[12;44H[?12l[?25h[?25l[34mi[m[55;194H4-45[12;45H[?12l[?25h[?25l[34mt[m[55;194H5-46[12;46H[?12l[?25h[?25l[34mh[m[55;194H6-47[12;47H[?12l[?25h[?25l[34m [m[55;194H7-48[12;48H[?12l[?25h[?25l[34mi[m[55;194H8-49[12;49H[?12l[?25h[?25l[34mn[m[55;194H9-50[12;50H[?12l[?25h[?25l[34mc[m[55;193H50-51[12;51H[?12l[?25h[?25l[34mr[m[55;194H1-52[12;52H[?12l[?25h[?25l[34me[m[55;194H2-53[12;53H[?12l[?25h[?25l[34mm[m[55;194H3-54[12;54H[?12l[?25h[?25l[34me[m[55;194H4-55[12;55H[?12l[?25h[?25l[34mn[m[55;194H5-56[12;56H[?12l[?25h[?25l[34mt[m[55;194H6-57[12;57H[?12l[?25h[?25l[34ma[m[55;194H7-58[12;58H[?12l[?25h[?25l[34mt[m[55;194H8-59[12;59H[?12l[?25h[?25l[34mi[m[55;194H9-60[12;60H[?12l[?25h[?25l[34mo[m[55;193H60-61[12;61H[?12l[?25h[?25l[34mn[m[55;194H1-62[12;62H[?12l[?25h[?25l[34m.[m[55;194H2-63[12;63H[?12l[?25h[?25l[12;62H[K[55;194H1-62[12;62H[?12l[?25h[?25l[34m [m[55;194H2-63[12;63H[?12l[?25h[?25l[34mi[m[55;194H3-64[12;64H[?12l[?25h[?25l[34mn[m[55;194H4-65[12;65H[?12l[?25h[?25l[34m [m[55;194H5-66[12;66H[?12l[?25h[?25l[34mf[m[55;194H6-67[12;67H[?12l[?25h[?25l[34mo[m[55;194H7-68[12;68H[?12l[?25h[?25l[34mr[m[55;194H8-69[12;69H[?12l[?25h[?25l[34m [m[55;194H9-70[12;70H[?12l[?25h[?25l[34ml[m[55;193H70-71[12;71H[?12l[?25h[?25l[34mo[m[55;194H1-72[12;72H[?12l[?25h[?25l[34mo[m[55;194H2-73[12;73H[?12l[?25h[?25l[34mp[m[55;194H3-74[12;74H[?12l[?25h[?25l[13;12H[46m([17C)[m[55;191H3,31   [13;31H[?12l[?25h[?25l[13;12H([17C)[14;9H[46m{[18;9H}[m[55;191H4,10[14;10H[?12l[?25h[?25l{[18;9H}[55;191H5[15;10H[?12l[?25h[?25l[55;191H6[16;10H[?12l[?25h[?25l[55;191H7[17;10H[?12l[?25h[?25l[14;9H[46m{[18;9H}[m[55;191H8[18;10H[?12l[?25h[?25l[11;1H[46m{[m[14;9H{[18;9H}
+[46m}[m[55;191H9,2 [19;2H[?12l[?25h[?25l[11;1H{[19;1H}[55;190H20,1[20;1H[?12l[?25h[?25l[55;191H1,2[21;2H[?12l[?25h[?25l
+[46m{[28;1H}[m[55;191H2[22;2H[?12l[?25h[?25l{[28;1H}[55;191H3[23;2H[?12l[?25h[?25l[55;191H4,1[24;1H[?12l[?25h[?25l[55;191H5,2[25;2H[?12l[?25h[?25l[55;191H6,1[26;1H[?12l[?25h[?25l[55;191H7,2[27;2H[?12l[?25h[?25l[22;1H[46m{[28;1H}[m[55;191H8[28;2H[?12l[?25h[55;1H[K[28;1H[?25l[55;190H28,1[10CAll[28;1H[?12l[?25h[?25l[55;190H[K[55;1H:[?12l[?25hs[?25l[?12l[?25he[?25l[?12l[?25ht[?25l[?12l[?25h[?25l [?12l[?25hn[?25l[?12l[?25hu[?25l[?12l[?25hm[?25l[?12l[?25hb[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25h[?25l[1;1H[33m  1 [m[34m/*Name  - Angad Pal Dhanoa[m
+[33m  2 [m[34m *Class - CPE 159[m
+[33m  3 [m[34m *Phase - 0[m
+[33m  4 [m[34m *Prep  - 3[m
+[33m  5 [m[34m */[m
+[33m  6 
+  7 [m[35m#include [m[31m<spede/stdio.h>[m        [34m// For printf() to project on Linux pc[m
+[33m  8 [m[35m#include [m[31m<spede/flames.h>[m       [34m// For cons_printf() to project on DOS pc  [m
+[33m  9 
+ 10 [m[32mvoid[m DisplayMsg( [32mint[m i)
+[33m 11 [m{
+[33m 12 [m        [32mint[m j;  [34m//This variable will help with incrementation in for loop[m
+[33m 13 [m        [33mfor[m(j = [31m0[m; j < [31m5[m; j++)
+[33m 14 [m        {
+[33m 15 [m[12C    printf( [31m"[m[35m%d[m[31m Hello World [m[35m%d\n[m[31m ECS[m[35m\n[m[31m"[m, (i), [31m2[m*(i) );  [34m//For Host[m
+[33m 16 [m[12C    cons_printf( [31m"--> Hello World <--[m[35m\n[m[1C[31mPE/CSC[m[35m\n[m[31m"[m );    [34m//For Target[m
+[33m 17 [m[12C    i++;
+[33m 18 [m        }
+[33m 19 [m}
+[33m 20 
+ 21 [m[32mint[m main([32mvoid[m)
+[33m 22 [m[46m{[m
+[33m 23 [m        [32mint[m i = [31m111[m;
+[33m 24 
+ 25 [m        DisplayMsg(i);
+[33m 26 
+ 27 [m        [1C[33meturn[m [31m0[m;
+[33m 28 [m[46m}[m [34m//end main()[m[55;190H28,1[10CAll[28;5H[?12l[?25h[?25l[55;1H[K[55;1H:[?12l[?25hs[?25l[?12l[?25he[?25l[?12l[?25ht[?25l[?12l[?25h[?25l [?12l[?25hn[?25l[?12l[?25ho[?25l[?12l[?25hn[?25l[?12l[?25hu[?25l[?12l[?25hm[?25l[?12l[?25hb[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25h[?25l[1;1H[34m/*Name  - Angad Pal Dhanoa[m[1;27H[K[2;1H[34m *Class - CPE 159[m[2;18H[K[3;1H[34m *Phase - 0[m[3;12H[K[4;1H[34m *Prep  - 3[m[4;12H[K[5;1H[34m */[m[5;4H[K[6;1H[K[7;1H[35m#include [m[31m<spede/stdio.h>[m        [34m// For printf() to project on Linux pc[m[7;71H[K[8;1H[35m#include [m[31m<spede/flames.h>[m       [34m// For cons_printf() to project on DOS pc [m[8;76H[K[9;1H[K[10;1H[32mvoid[m DisplayMsg( [32mint[m i)[10;24H[K[11;1H{[11;2H[K[12;1H        [32mint[m j;  [34m//This variable will help with incrementation in for loop[m[12;74H[K[13;1H        [33mfor[m(j = [31m0[m; j < [31m5[m; j++)[13;31H[K[14;1H        {[14;13H[K[15;1H    [12Cprintf( [31m"[m[35m%d[m[31m Hello World [m[35m%d\n[m[31m ECS[m[35m\n[m[31m"[m, (i), [31m2[m*(i) );  [34m//For Host[m[15;79H[K[16;1H    [12Ccons_printf( [31m"--> Hello World <--[m[35m\n[m[31mCPE/CSC[m[35m\n[m[31m"[m );    [34m//For Target[m[16;81H[K[17;1H    [12Ci++;[17;21H[K[18;1H        }[18;13H[K[19;1H}[19;2H[K[20;1H[K[21;1H[32mint[m main([32mvoid[m)[21;15H[K[22;1H[46m{[m[22;2H[K[23;1H        [32mint[m i = [31m111[m;[23;21H[K[24;1H[K[25;1H        DisplayMsg(i);[25;23H[K[26;1H[K[27;1H        [33mreturn[m [31m0[m;[27;18H[K[28;1H[46m}[m [34m//end main()[m[28;15H[K[55;190H28,1[10CAll[28;1H[?12l[?25h[?25l[55;1H[K[55;1H:[?12l[?25hw[?25l[?12l[?25hq[?25l[?12l[?25h[?25l"sample.c" 28L, 652C written
+[?1l>[?12l[?25h[?1049l[dhanoaa@cetus:29]> spede-mkmf -q
+(spede-mkmf $Revision: 1.2 $/1)
+
+Source files found: sample.c
+copying /gaia/home/project/spede2/Target-i386/i686/tools/etc/model.makefile
+
+    The Makefile generated uses four variables:
+       OS_NAME, SRC, EXTRA_CFLAGS, and EXTRA_LINK_FLAGS.
+    OS_NAME and SRC can be customized with different names given.
+    OS_NAME is the name of your DLI file ("$(OS_NAME).dli".
+    SRC lists the source files with extensions.
+    The previous version of the Makefile is saved to ./make.orig.
+
+. done
+[dhanoaa@cetus:30]> make
+i386-unknown-gnu-gcc -i386-unknown-gnu -Wall  -g  -c -o sample.o sample.c
+link386 -g  -o MyOS.dli sample.o
+(link-386.sh $Revision: 1.14 $ )
+Done linking "MyOS.dli" (with GDB enabled) at 1m.
+[dhanoaa@cetus:31]> flash[K[Ksh MyOS.dli
+unable to open config file, using defaults....
+
+>>>>>Welcome to the Flames Shell (FlaSh)  $Revision: 1.3 $ (SC/BJW)<<<<<<
+Type ? for help
+
+FLASH % d
+File type is 'ELF'
+Total blocks to download:  0x6b  (128 bytes each)
+
+?Now have attention of monitor...No of Blocks Downloaded : 0x2 No of Blocks Downloaded : 0x3 No of Blocks Downloaded : 0x4 No of Blocks Downloaded : 0x5 No of Blocks Downloaded : 0x6 No of Blocks Downloaded : 0x7 No of Blocks Downloaded : 0x8 No of Blocks Downloaded : 0x9 No of Blocks Downloaded : 0xa No of Blocks Downloaded : 0xb No of Blocks Downloaded : 0xc No of Blocks Downloaded : 0xd No of Blocks Downloaded : 0xe No of Blocks Downloaded : 0xf No of Blocks Downloaded : 0x10 No of Blocks Downloaded : 0x11 No of Blocks Downloaded : 0x12 No of Blocks Downloaded : 0x13 No of Blocks Downloaded : 0x14 No of Blocks Downloaded : 0x15 No of Blocks Downloaded : 0x16 No of Blocks Downloaded : 0x17 No of Blocks Downloaded : 0x18 No of Blocks Downloaded : 0x19 No of Blocks Downloaded : 0x1a No of Blocks Downloaded : 0x1b No of Blocks Downloaded : 0x1c No of Blocks Downloaded : 0x1d No of Blocks Downloaded : 0x1e No of Blocks Downloaded : 0x1f No of Blocks Downloaded : 0x20 No of Blocks Downloaded : 0x21 No of Blocks Downloaded : 0x22 No of Blocks Downloaded : 0x23 No of Blocks Downloaded : 0x24 No of Blocks Downloaded : 0x25 No of Blocks Downloaded : 0x26 No of Blocks Downloaded : 0x27 No of Blocks Downloaded : 0x28 No of Blocks Downloaded : 0x29 No of Blocks Downloaded : 0x2a No of Blocks Downloaded : 0x2b No of Blocks Downloaded : 0x2c No of Blocks Downloaded : 0x2d No of Blocks Downloaded : 0x2e No of Blocks Downloaded : 0x2f No of Blocks Downloaded : 0x30 No of Blocks Downloaded : 0x31 No of Blocks Downloaded : 0x32 No of Blocks Downloaded : 0x33 No of Blocks Downloaded : 0x34 No of Blocks Downloaded : 0x35 No of Blocks Downloaded : 0x36 No of Blocks Downloaded : 0x37 No of Blocks Downloaded : 0x38 No of Blocks Downloaded : 0x39 No of Blocks Downloaded : 0x3a No of Blocks Downloaded : 0x3b No of Blocks Downloaded : 0x3c No of Blocks Downloaded : 0x3d No of Blocks Downloaded : 0x3e No of Blocks Downloaded : 0x3f No of Blocks Downloaded : 0x40 No of Blocks Downloaded : 0x41 No of Blocks Downloaded : 0x42 No of Blocks Downloaded : 0x43 No of Blocks Downloaded : 0x44 No of Blocks Downloaded : 0x45 No of Blocks Downloaded : 0x46 No of Blocks Downloaded : 0x47 No of Blocks Downloaded : 0x48 No of Blocks Downloaded : 0x49 No of Blocks Downloaded : 0x4a No of Blocks Downloaded : 0x4b No of Blocks Downloaded : 0x4c No of Blocks Downloaded : 0x4d No of Blocks Downloaded : 0x4e No of Blocks Downloaded : 0x4f No of Blocks Downloaded : 0x50 No of Blocks Downloaded : 0x51 No of Blocks Downloaded : 0x52 No of Blocks Downloaded : 0x53 No of Blocks Downloaded : 0x54 No of Blocks Downloaded : 0x55 No of Blocks Downloaded : 0x56 No of Blocks Downloaded : 0x57 No of Blocks Downloaded : 0x58 No of Blocks Downloaded : 0x59 No of Blocks Downloaded : 0x5a No of Blocks Downloaded : 0x5b No of Blocks Downloaded : 0x5c No of Blocks Downloaded : 0x5d No of Blocks Downloaded : 0x5e No of Blocks Downloaded : 0x5f No of Blocks Downloaded : 0x60 No of Blocks Downloaded : 0x61 No of Blocks Downloaded : 0x62 No of Blocks Downloaded : 0x63 No of Blocks Downloaded : 0x64 No of Blocks Downloaded : 0x65 No of Blocks Downloaded : 0x66 No of Blocks Downloaded : 0x67 No of Blocks Downloaded : 0x68 No of Blocks Downloaded : 0x69 No of Blocks Downloaded : 0x6a No of Blocks Downloaded : 0x6b No of Blocks Downloaded : 0x6c Load Successful ; Code loaded at 0x0x101000 (1720 bytes/sec)
+
+FLASH % g
+I m in gdbMyOS.dli debug file
+Note: File "./GDB159.RC" isn't present, now copying to current directory.
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux (7.2-64.el6_5.2)
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /gaia/class/student/dhanoaa/cpe159/phase0/prep3/MyOS.dli...expanding to full symbols...done.
+0x0010258d in breakpoint ()
+Temporary breakpoint 1 at 0x1011c6: file sample.c, line 23.
+Really redefine built-in command "run"? (y or n) [answered Y; input not from terminal]
+
+Temporary breakpoint 1, main () at sample.c:23
+23	        int i = 111;
+GDB386> b 24
+Breakpoint 2 at 0x1011cd: file sample.c, line 24.
+GDB386> c[Kb 25[K[KDisplayMsg
+Breakpoint 3 at 0x10117a: file sample.c, line 13.
+GDB386> c
+Continuing.
+
+Breakpoint 2, main () at sample.c:25
+25	        DisplayMsg(i);
+GDB386> p i
+$1 = 0x6f
+GDB386> c
+Continuing.
+
+Breakpoint 3, DisplayMsg (i=0x6f) at sample.c:13
+13	        for(j = 0; j < 5; j++)
+GDB386> p i
+$2 = 0x6f
+GDB386> c
+Continuing.
+111 Hello World 222
+ ECS
+112 Hello World 224
+ ECS
+113 Hello World 226
+ ECS
+114 Hello World 228
+ ECS
+115 Hello World 230
+ ECS
+
+Program exited normally.
+GDB386> set var= =i= =[C[1P=[C111
+No symbol "i" in current context.
+GDB386> set var i=111[1Pi=111[1Pi=111[1Pi=111[1Pi=111
+Ambiguous set command "i=111": .
+GDB386> where
+No stack.
+GDB386> q
+
+FLASH % make
+
+make: Nothing to be done for `all'.
+
+FLASH % d
+File type is 'ELF'
+Total blocks to download:  0x6b  (128 bytes each)
+
+?Now have attention of monitor...No of Blocks Downloaded : 0x2 No of Blocks Downloaded : 0x3 No of Blocks Downloaded : 0x4 No of Blocks Downloaded : 0x5 No of Blocks Downloaded : 0x6 No of Blocks Downloaded : 0x7 No of Blocks Downloaded : 0x8 No of Blocks Downloaded : 0x9 No of Blocks Downloaded : 0xa No of Blocks Downloaded : 0xb No of Blocks Downloaded : 0xc No of Blocks Downloaded : 0xd No of Blocks Downloaded : 0xe No of Blocks Downloaded : 0xf No of Blocks Downloaded : 0x10 No of Blocks Downloaded : 0x11 No of Blocks Downloaded : 0x12 No of Blocks Downloaded : 0x13 No of Blocks Downloaded : 0x14 No of Blocks Downloaded : 0x15 No of Blocks Downloaded : 0x16 No of Blocks Downloaded : 0x17 No of Blocks Downloaded : 0x18 No of Blocks Downloaded : 0x19 No of Blocks Downloaded : 0x1a No of Blocks Downloaded : 0x1b No of Blocks Downloaded : 0x1c No of Blocks Downloaded : 0x1d No of Blocks Downloaded : 0x1e No of Blocks Downloaded : 0x1f No of Blocks Downloaded : 0x20 No of Blocks Downloaded : 0x21 No of Blocks Downloaded : 0x22 No of Blocks Downloaded : 0x23 No of Blocks Downloaded : 0x24 No of Blocks Downloaded : 0x25 No of Blocks Downloaded : 0x26 No of Blocks Downloaded : 0x27 No of Blocks Downloaded : 0x28 No of Blocks Downloaded : 0x29 No of Blocks Downloaded : 0x2a No of Blocks Downloaded : 0x2b No of Blocks Downloaded : 0x2c No of Blocks Downloaded : 0x2d No of Blocks Downloaded : 0x2e No of Blocks Downloaded : 0x2f No of Blocks Downloaded : 0x30 No of Blocks Downloaded : 0x31 No of Blocks Downloaded : 0x32 No of Blocks Downloaded : 0x33 No of Blocks Downloaded : 0x34 No of Blocks Downloaded : 0x35 No of Blocks Downloaded : 0x36 No of Blocks Downloaded : 0x37 No of Blocks Downloaded : 0x38 No of Blocks Downloaded : 0x39 No of Blocks Downloaded : 0x3a No of Blocks Downloaded : 0x3b No of Blocks Downloaded : 0x3c No of Blocks Downloaded : 0x3d No of Blocks Downloaded : 0x3e No of Blocks Downloaded : 0x3f No of Blocks Downloaded : 0x40 No of Blocks Downloaded : 0x41 No of Blocks Downloaded : 0x42 No of Blocks Downloaded : 0x43 No of Blocks Downloaded : 0x44 No of Blocks Downloaded : 0x45 No of Blocks Downloaded : 0x46 No of Blocks Downloaded : 0x47 No of Blocks Downloaded : 0x48 No of Blocks Downloaded : 0x49 No of Blocks Downloaded : 0x4a No of Blocks Downloaded : 0x4b No of Blocks Downloaded : 0x4c No of Blocks Downloaded : 0x4d No of Blocks Downloaded : 0x4e No of Blocks Downloaded : 0x4f No of Blocks Downloaded : 0x50 No of Blocks Downloaded : 0x51 No of Blocks Downloaded : 0x52 No of Blocks Downloaded : 0x53 No of Blocks Downloaded : 0x54 No of Blocks Downloaded : 0x55 No of Blocks Downloaded : 0x56 No of Blocks Downloaded : 0x57 No of Blocks Downloaded : 0x58 No of Blocks Downloaded : 0x59 No of Blocks Downloaded : 0x5a No of Blocks Downloaded : 0x5b No of Blocks Downloaded : 0x5c No of Blocks Downloaded : 0x5d No of Blocks Downloaded : 0x5e No of Blocks Downloaded : 0x5f No of Blocks Downloaded : 0x60 No of Blocks Downloaded : 0x61 No of Blocks Downloaded : 0x62 No of Blocks Downloaded : 0x63 No of Blocks Downloaded : 0x64 No of Blocks Downloaded : 0x65 No of Blocks Downloaded : 0x66 No of Blocks Downloaded : 0x67 No of Blocks Downloaded : 0x68 No of Blocks Downloaded : 0x69 No of Blocks Downloaded : 0x6a No of Blocks Downloaded : 0x6b No of Blocks Downloaded : 0x6c Load Successful ; Code loaded at 0x0x101000 (1720 bytes/sec)
+
+FLASH % g
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux (7.2-64.el6_5.2)
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /gaia/class/student/dhanoaa/cpe159/phase0/prep3/MyOS.dli...expanding to full symbols...done.
+0x0010258d in breakpoint ()
+Temporary breakpoint 1 at 0x1011c6: file sample.c, line 23.
+Really redefine built-in command "run"? (y or n) [answered Y; input not from terminal]
+
+Temporary breakpoint 1, main () at sample.c:23
+23	        int i = 111;
+GDB386> b 24
+Breakpoint 2 at 0x1011cd: file sample.c, line 24.
+GDB386> b DisplayMsg
+Breakpoint 3 at 0x10117a: file sample.c, line 13.
+GDB386> g[Kc
+Continuing.
+
+Breakpoint 2, main () at sample.c:25
+25	        DisplayMsg(i);
+GDB386> p_i[1Pi i
+$1 = 0x6f
+GDB386> set var i=111
+GDB386> c
+Continuing.
+
+Breakpoint 3, DisplayMsg (i=0x6f) at sample.c:13
+13	        for(j = 0; j < 5; j++)
+GDB386> p_[K i
+$2 = 0x6f
+GDB386> c
+Continuing.
+111 Hello World 222
+ ECS
+112 Hello World 224
+ ECS
+113 Hello World 226
+ ECS
+114 Hello World 228
+ ECS
+115 Hello World 230
+ ECS
+
+Program exited normally.
+GDB386> q
+I m in gdbMyOS.dli debug file
+FLASH % d
+File type is 'ELF'
+Total blocks to download:  0x6b  (128 bytes each)
+
+?Now have attention of monitor...No of Blocks Downloaded : 0x2 No of Blocks Downloaded : 0x3 No of Blocks Downloaded : 0x4 No of Blocks Downloaded : 0x5 No of Blocks Downloaded : 0x6 No of Blocks Downloaded : 0x7 No of Blocks Downloaded : 0x8 No of Blocks Downloaded : 0x9 No of Blocks Downloaded : 0xa No of Blocks Downloaded : 0xb No of Blocks Downloaded : 0xc No of Blocks Downloaded : 0xd No of Blocks Downloaded : 0xe No of Blocks Downloaded : 0xf No of Blocks Downloaded : 0x10 No of Blocks Downloaded : 0x11 No of Blocks Downloaded : 0x12 No of Blocks Downloaded : 0x13 No of Blocks Downloaded : 0x14 No of Blocks Downloaded : 0x15 No of Blocks Downloaded : 0x16 No of Blocks Downloaded : 0x17 No of Blocks Downloaded : 0x18 No of Blocks Downloaded : 0x19 No of Blocks Downloaded : 0x1a No of Blocks Downloaded : 0x1b No of Blocks Downloaded : 0x1c No of Blocks Downloaded : 0x1d No of Blocks Downloaded : 0x1e No of Blocks Downloaded : 0x1f No of Blocks Downloaded : 0x20 No of Blocks Downloaded : 0x21 No of Blocks Downloaded : 0x22 No of Blocks Downloaded : 0x23 No of Blocks Downloaded : 0x24 No of Blocks Downloaded : 0x25 No of Blocks Downloaded : 0x26 No of Blocks Downloaded : 0x27 No of Blocks Downloaded : 0x28 No of Blocks Downloaded : 0x29 No of Blocks Downloaded : 0x2a No of Blocks Downloaded : 0x2b No of Blocks Downloaded : 0x2c No of Blocks Downloaded : 0x2d No of Blocks Downloaded : 0x2e No of Blocks Downloaded : 0x2f No of Blocks Downloaded : 0x30 No of Blocks Downloaded : 0x31 No of Blocks Downloaded : 0x32 No of Blocks Downloaded : 0x33 No of Blocks Downloaded : 0x34 No of Blocks Downloaded : 0x35 No of Blocks Downloaded : 0x36 No of Blocks Downloaded : 0x37 No of Blocks Downloaded : 0x38 No of Blocks Downloaded : 0x39 No of Blocks Downloaded : 0x3a No of Blocks Downloaded : 0x3b No of Blocks Downloaded : 0x3c No of Blocks Downloaded : 0x3d No of Blocks Downloaded : 0x3e No of Blocks Downloaded : 0x3f No of Blocks Downloaded : 0x40 No of Blocks Downloaded : 0x41 No of Blocks Downloaded : 0x42 No of Blocks Downloaded : 0x43 No of Blocks Downloaded : 0x44 No of Blocks Downloaded : 0x45 No of Blocks Downloaded : 0x46 No of Blocks Downloaded : 0x47 No of Blocks Downloaded : 0x48 No of Blocks Downloaded : 0x49 No of Blocks Downloaded : 0x4a No of Blocks Downloaded : 0x4b No of Blocks Downloaded : 0x4c No of Blocks Downloaded : 0x4d No of Blocks Downloaded : 0x4e No of Blocks Downloaded : 0x4f No of Blocks Downloaded : 0x50 No of Blocks Downloaded : 0x51 No of Blocks Downloaded : 0x52 No of Blocks Downloaded : 0x53 No of Blocks Downloaded : 0x54 No of Blocks Downloaded : 0x55 No of Blocks Downloaded : 0x56 No of Blocks Downloaded : 0x57 No of Blocks Downloaded : 0x58 No of Blocks Downloaded : 0x59 No of Blocks Downloaded : 0x5a No of Blocks Downloaded : 0x5b No of Blocks Downloaded : 0x5c No of Blocks Downloaded : 0x5d No of Blocks Downloaded : 0x5e No of Blocks Downloaded : 0x5f No of Blocks Downloaded : 0x60 No of Blocks Downloaded : 0x61 No of Blocks Downloaded : 0x62 No of Blocks Downloaded : 0x63 No of Blocks Downloaded : 0x64 No of Blocks Downloaded : 0x65 No of Blocks Downloaded : 0x66 No of Blocks Downloaded : 0x67 No of Blocks Downloaded : 0x68 No of Blocks Downloaded : 0x69 No of Blocks Downloaded : 0x6a No of Blocks Downloaded : 0x6b No of Blocks Downloaded : 0x6c Load Successful ; Code loaded at 0x0x101000 (1720 bytes/sec)
+
+FLASH % g
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux (7.2-64.el6_5.2)
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /gaia/class/student/dhanoaa/cpe159/phase0/prep3/MyOS.dli...expanding to full symbols...done.
+0x0010258d in breakpoint ()
+Temporary breakpoint 1 at 0x1011c6: file sample.c, line 23.
+Really redefine built-in command "run"? (y or n) [answered Y; input not from terminal]
+
+Temporary breakpoint 1, main () at sample.c:23
+23	        int i = 111;
+GDB386> break sample.c:15 if i==113
+Breakpoint 2 at 0x10118c: file sample.c, line 15.
+GDB386> c
+Continuing.
+111 Hello World 222
+ ECS
+112 Hello World 224
+ ECS
+
+Breakpoint 2, DisplayMsg (i=0x71) at sample.c:15
+15	                printf( "%d Hello World %d\n ECS\n", (i), 2*(i) );  //For Host
+GDB386> p i
+$1 = 0x71
+GDB386> c
+Continuing.
+113 Hello World 226
+ ECS
+114 Hello World 228
+ ECS
+115 Hello World 230
+ ECS
+
+Program exited normally.
+GDB386> list
+10	void DisplayMsg( int i)
+11	{
+12	        int j;	//This variable will help with incrementation in for loop
+13	        for(j = 0; j < 5; j++)
+14	        {
+15	                printf( "%d Hello World %d\n ECS\n", (i), 2*(i) );  //For Host
+16	                cons_printf( "--> Hello World <--\nCPE/CSC\n" );    //For Target
+17	                i++;
+18	        }
+19	}
+GDB386> list 15
+10	void DisplayMsg( int i)
+11	{
+12	        int j;	//This variable will help with incrementation in for loop
+13	        for(j = 0; j < 5; j++)
+14	        {
+15	                printf( "%d Hello World %d\n ECS\n", (i), 2*(i) );  //For Host
+16	                cons_printf( "--> Hello World <--\nCPE/CSC\n" );    //For Target
+17	                i++;
+18	        }
+19	}
+GDB386> list 23
+18	        }
+19	}
+20	
+21	int main(void)
+22	{
+23	        int i = 111;
+24	
+25	        DisplayMsg(i);
+26	
+27	        return 0;
+GDB386> list sample.c 23[1P23:23
+18	        }
+19	}
+20	
+21	int main(void)
+22	{
+23	        int i = 111;
+24	
+25	        DisplayMsg(i);
+26	
+27	        return 0;
+GDB386> next
+The program is not being run.
+GDB386> step
+The program is not being run.
+GDB386> c
+The program is not being run.
+GDB386> q
+I m in gdbMyOS.dli debug file
+FLASH % d
+File type is 'ELF'
+Total blocks to download:  0x6b  (128 bytes each)
+
+?Now have attention of monitor...No of Blocks Downloaded : 0x2 No of Blocks Downloaded : 0x3 No of Blocks Downloaded : 0x4 No of Blocks Downloaded : 0x5 No of Blocks Downloaded : 0x6 No of Blocks Downloaded : 0x7 No of Blocks Downloaded : 0x8 No of Blocks Downloaded : 0x9 No of Blocks Downloaded : 0xa No of Blocks Downloaded : 0xb No of Blocks Downloaded : 0xc No of Blocks Downloaded : 0xd No of Blocks Downloaded : 0xe No of Blocks Downloaded : 0xf No of Blocks Downloaded : 0x10 No of Blocks Downloaded : 0x11 No of Blocks Downloaded : 0x12 No of Blocks Downloaded : 0x13 No of Blocks Downloaded : 0x14 No of Blocks Downloaded : 0x15 No of Blocks Downloaded : 0x16 No of Blocks Downloaded : 0x17 No of Blocks Downloaded : 0x18 No of Blocks Downloaded : 0x19 No of Blocks Downloaded : 0x1a No of Blocks Downloaded : 0x1b No of Blocks Downloaded : 0x1c No of Blocks Downloaded : 0x1d No of Blocks Downloaded : 0x1e No of Blocks Downloaded : 0x1f No of Blocks Downloaded : 0x20 No of Blocks Downloaded : 0x21 No of Blocks Downloaded : 0x22 No of Blocks Downloaded : 0x23 No of Blocks Downloaded : 0x24 No of Blocks Downloaded : 0x25 No of Blocks Downloaded : 0x26 No of Blocks Downloaded : 0x27 No of Blocks Downloaded : 0x28 No of Blocks Downloaded : 0x29 No of Blocks Downloaded : 0x2a No of Blocks Downloaded : 0x2b No of Blocks Downloaded : 0x2c No of Blocks Downloaded : 0x2d No of Blocks Downloaded : 0x2e No of Blocks Downloaded : 0x2f No of Blocks Downloaded : 0x30 No of Blocks Downloaded : 0x31 No of Blocks Downloaded : 0x32 No of Blocks Downloaded : 0x33 No of Blocks Downloaded : 0x34 No of Blocks Downloaded : 0x35 No of Blocks Downloaded : 0x36 No of Blocks Downloaded : 0x37 No of Blocks Downloaded : 0x38 No of Blocks Downloaded : 0x39 No of Blocks Downloaded : 0x3a No of Blocks Downloaded : 0x3b No of Blocks Downloaded : 0x3c No of Blocks Downloaded : 0x3d No of Blocks Downloaded : 0x3e No of Blocks Downloaded : 0x3f No of Blocks Downloaded : 0x40 No of Blocks Downloaded : 0x41 No of Blocks Downloaded : 0x42 No of Blocks Downloaded : 0x43 No of Blocks Downloaded : 0x44 No of Blocks Downloaded : 0x45 No of Blocks Downloaded : 0x46 No of Blocks Downloaded : 0x47 No of Blocks Downloaded : 0x48 No of Blocks Downloaded : 0x49 No of Blocks Downloaded : 0x4a No of Blocks Downloaded : 0x4b No of Blocks Downloaded : 0x4c No of Blocks Downloaded : 0x4d No of Blocks Downloaded : 0x4e No of Blocks Downloaded : 0x4f No of Blocks Downloaded : 0x50 No of Blocks Downloaded : 0x51 No of Blocks Downloaded : 0x52 No of Blocks Downloaded : 0x53 No of Blocks Downloaded : 0x54 No of Blocks Downloaded : 0x55 No of Blocks Downloaded : 0x56 No of Blocks Downloaded : 0x57 No of Blocks Downloaded : 0x58 No of Blocks Downloaded : 0x59 No of Blocks Downloaded : 0x5a No of Blocks Downloaded : 0x5b No of Blocks Downloaded : 0x5c No of Blocks Downloaded : 0x5d No of Blocks Downloaded : 0x5e No of Blocks Downloaded : 0x5f No of Blocks Downloaded : 0x60 No of Blocks Downloaded : 0x61 No of Blocks Downloaded : 0x62 No of Blocks Downloaded : 0x63 No of Blocks Downloaded : 0x64 No of Blocks Downloaded : 0x65 No of Blocks Downloaded : 0x66 No of Blocks Downloaded : 0x67 No of Blocks Downloaded : 0x68 No of Blocks Downloaded : 0x69 No of Blocks Downloaded : 0x6a No of Blocks Downloaded : 0x6b No of Blocks Downloaded : 0x6c Load Successful ; Code loaded at 0x0x101000 (1720 bytes/sec)
+
+FLASH % g
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux (7.2-64.el6_5.2)
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /gaia/class/student/dhanoaa/cpe159/phase0/prep3/MyOS.dli...expanding to full symbols...done.
+0x0010258d in breakpoint ()
+Temporary breakpoint 1 at 0x1011c6: file sample.c, line 23.
+Really redefine built-in command "run"? (y or n) [answered Y; input not from terminal]
+
+Temporary breakpoint 1, main () at sample.c:23
+23	        int i = 111;
+GDB386> b 15
+Breakpoint 2 at 0x10118c: file sample.c, line 15.
+GDB386> c
+Continuing.
+
+Breakpoint 2, DisplayMsg (i=0x6f) at sample.c:15
+15	                printf( "%d Hello World %d\n ECS\n", (i), 2*(i) );  //For Host
+GDB386> next
+111 Hello World 222
+ ECS
+16	                cons_printf( "--> Hello World <--\nCPE/CSC\n" );    //For Target
+GDB386> step
+17	                i++;
+GDB386> info b
+Num     Type           Disp Enb Address    What
+2       breakpoint     keep y   0x0010118c in DisplayMsg at sample.c:15
+	breakpoint already hit 1 time
+GDB386> info reg
+eax            0x1c	0x1c
+ecx            0xb8000	0xb8000
+edx            0x10dc4	0x10dc4
+ebx            0x100000	0x100000
+esp            0x10e74	0x10e74
+ebp            0x10e78	0x10e78
+esi            0x4000000	0x4000000
+edi            0x51146	0x51146
+eip            0x1011b2	0x1011b2 <DisplayMsg+62>
+eflags         0x106	[ PF TF ]
+cs             0x8	0x8
+ss             0x10	0x10
+ds             0x10	0x10
+es             0x10	0x10
+fs             0x10	0x10
+gs             0x10	0x10
+GDB386> where
+#0  DisplayMsg (i=0x6f) at sample.c:17
+#1  0x001011d6 in main () at sample.c:25
+GDB386> delete 2
+GDB386> c;[Klear
+No breakpoint at this line.
+GDB386> cl[K[Kq
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+I m in gdbMyOS.dli debug file
+FLASH % q
+
+[dhanoaa@cetus:32]> vi --cmd ""s"e"t" "n"u"m"b"e"r"" sample.c
+[?1049h[?1h=[2;1H▽[6n[2;1H  [1;1H[1;55r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[55;1H"sample.c" 28L, 652C[>c[1;1H[33m  1 [m[34m/*Name  - Angad Pal Dhanoa[m
+[33m  2 [m[34m *Class - CPE 159[m
+[33m  3 [m[34m *Phase - 0[m
+[33m  4 [m[34m *Prep  - 3[m
+[33m  5 [m[34m */[m
+[33m  6 
+  7 [m[35m#include [m[31m<spede/stdio.h>[m[8C[34m// For printf() to project on Linux pc[m
+[33m  8 [m[35m#include [m[31m<spede/flames.h>[m[7C[34m// For cons_printf() to project on DOS pc  [m
+[33m  9 
+ 10 [m[32mvoid[m DisplayMsg( [32mint[m i)
+[33m 11 [m{
+[33m 12 [m[8C[32mint[m j;  [34m//This variable will help with incrementation in for loop[m
+[33m 13 [8Cfor[m(j = [31m0[m; j < [31m5[m; j++)
+[33m 14 [m[8C{
+[33m 15 [m[16Cprintf( [31m"[m[35m%d[m[31m Hello World [m[35m%d\n[m[31m ECS[m[35m\n[m[31m"[m, (i), [31m2[m*(i) );  [34m//For Host[m
+[33m 16 [m[16Ccons_printf( [31m"--> Hello World <--[m[35m\n[m[31mCPE/CSC[m[35m\n[m[31m"[m );    [34m//For Target[m
+[33m 17 [m[16Ci++;
+[33m 18 [m[8C}
+[33m 19 [m}
+[33m 20 
+ 21 [m[32mint[m main([32mvoid[m)
+[33m 22 [m[46m{[m
+[33m 23 [m[8C[32mint[m i = [31m111[m;
+[33m 24 
+ 25 [m[8CDisplayMsg(i);
+[33m 26 
+ 27 [8Creturn[m [31m0[m;
+[33m 28 [m[46m}[m [34m//end main()[m
+[1m[34m~                                                                                                                                                                                                              [30;1H~                                                                                                                                                                                                              [31;1H~                                                                                                                                                                                                              [32;1H~                                                                                                                                                                                                              [33;1H~                                                                                                                                                                                                              [34;1H~                                                                                                                                                                                                              [35;1H~                                                                                                                                                                                                              [36;1H~                                                                                                                                                                                                              [37;1H~                                                                                                                                                                                                              [38;1H~                                                                                                                                                                                                              [39;1H~                                                                                                                                                                                                              [40;1H~                                                                                                                                                                                                              [41;1H~                                                                                                                                                                                                              [42;1H~                                                                                                                                                                                                              [43;1H~                                                                                                                                                                                                              [44;1H~                                                                                                                                                                                                              [45;1H~                                                                                                                                                                                                              [46;1H~                                                                                                                                                                                                              [47;1H~                                                                                                                                                                                                              [48;1H~                                                                                                                                                                                                              [49;1H~                                                                                                                                                                                                              [50;1H~                                                                                                                                                                                                              [51;1H~                                                                                                                                                                                                              [52;1H~                                                                                                                                                                                                              [53;1H~                                                                                                                                                                                                              [54;1H~                                                                                                                                                                                                              [m[55;190H28,1[10CAll[28;5H[?12l[?25hP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[?25l[55;1H[K[55;1H:[?12l[?25hw[?25l[?12l[?25hq[?25l[?12l[?25h[?25l"sample.c" 28L, 652C written
+[?1l>[?12l[?25h[?1049l[dhanoaa@cetus:33]> exit
+exit
+
+Script done on Sat 07 Sep 2019 07:51:26 PM PDT
