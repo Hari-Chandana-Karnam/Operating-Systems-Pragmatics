@@ -391,7 +391,7 @@ void SysKill(void)
 
 	pid = pcb[run_pid].tf_p->ebx;			// ebx of run_pid has the pid
 	signal_name = pcb[run_pid].tf_p->ecx;	// ecx of the run_pid has the signal_name
-
+ 
 	if ((pid == 0) && (signal_name == SIGCONT))
 	{
 		for(i = 0; i < QUE_MAX; i++) // We check for the children of run_pid who are sleeping and wake them.
